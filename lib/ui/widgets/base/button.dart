@@ -1,8 +1,17 @@
+import 'package:fitness/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+enum AppButtonStyle {
+  primary,
+  secondary,
+  active,
+  text
+}
 
 class Button extends StatelessWidget {
+  final AppButtonStyle style;
+  final EdgeInsets? padding;
   final String? iconSvgUri;
   final double? iconSize;
   final String text;
@@ -13,8 +22,10 @@ class Button extends StatelessWidget {
 
   const Button({
     Key? key,
+    this.style = AppButtonStyle.primary,
+    this.padding,
     this.iconSvgUri,
-    this.iconSize,
+    this.iconSize = 22,
     required this.text,
     this.fontSize,
     this.iconColor,
@@ -24,43 +35,128 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OutlinedButton(
-      onPressed: onPressed,
-      style: OutlinedButton.styleFrom(
-        padding: const EdgeInsets.symmetric(horizontal: 13.5, vertical: 8),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        side: const BorderSide(color: Colors.white),
-        backgroundColor: Colors.transparent,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          iconSvgUri != null ? Row(
-            children: [
-              SvgPicture.asset(
-                iconSvgUri!,
-                color: iconColor,
-                height: iconSize ?? 22,
-                width: iconSize ?? 22,
+    var defaultButtonPadding = iconSvgUri != null
+        ? const EdgeInsets.symmetric(horizontal: 12, vertical: 8)
+        : const EdgeInsets.symmetric(horizontal: 14.5, vertical: 8);
+
+    switch (style) {
+      case AppButtonStyle.primary:
+        return Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20),
+            gradient: AppColor.seaHalberd
+          ),
+          child: TextButton(
+            onPressed: onPressed,
+            style: TextButton.styleFrom(
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              padding: EdgeInsets.zero,
+              minimumSize: const Size(0, 0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
               ),
+            ),
+            child: Container(
+              padding: padding ?? defaultButtonPadding,
+              child: _buildButtonChild(
+                textColor: Colors.white,
+                warnaIcon: Colors.white
+              ),
+            )
+          ),
+        );
 
-              const SizedBox(width: 4)
-            ],
-          ) :
-          const SizedBox(),
-
-          Text(
-            text,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: fontSize ?? 16,
-              fontWeight: fontWeight ?? FontWeight.w600
+      case AppButtonStyle.secondary:
+        return TextButton(
+          onPressed: onPressed,
+          style: TextButton.styleFrom(
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            padding: EdgeInsets.zero,
+            minimumSize: const Size(0, 0),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            side: const BorderSide(color: Colors.white),
+          ),
+          child: Container(
+            padding: padding ?? defaultButtonPadding,
+            child: _buildButtonChild(
+              textColor: Colors.white
             ),
           ),
-        ],
-      ),
+        );
+
+      case AppButtonStyle.active:
+        return Container(
+          padding: const EdgeInsets.all(1),
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              stops: [0.0617, 0.9383],
+              colors: [
+                Color(0xFF5B86E5),
+                Color(0xFF36D1DC),
+              ],
+            ),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Container(
+            padding: padding ?? defaultButtonPadding,
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(20)),
+              gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                stops: [0.1358, 0.8678],
+                colors: [
+                  Color(0xFFCEC1DE),
+                  Color(0xFF9E89BA),
+                ],
+              ),
+            ),
+            child: _buildButtonChild(
+              textColor: Colors.black,
+              warnaIcon: Colors.black
+            ),
+          ),
+        );
+
+      case AppButtonStyle.text:
+        return Container();
+    }
+  }
+
+  Widget _buildButtonChild({
+    required Color textColor,
+    Color? warnaIcon
+  }) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        iconSvgUri != null ? Row(
+          children: [
+            SvgPicture.asset(
+              iconSvgUri!,
+              color: iconColor ?? warnaIcon,
+              height: iconSize,
+              width: iconSize,
+            ),
+
+            const SizedBox(width: 4)
+          ],
+        ) :
+        const SizedBox(),
+
+        Text(
+          text,
+          style: TextStyle(
+            color: textColor,
+            fontSize: fontSize ?? 16,
+            fontWeight: fontWeight ?? FontWeight.w600
+          ),
+        ),
+      ],
     );
   }
 }

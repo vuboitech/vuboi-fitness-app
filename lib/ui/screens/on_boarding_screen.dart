@@ -3,6 +3,7 @@ import 'package:card_stack_widget/model/card_orientation.dart';
 import 'package:card_stack_widget/widget/card_stack_widget.dart';
 import 'package:fitness/ui/screens/home_screen.dart';
 import 'package:fitness/ui/widgets/base/button.dart';
+import 'package:fitness/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
@@ -116,6 +117,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             const SizedBox(height: 16),
 
             Button(
+              style: AppButtonStyle.primary,
               text: "Let's Get Started",
               iconSvgUri: 'assets/icons/ic_lightning.svg',
               onPressed: () {
@@ -123,7 +125,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   builder: (context) => HomeScreen()
                 ));
               },
-            )
+            ),
           ],
         ),
       ),
@@ -184,21 +186,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           child: Container(
             width: double.infinity,
             padding: const EdgeInsets.all(16),
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(12),
                 topRight: Radius.circular(12),
               ),
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Color(0xFF6503CE),
-                  Color(0xFF00B5DA),
-                ],
-                stops: [0.1385, 1],
-                transform: GradientRotation(105.89 * 3.14159 / 180),
-              ),
+              gradient: AppColor.seaHalberd,
             ),
           ), // Whatever you want
         ),

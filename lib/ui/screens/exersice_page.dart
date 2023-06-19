@@ -5,6 +5,7 @@ import 'package:card_stack_widget/model/card_orientation.dart';
 import 'package:card_stack_widget/widget/card_stack_widget.dart';
 import 'package:fitness/ui/widgets/base/button.dart';
 import 'package:fitness/ui/widgets/base/label.dart';
+import 'package:fitness/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -87,6 +88,7 @@ class ExersicePage extends StatelessWidget {
   }) {
     return TextButton(
       style: TextButton.styleFrom(
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         padding: const EdgeInsets.symmetric(vertical: 14),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
@@ -191,21 +193,12 @@ class ExersicePage extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(16),
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.only(
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(12),
           topRight: Radius.circular(12),
         ),
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Color(0xFF6503CE),
-            Color(0xFF00B5DA),
-          ],
-          stops: [0.1385, 1],
-          transform: GradientRotation(105.89 * 3.14159 / 180),
-        ),
+        gradient: AppColor.seaHalberd,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -238,6 +231,7 @@ class ExersicePage extends StatelessWidget {
             ),
           ),
           Button(
+            style: AppButtonStyle.secondary,
             iconSvgUri: 'assets/icons/ic_lightning.svg',
             text: "Start Exercise",
             onPressed: () {},

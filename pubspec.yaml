@@ -15,6 +15,7 @@ dependencies:
   card_stack_widget: ^0.1.5
   lottie: ^2.4.0
   shared_preferences: ^2.1.2
+  wearable_rotary: ^2.0.1
 
 dev_dependencies:
   flutter_test:
