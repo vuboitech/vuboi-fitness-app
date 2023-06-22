@@ -3,6 +3,7 @@ import 'package:card_stack_widget/model/card_orientation.dart';
 import 'package:card_stack_widget/widget/card_stack_widget.dart';
 import 'package:fitness/ui/screens/home_screen.dart';
 import 'package:fitness/ui/widgets/base/button.dart';
+import 'package:fitness/ui/widgets/modules/app_bottom_sheet.dart';
 import 'package:fitness/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -120,11 +121,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               style: AppButtonStyle.primary,
               text: "Let's Get Started",
               iconSvgUri: 'assets/icons/ic_lightning.svg',
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => const HomeScreen()
-                ));
-              },
+              onPressed: () => _showAuthBottomSheet(),
             ),
 
             const SizedBox(height: 30),
@@ -151,11 +148,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             width: double.infinity,
             padding: const EdgeInsets.all(16),
             decoration: const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  topRight: Radius.circular(12),
-                ),
-                color: Color(0xFFD9DBE9)
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(12),
+                topRight: Radius.circular(12),
+              ),
+              color: Color(0xFFD9DBE9)
             ),
           ), // Whatever you want
         ),
@@ -201,5 +198,56 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
     ];
 
     return list;
+  }
+
+  void _showAuthBottomSheet() {
+    AppBottomSheet(
+        context: context,
+        title: 'Your Fitness Path Awaits',
+        imageAssets: 'assets/images/image_lock.png',
+        body: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Text(
+              'Log in to your Vuboi account to continue your fitness journey. Stay on track with your Progress',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w400
+              ),
+            ),
+
+            const SizedBox(height: 16),
+
+            Button(
+              style: AppButtonStyle.tertiary,
+              iconSvgUri: 'assets/icons/ic_google.svg',
+              text: 'Continue with Google',
+              onPressed: () {},
+            ),
+
+            const SizedBox(height: 16),
+
+            Button(
+              style: AppButtonStyle.tertiary,
+              iconSvgUri: 'assets/icons/ic_facebook.svg',
+              text: 'Continue with Facebook',
+              onPressed: () {},
+            ),
+
+            const SizedBox(height: 16),
+
+            Button(
+              style: AppButtonStyle.tertiary,
+              iconSvgUri: 'assets/icons/ic_apple.svg',
+              text: 'Continue with Apple',
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => const HomeScreen()
+                ));
+              },
+            ),
+          ],
+        )
+    ).show();
   }
 }

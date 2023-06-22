@@ -97,7 +97,7 @@ class Button extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
-            side: const BorderSide(color: Color(0xFFF7F7FC)),
+            side: const BorderSide(color: Color(0xFFD9DBE9)),
           ),
           child: Container(
             padding: padding ?? defaultButtonPadding,
@@ -185,7 +185,7 @@ class Button extends StatelessWidget {
               width: iconSize,
             ),
 
-            const SizedBox(width: 4)
+            const SizedBox(width: 8)
           ],
         ) :
         const SizedBox(),

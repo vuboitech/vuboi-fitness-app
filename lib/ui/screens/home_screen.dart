@@ -102,7 +102,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: _navigationPadding,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Button(
                     style: AppButtonStyle.secondary,
@@ -110,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     text: "Discover",
                     fontSize: 14,
                     iconSize: 16,
-                    padding: const EdgeInsets.symmetric(horizontal: 13.5, vertical: 5),
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
                     onPressed: () {},
                   ),
                   Button(
@@ -119,7 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     text: "Exercise",
                     iconSize: 22,
                     fontSize: 16,
-                    padding: const EdgeInsets.symmetric(horizontal: 17, vertical: 8),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     onPressed: () {},
                   ),
                   Button(
@@ -128,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     text: "Nutrition",
                     fontSize: 14,
                     iconSize: 16,
-                    padding: const EdgeInsets.symmetric(horizontal: 13.5, vertical: 5),
+                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
                     onPressed: () {},
                   )
                 ],
