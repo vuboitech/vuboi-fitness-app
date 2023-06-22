@@ -24,6 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light,
+      statusBarBrightness: Brightness.dark, //iOS
     ));
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -39,6 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
         SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
           statusBarColor: Color(0xFFEFF0F6),
           statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light, //iOS
         ));
 
         _isStatusBarAnimationTriggered = true;
@@ -46,6 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
         SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
           statusBarIconBrightness: Brightness.light,
+          statusBarBrightness: Brightness.dark, //iOS
         ));
 
         _isStatusBarAnimationTriggered = false;
@@ -95,11 +98,11 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             AnimatedContainer(
               key: navigationContainerState,
-              duration: Duration(milliseconds: 100),
+              duration: const Duration(milliseconds: 100),
               padding: _navigationPadding,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Button(
                     style: AppButtonStyle.secondary,
@@ -146,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
           SingleChildScrollView(
             controller: _scrollController,
             child: Container(
-              padding: const EdgeInsets.only(top: 116),
+              padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 92),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

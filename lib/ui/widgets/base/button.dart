@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 enum AppButtonStyle {
   primary,
   secondary,
+  tertiary,
   active,
   text
 }
@@ -36,8 +37,8 @@ class Button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var defaultButtonPadding = iconSvgUri != null
-        ? const EdgeInsets.symmetric(horizontal: 12, vertical: 8)
-        : const EdgeInsets.symmetric(horizontal: 14.5, vertical: 8);
+        ? const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
+        : const EdgeInsets.symmetric(horizontal: 8, vertical: 14.5);
 
     switch (style) {
       case AppButtonStyle.primary:
@@ -86,6 +87,26 @@ class Button extends StatelessWidget {
           ),
         );
 
+      case AppButtonStyle.tertiary:
+        return TextButton(
+          onPressed: onPressed,
+          style: TextButton.styleFrom(
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            padding: EdgeInsets.zero,
+            minimumSize: const Size(0, 0),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            side: const BorderSide(color: Color(0xFFF7F7FC)),
+          ),
+          child: Container(
+            padding: padding ?? defaultButtonPadding,
+            child: _buildButtonChild(
+              textColor: Colors.black,
+            ),
+          ),
+        );
+
       case AppButtonStyle.active:
         return Container(
           padding: const EdgeInsets.all(1),
@@ -123,16 +144,37 @@ class Button extends StatelessWidget {
         );
 
       case AppButtonStyle.text:
-        return Container();
+        return TextButton(
+          onPressed: onPressed,
+          style: TextButton.styleFrom(
+            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            padding: EdgeInsets.zero,
+            minimumSize: const Size(0, 0),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            side: const BorderSide(color: Colors.white),
+          ),
+          child: Container(
+            padding: padding ?? defaultButtonPadding,
+            child: _buildButtonChild(
+              textColor: Colors.black,
+              mainAxisSize: MainAxisSize.min
+            ),
+          ),
+        );
     }
   }
 
   Widget _buildButtonChild({
     required Color textColor,
-    Color? warnaIcon
+    Color? warnaIcon,
+    MainAxisSize mainAxisSize = MainAxisSize.max
   }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisSize: mainAxisSize,
       children: <Widget>[
         iconSvgUri != null ? Row(
           children: [

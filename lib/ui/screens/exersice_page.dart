@@ -89,30 +89,33 @@ class ExersicePage extends StatelessWidget {
     return TextButton(
       style: TextButton.styleFrom(
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        padding: const EdgeInsets.symmetric(vertical: 14),
+        padding: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
         backgroundColor: Colors.transparent,
       ),
       onPressed: () {},
-      child: Column(
-        children: [
-          SvgPicture.asset(
-            iconSvgUri,
-            height: 24,
-            width: 24,
-          ),
-          const SizedBox(height: 7),
-          Text(
-            text,
-            style: const TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 13,
-              color: Colors.black
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        child: Column(
+          children: [
+            SvgPicture.asset(
+              iconSvgUri,
+              height: 24,
+              width: 24,
             ),
-          )
-        ],
+            const SizedBox(height: 7),
+            Text(
+              text,
+              style: const TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 13,
+                color: Colors.black
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -122,10 +122,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               iconSvgUri: 'assets/icons/ic_lightning.svg',
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => HomeScreen()
+                  builder: (context) => const HomeScreen()
                 ));
               },
             ),
+
+            const SizedBox(height: 30),
           ],
         ),
       ),

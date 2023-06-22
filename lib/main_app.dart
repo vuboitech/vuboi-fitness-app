@@ -13,7 +13,7 @@ class MainApp extends StatelessWidget {
         visualDensity: VisualDensity.compact,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
-        textTheme: GoogleFonts.hindTextTheme(Theme.of(context).textTheme),
+        textTheme: GoogleFonts.albertSansTextTheme(Theme.of(context).textTheme),
       ),
       home: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
@@ -22,7 +22,7 @@ class MainApp extends StatelessWidget {
           // Watch-sized device
           if (constraints.maxWidth < 300) {
             return Scaffold(
-              body: Center(child: Text("Samlekom")),
+              body: Center(child: Text("Assalamu'alaikum World")),
             );
           }
           // Phone-sized device
