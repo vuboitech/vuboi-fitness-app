@@ -1,10 +1,7 @@
-import 'dart:math';
-
-import 'package:card_stack_widget/model/card_model.dart';
-import 'package:card_stack_widget/model/card_orientation.dart';
-import 'package:card_stack_widget/widget/card_stack_widget.dart';
 import 'package:fitness/ui/widgets/base/button.dart';
 import 'package:fitness/ui/widgets/base/label.dart';
+import 'package:fitness/ui/widgets/modules/stacks/card_model.dart';
+import 'package:fitness/ui/widgets/modules/stacks/card_stack_widget.dart';
 import 'package:fitness/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -68,7 +65,7 @@ class ExersicePage extends StatelessWidget {
             swipeOrientation: CardOrientation.both,
             cardDismissOrientation: CardOrientation.both,
             positionFactor: 2,
-            scaleFactor: 1.5,
+            scaleFactor: 1,
             alignment: Alignment.center,
             reverseOrder: true,
             dismissedCardDuration: const Duration(milliseconds: 150),
@@ -192,7 +189,7 @@ class ExersicePage extends StatelessWidget {
     );
   }
 
-  Widget _exerciseItem() {
+  Widget _exerciseItem(String name) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(16),
@@ -206,8 +203,8 @@ class ExersicePage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Hypertrophy Leg',
+          Text(
+            name,
             style: TextStyle(
               fontWeight: FontWeight.w700,
               fontSize: 24,
@@ -251,22 +248,44 @@ class ExersicePage extends StatelessWidget {
         .width - 16;
 
     var list = <CardModel>[];
-    for (int i = 0; i < size; i++) {
-      var color = Color((Random().nextDouble() * 0xFFFFFF).toInt() << 0)
-          .withOpacity(1.0);
-
-      list.add(
-        CardModel(
-          radius: Radius.circular(8),
-          shadowColor: Colors.black.withOpacity(0.2),
-          child: SizedBox(
-            height: 310,
-            width: containerWidth,
-            child: _exerciseItem(), // Whatever you want
-          ),
+    list.add(
+      CardModel(
+        radius: Radius.circular(12),
+        shadowColor: Colors.black.withOpacity(0.2),
+        cardTitle: "Hypertrophy Leg",
+        child: SizedBox(
+          height: 310,
+          width: containerWidth,
+          child: _exerciseItem("Hypertrophy Leg"), // Whatever you want
         ),
-      );
-    }
+      ),
+    );
+
+    list.add(
+      CardModel(
+        radius: const Radius.circular(12),
+        shadowColor: Colors.black.withOpacity(0.2),
+        cardTitle: "Sikel",
+        child: SizedBox(
+          height: 310,
+          width: containerWidth,
+          child: _exerciseItem("Sikel"), // Whatever you want
+        ),
+      ),
+    );
+
+    list.add(
+      CardModel(
+        radius: const Radius.circular(12),
+        shadowColor: Colors.black.withOpacity(0.2),
+        cardTitle: "Asto",
+        child: SizedBox(
+          height: 310,
+          width: containerWidth,
+          child: _exerciseItem("Astoo"), // Whatever you want
+        ),
+      ),
+    );
 
     return list;
   }

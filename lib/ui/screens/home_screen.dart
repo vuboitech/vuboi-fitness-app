@@ -10,17 +10,28 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   final navigationContainerState = GlobalKey<ScaffoldState>();
 
-  final ScrollController _scrollController = ScrollController();
+  late ScrollController _scrollController;
   bool _isStatusBarAnimationTriggered = false;
 
+  late AnimationController _animationController;
+  late Animation<double> _scaleAnimation;
   double _scrollPercentage = 0.0;
-  EdgeInsets _navigationPadding = const EdgeInsets.symmetric(horizontal: 23, vertical: 24);
 
   @override
   void initState() {
+    _scrollController = ScrollController();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 150),
+    );
+    _scaleAnimation = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeOut, // Apply the easeOut curve to the animation
+    ).drive(Tween<double>(begin: 1.0, end: 0.9));
+
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
       statusBarIconBrightness: Brightness.light,
@@ -55,13 +66,14 @@ class _HomeScreenState extends State<HomeScreen> {
       }
 
       // Navigation
-      setState(() {
-        if (offset < threshold) {
-          _scrollPercentage = (_scrollController.position.pixels / _scrollController.position.maxScrollExtent).clamp(0.0, 1.0);
-          double paddingValue = _scrollPercentage * 28;
-          _navigationPadding = EdgeInsets.symmetric(horizontal: 23 + paddingValue, vertical: 24 + paddingValue);
+      if (offset < threshold) {
+        double newScrollPercentage = (_scrollController.position.pixels / _scrollController.position.maxScrollExtent).clamp(0.0, 1.0);
+
+        if (newScrollPercentage != _scrollPercentage) {
+          _scrollPercentage = newScrollPercentage;
+          _animationController.animateTo(_scrollPercentage, duration: const Duration(milliseconds: 100));
         }
-      });
+      }
     });
 
     super.initState();
@@ -94,47 +106,57 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
       child: SafeArea(
-        child: Column(
-          children: [
-            AnimatedContainer(
-              key: navigationContainerState,
-              duration: const Duration(milliseconds: 100),
-              padding: _navigationPadding,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Button(
-                    style: AppButtonStyle.secondary,
-                    iconSvgUri: 'assets/icons/ic_people.svg',
-                    text: "Discover",
-                    fontSize: 14,
-                    iconSize: 16,
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
-                    onPressed: () {},
-                  ),
-                  Button(
-                    style: AppButtonStyle.active,
-                    iconSvgUri: 'assets/icons/ic_dumbbell.svg',
-                    text: "Exercise",
-                    iconSize: 22,
-                    fontSize: 16,
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    onPressed: () {},
-                  ),
-                  Button(
-                    style: AppButtonStyle.secondary,
-                    iconSvgUri: 'assets/icons/ic_pizza.svg',
-                    text: "Nutrition",
-                    fontSize: 14,
-                    iconSize: 16,
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
-                    onPressed: () {},
-                  )
-                ],
-              ),
-            ),
-          ],
+        child: Padding(
+          padding: const EdgeInsets.only(top: 24),
+          child: AnimatedBuilder(
+            animation: _scaleAnimation,
+            builder: (context, child) {
+              return Transform.scale(
+                scale: _scaleAnimation.value,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Button(
+                          style: AppButtonStyle.secondary,
+                          iconSvgUri: 'assets/icons/ic_people.svg',
+                          text: "Discover",
+                          fontSize: 14,
+                          iconSize: 13,
+                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                          onPressed: () {},
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12),
+                          child: Button(
+                            style: AppButtonStyle.active,
+                            iconSvgUri: 'assets/icons/ic_dumbbell.svg',
+                            text: "Exercise",
+                            iconSize: 22,
+                            fontSize: 16,
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                            onPressed: () {},
+                          ),
+                        ),
+                        Button(
+                          style: AppButtonStyle.secondary,
+                          iconSvgUri: 'assets/icons/ic_pizza.svg',
+                          text: "Nutrition",
+                          fontSize: 14,
+                          iconSize: 13,
+                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                          onPressed: () {},
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              );
+            }
+          ),
         ),
       ),
     );

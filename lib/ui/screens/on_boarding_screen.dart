@@ -1,9 +1,8 @@
-import 'package:card_stack_widget/model/card_model.dart';
-import 'package:card_stack_widget/model/card_orientation.dart';
-import 'package:card_stack_widget/widget/card_stack_widget.dart';
 import 'package:fitness/ui/screens/home_screen.dart';
 import 'package:fitness/ui/widgets/base/button.dart';
 import 'package:fitness/ui/widgets/modules/app_bottom_sheet.dart';
+import 'package:fitness/ui/widgets/modules/stacks/card_model.dart';
+import 'package:fitness/ui/widgets/modules/stacks/card_stack_widget.dart';
 import 'package:fitness/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -99,33 +98,37 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             ),
           ],
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 22),
-              child: Text(
-                "Dive into your personalized fitness journey with Vuboi. Let's start making progress today!",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 14,
-                  color: Colors.black
+        child: CustomPaint(
+          size: Size(400,400),
+          painter: CurvedPainter(),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal: 22),
+                child: Text(
+                  "Dive into your personalized fitness journey with Vuboi. Let's start making progress today!",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 14,
+                    color: Colors.black
+                  ),
                 ),
               ),
-            ),
 
-            const SizedBox(height: 16),
+              const SizedBox(height: 16),
 
-            Button(
-              style: AppButtonStyle.primary,
-              text: "Let's Get Started",
-              iconSvgUri: 'assets/icons/ic_lightning.svg',
-              onPressed: () => _showAuthBottomSheet(),
-            ),
+              Button(
+                style: AppButtonStyle.primary,
+                text: "Let's Get Started",
+                iconSvgUri: 'assets/icons/ic_lightning.svg',
+                onPressed: () => _showAuthBottomSheet(),
+              ),
 
-            const SizedBox(height: 30),
-          ],
+              const SizedBox(height: 30),
+            ],
+          ),
         ),
       ),
     );
@@ -249,5 +252,30 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           ],
         )
     ).show();
+  }
+}
+
+class CurvedPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    var paint = Paint()
+      ..color = Colors.teal
+      ..strokeWidth = 15;
+
+    var path = Path();
+
+    path.moveTo(0, size.height * 0.7);
+    path.quadraticBezierTo(size.width * 0.25, size.height * 0.7, size.width * 0.5, size.height * 0.8);
+    path.quadraticBezierTo(size.width * 0.75, size.height * 0.9, size.width * 1.0, size.height * 0.8);
+    path.lineTo(size.width, size.height);
+    path.lineTo(0, size.height);
+
+    canvas.drawShadow(path, Colors.red.withAlpha(90), 4.0, false);
+    canvas.drawPath(path, paint);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) {
+    return true;
   }
 }
