@@ -25,12 +25,12 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     _scrollController = ScrollController();
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 150),
+      duration: const Duration(milliseconds: 50),
     );
     _scaleAnimation = CurvedAnimation(
       parent: _animationController,
-      curve: Curves.easeOut, // Apply the easeOut curve to the animation
-    ).drive(Tween<double>(begin: 1.0, end: 0.9));
+      curve: Curves.easeOut,
+    ).drive(Tween<double>(begin: 1.0, end: 0.7));
 
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
     _scrollController.addListener(() {
       double offset = _scrollController.offset;
-      double threshold = 100;
+      double threshold = 92;
 
       if (offset >= threshold && !_isStatusBarAnimationTriggered) {
         SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
         if (newScrollPercentage != _scrollPercentage) {
           _scrollPercentage = newScrollPercentage;
-          _animationController.animateTo(_scrollPercentage, duration: const Duration(milliseconds: 100));
+          _animationController.animateTo(_scrollPercentage, duration: const Duration(milliseconds: 50 ));
         }
       }
     });
