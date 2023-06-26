@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "287475777177",
+    "project_id": "vuboi-fitness",
+    "storage_bucket": "vuboi-fitness.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:287475777177:android:8a1cf0e128f2b4b807c208",
+        "android_client_info": {
+          "package_name": "com.vuboi.fitness"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "287475777177-mdq06uc8ogjp5mr47hb5ajs5eidumksv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfCL31EZVoXFQYXUFx_cQGjgLAf24wPdE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "287475777177-f55n7nbdl9d9c2umqq0afknv573mg60h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
