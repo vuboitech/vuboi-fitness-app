@@ -9,6 +9,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         visualDensity: VisualDensity.compact,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),

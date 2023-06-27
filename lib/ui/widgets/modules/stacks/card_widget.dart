@@ -392,7 +392,7 @@ class CardChildWidget extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(model.radius),
-                color: const Color(0xFF6E7191).withOpacity((position + 1) / totalItem)
+                color: _getBodyColor(position, totalItem)
               ),
               child: Opacity(
                 opacity: 0,
@@ -404,7 +404,7 @@ class CardChildWidget extends StatelessWidget {
               child: Text(
                 model.cardTitle ?? "",
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 18,
                   fontWeight: FontWeight.w600,
                   color: Colors.white
                 ),
@@ -414,5 +414,15 @@ class CardChildWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Color _getBodyColor(int position, int totalItem) {
+    if (position == totalItem-2) {
+      return const Color(0xFFA0A3BD);
+    } else if (position == totalItem-3) {
+      return const Color(0xFFD9DBE9);
+    } else {
+      return const Color(0xFFD9DBE9).withOpacity(0.7);
+    }
   }
 }

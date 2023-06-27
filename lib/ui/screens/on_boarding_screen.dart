@@ -19,12 +19,15 @@ class OnBoardingScreen extends StatefulWidget {
 }
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
+  late double stackCardHeight;
+  late double stackCardWidth;
 
   @override
   void initState() {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Color(0xFFEFF0F6),
       statusBarIconBrightness: Brightness.dark,
+      statusBarBrightness: Brightness.light, //iOS
     ));
 
     super.initState();
@@ -32,178 +35,166 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    stackCardHeight = MediaQuery.of(context).size.height * 0.58;
+    stackCardWidth = MediaQuery
+        .of(context)
+        .size
+        .width - 32;
+
     return Scaffold(
       backgroundColor: Color(0xFFEFF0F6),
       body: SafeArea(
-        child: Container(
+        child: SizedBox(
           width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 48),
+          child: SingleChildScrollView(
+            physics: const NeverScrollableScrollPhysics(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(height: 28),
 
-              Text(
-                'Welcome to Vuboi',
-                style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 32,
-                  color: Colors.black
-                ),
-              ),
-              Text(
-                'Discover Trifecta of Sustainable Fitness!',
-                style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontSize: 20,
-                  color: Colors.black
-                ),
-              ),
-
-              Transform.rotate(
-                angle: 45 * (3.1415926535897932 / 180),
-                child: Lottie.asset(
-                  'assets/lottie/arrow-right.json',
-                  width: 118,
-                  height: 118,
-                  fit: BoxFit.fill,
-                ),
-              ),
-
-              SizedBox(
-                height: 262,
-                child: CardStackWidget(
-                  opacityChangeOnDrag: true,
-                  swipeOrientation: CardOrientation.up,
-                  positionFactor: 2,
-                  scaleFactor: 1.5,
-                  alignment: Alignment.center,
-                  dismissedCardDuration: const Duration(milliseconds: 150),
-                  animateCardScale: true,
-                  cardList: _buildMockList(),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 20
-        ),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              offset: Offset(0, -9),
-              blurRadius: 11,
-              color: Color.fromRGBO(0, 0, 0, 0.1),
-            ),
-          ],
-        ),
-        child: CustomPaint(
-          size: Size(400,400),
-          painter: CurvedPainter(),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 22),
-                child: Text(
-                  "Dive into your personalized fitness journey with Vuboi. Let's start making progress today!",
-                  textAlign: TextAlign.center,
+                const Text(
+                  'Welcome to Vuboi',
                   style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 32,
                     color: Colors.black
                   ),
                 ),
-              ),
+                const Text(
+                  'Discover Trifecta of Sustainable Fitness!',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w400,
+                    fontSize: 20,
+                    color: Colors.black
+                  ),
+                ),
 
-              const SizedBox(height: 16),
-
-              Button(
-                style: AppButtonStyle.primary,
-                text: "Let's Get Started",
-                iconSvgUri: 'assets/icons/ic_lightning.svg',
-                onPressed: () => _showAuthBottomSheet(),
-              ),
-
-              const SizedBox(height: 30),
-            ],
+                Container(
+                  transform: Matrix4.translationValues(0.0, -10, 0.0),
+                  child: Transform.rotate(
+                    angle: 45 * (3.1415926535897932 / 180),
+                    child: Lottie.asset(
+                      'assets/lottie/arrow-right.json',
+                      width: 118,
+                      height: 118,
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SizedBox(
+            height: stackCardHeight,
+            child: CardStackWidget(
+              opacityChangeOnDrag: true,
+              swipeOrientation: CardOrientation.both,
+              cardDismissOrientation: CardOrientation.both,
+              positionFactor: 2.4,
+              scaleFactor: 1,
+              alignment: Alignment.center,
+              reverseOrder: true,
+              dismissedCardDuration: const Duration(milliseconds: 150),
+              animateCardScale: true,
+              cardList: <CardModel>[
+                CardModel(
+                  radius: const Radius.circular(12),
+                  shadowColor: Colors.black.withOpacity(0.2),
+                  cardTitle: "Power Progress",
+                  child: SizedBox(
+                    height: stackCardHeight,
+                    width: stackCardWidth,
+                    child: _onboardingItem(
+                      gradient: AppColor.purpleBlack,
+                      title: "Power Progress",
+                      description: "Say hello to workouts that work for you! Our versatile exercise feature lets you search for programs that fit your goals and lifestyle"
+                    ),
+                  ),
+                ),
+                CardModel(
+                  radius: const Radius.circular(12),
+                  shadowColor: Colors.black.withOpacity(0.2),
+                  cardTitle: "Nourish Naturaly",
+                  child: SizedBox(
+                    height: stackCardHeight,
+                    width: stackCardWidth,
+                    child: _onboardingItem(
+                      gradient: AppColor.cyanBlack,
+                      title: "Nourish Naturaly",
+                      description: "Say hello to workouts that work for you! Our versatile exercise feature lets you search for programs that fit your goals and lifestyle"
+                    ),
+                  ),
+                ),
+                CardModel(
+                  radius: const Radius.circular(12),
+                  shadowColor: Colors.black.withOpacity(0.2),
+                  cardTitle: "Strength in Unity",
+                  child: SizedBox(
+                    height: stackCardHeight,
+                    width: stackCardWidth,
+                    child: _onboardingItem(
+                      gradient: AppColor.redBlack,
+                      title: "Strength in Unity",
+                      description: "Connect, share, and learn from your friends workout routines and recipes. build a community that inspires and motivates you to keep going"
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          SafeArea(
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 20
+              ),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(0, -9),
+                    blurRadius: 11,
+                    color: Color.fromRGBO(0, 0, 0, 0.1),
+                  ),
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 22),
+                    child: Text(
+                      "Dive into your personalized fitness journey with Vuboi. Let's start making progress today!",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                        color: Colors.black
+                      ),
+                    ),
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  Button(
+                    style: AppButtonStyle.primary,
+                    text: "Let's Get Started",
+                    iconSvgUri: 'assets/icons/ic_lightning.svg',
+                    onPressed: () => _showAuthBottomSheet(),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
-  }
-
-  List<CardModel> _buildMockList() {
-    final double containerWidth = MediaQuery
-        .of(context)
-        .size
-        .width - 16;
-
-    var list = <CardModel>[
-      CardModel(
-        radius: Radius.circular(8),
-        shadowColor: Colors.black.withOpacity(0.2),
-        child: SizedBox(
-          height: 310,
-          width: containerWidth,
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(16),
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(12),
-                topRight: Radius.circular(12),
-              ),
-              color: Color(0xFFD9DBE9)
-            ),
-          ), // Whatever you want
-        ),
-      ),
-      CardModel(
-        radius: Radius.circular(8),
-        shadowColor: Colors.black.withOpacity(0.2),
-        child: SizedBox(
-          height: 310,
-          width: containerWidth,
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(16),
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(12),
-                topRight: Radius.circular(12),
-              ),
-              color: Color(0xFFA0A3BD)
-            ),
-          ), // Whatever you want
-        ),
-      ),
-      CardModel(
-        radius: Radius.circular(8),
-        shadowColor: Colors.black.withOpacity(0.2),
-        child: SizedBox(
-          height: 310,
-          width: containerWidth,
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(12),
-                topRight: Radius.circular(12),
-              ),
-              gradient: AppColor.seaHalberd,
-            ),
-          ), // Whatever you want
-        ),
-      ),
-    ];
-
-    return list;
   }
 
   void _showAuthBottomSheet() {
@@ -283,6 +274,42 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           ],
         )
     ).show();
+  }
+
+  Widget _onboardingItem({
+    required String title,
+    required String description,
+    required LinearGradient gradient
+  }) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(12)),
+        gradient: gradient,
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              fontWeight: FontWeight.w700,
+              fontSize: 24,
+              color: Colors.white
+            ),
+          ),
+          const SizedBox(height: 12),
+          Text(
+            description,
+            style: const TextStyle(
+              fontWeight: FontWeight.w400,
+              color: Colors.white
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
 
