@@ -5,7 +5,8 @@ class SliderIndicator extends StatelessWidget {
   final int activeIndicator;
   final double indicatorSize;
 
-  SliderIndicator({
+  const SliderIndicator({
+    super.key,
     required this.indicatorCount,
     required this.activeIndicator,
     this.indicatorSize = 8

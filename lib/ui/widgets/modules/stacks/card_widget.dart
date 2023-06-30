@@ -7,6 +7,7 @@ class CardWidget extends StatefulWidget {
 
   final int position;
   final int totalItem;
+  final bool showIndicator;
 
   final double? scale;
 
@@ -52,6 +53,7 @@ class CardWidget extends StatefulWidget {
     Key? key,
     required this.position,
     required this.totalItem,
+    required this.showIndicator,
     required this.listenableScale,
     required this.listenablePositionTop,
     required this.positionTop,
@@ -116,6 +118,7 @@ class _CardWidgetState extends State<CardWidget> with TickerProviderStateMixin {
           onCardTap: widget.onCardTap,
           positionTop: widget.positionTop,
           scale: scale,
+          showIndicator: widget.showIndicator,
         );
       },
     );
@@ -250,6 +253,7 @@ class _CardWidgetState extends State<CardWidget> with TickerProviderStateMixin {
 class CardBodyWidget extends StatelessWidget {
   final int position;
   final int totalItem;
+  final bool showIndicator;
 
   /// Value for dismissed animation
   final double? dismissedAnimationValue;
@@ -289,6 +293,7 @@ class CardBodyWidget extends StatelessWidget {
     Key? key,
     required this.position,
     required this.totalItem,
+    required this.showIndicator,
     required this.model,
     required this.listenablePositionTop,
     required this.listenableScale,
@@ -328,6 +333,7 @@ class CardBodyWidget extends StatelessWidget {
           child: CardChildWidget(
             position: position,
             totalItem: totalItem,
+            showIndicator: showIndicator,
             handleVerticalEnd: handleVerticalEnd,
             handleVerticalUpdate: handleVerticalUpdate,
             model: model,
@@ -342,6 +348,7 @@ class CardBodyWidget extends StatelessWidget {
 class CardChildWidget extends StatelessWidget {
   final int position;
   final int totalItem;
+  final bool showIndicator;
 
   /// The card model
   final CardModel model;
@@ -359,6 +366,7 @@ class CardChildWidget extends StatelessWidget {
     Key? key,
     required this.position,
     required this.totalItem,
+    required this.showIndicator,
     required this.model,
     required this.handleVerticalUpdate,
     required this.handleVerticalEnd,
@@ -403,7 +411,7 @@ class CardChildWidget extends StatelessWidget {
               margin: const EdgeInsets.all(12),
               child: Text(
                 model.cardTitle ?? "",
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                   color: Colors.white

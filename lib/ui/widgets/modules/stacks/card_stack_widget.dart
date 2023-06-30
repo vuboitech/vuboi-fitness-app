@@ -22,6 +22,8 @@ class CardStackWidget extends StatefulWidget {
   /// List of card shown.
   final List<CardModel> cardList;
 
+  final bool showIndicator;
+
   /// Scale factor for items into the list.
   final double scaleFactor;
 
@@ -69,6 +71,7 @@ class CardStackWidget extends StatefulWidget {
     this.alignment,
     this.reverseOrder = false,
     this.onCardTap,
+    this.showIndicator = false,
     this.opacityChangeOnDrag = false,
     this.animateCardScale = false,
     this.dismissedCardDuration,
@@ -91,6 +94,7 @@ class CardStackWidget extends StatefulWidget {
     this.alignment,
     this.reverseOrder = false,
     this.onCardTap,
+    this.showIndicator = false,
     this.opacityChangeOnDrag = false,
     this.animateCardScale = false,
     this.dismissedCardDuration,
@@ -162,6 +166,7 @@ class _CardStackWidgetState extends State<CardStackWidget>
       final card = CardWidget(
         position: currentIndex,
         totalItem: lengthCardList,
+        showIndicator: widget.showIndicator,
         listenableDismissedAnimation: currentIndex == 0 ? listenableStartingAnimation : null,
         listenablePositionTop: listenableTop,
         listenableScale: listenableScale,

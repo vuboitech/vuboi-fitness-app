@@ -64,7 +64,7 @@ class ExersicePage extends StatelessWidget {
             opacityChangeOnDrag: true,
             swipeOrientation: CardOrientation.both,
             cardDismissOrientation: CardOrientation.both,
-            positionFactor: 2,
+            positionFactor: 2.2,
             scaleFactor: 1,
             alignment: Alignment.center,
             reverseOrder: true,
@@ -245,7 +245,7 @@ class ExersicePage extends StatelessWidget {
     final double containerWidth = MediaQuery
         .of(context)
         .size
-        .width - 16;
+        .width - 32;
 
     var list = <CardModel>[];
     list.add(
