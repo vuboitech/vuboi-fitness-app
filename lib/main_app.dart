@@ -1,4 +1,5 @@
 import 'package:fitness/ui/screens/on_boarding_screen.dart';
+import 'package:fitness/ui/screens/watch/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -22,9 +23,7 @@ class MainApp extends StatelessWidget {
 
           // Watch-sized device
           if (constraints.maxWidth < 300) {
-            return Scaffold(
-              body: Center(child: Text("Assalamu'alaikum World")),
-            );
+            return WelcomeScreen();
           }
           // Phone-sized device
           else {

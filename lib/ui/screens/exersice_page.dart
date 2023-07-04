@@ -1,3 +1,4 @@
+import 'package:fitness/ui/screens/exercise_list_page.dart';
 import 'package:fitness/ui/widgets/base/button.dart';
 import 'package:fitness/ui/widgets/base/label.dart';
 import 'package:fitness/ui/widgets/modules/stacks/card_model.dart';
@@ -31,7 +32,12 @@ class ExersicePage extends StatelessWidget {
               Expanded(
                 child: _subMenuItem(
                   iconSvgUri: 'assets/icons/ic_dumbbell.svg',
-                  text: 'Program'
+                  text: 'Program',
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(
+                      builder: (context) => ExerciseListPage()
+                    ));
+                  }
                 ),
               ),
               Expanded(
@@ -81,7 +87,8 @@ class ExersicePage extends StatelessWidget {
 
   Widget _subMenuItem({
     required String iconSvgUri,
-    required String text
+    required String text,
+    Function? onPressed
   }) {
     return TextButton(
       style: TextButton.styleFrom(
@@ -92,7 +99,11 @@ class ExersicePage extends StatelessWidget {
         ),
         backgroundColor: Colors.transparent,
       ),
-      onPressed: () {},
+      onPressed: () {
+        if (onPressed != null) {
+          onPressed();
+        }
+      },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 16),
         child: Column(

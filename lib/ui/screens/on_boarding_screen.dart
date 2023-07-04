@@ -7,6 +7,7 @@ import 'package:fitness/ui/widgets/modules/stacks/card_stack_widget.dart';
 import 'package:fitness/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_wear_os_connectivity/flutter_wear_os_connectivity.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:lottie/lottie.dart';
 
@@ -33,7 +34,23 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProvider
 
     _arrowAnimationController = AnimationController(vsync: this);
 
+    getWearOs();
+
     super.initState();
+  }
+
+  void getWearOs() async {
+    FlutterWearOsConnectivity _flutterWearOsConnectivity = FlutterWearOsConnectivity();
+    _flutterWearOsConnectivity.configureWearableAPI();
+
+    List<WearOsDevice> _connectedDevices = await _flutterWearOsConnectivity.getConnectedDevices();
+    _connectedDevices.length;
+
+    await _flutterWearOsConnectivity.sendMessage(Uint8List(8),
+        deviceId: _connectedDevices[0].id,
+        path: "/sample-message",
+        priority: MessagePriority.low
+    );
   }
 
   @override

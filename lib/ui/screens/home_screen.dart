@@ -10,7 +10,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, WidgetsBindingObserver {
   final navigationContainerState = GlobalKey<ScaffoldState>();
 
   late ScrollController _scrollController;
@@ -21,7 +21,16 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   double _scrollPercentage = 0.0;
 
   @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if(state == AppLifecycleState.resumed){
+      print('hello');
+    }
+  }
+
+  @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
+
     _scrollController = ScrollController();
     _animationController = AnimationController(
       vsync: this,
@@ -82,6 +91,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
   @override
   void dispose() {
     _scrollController.dispose();
+    WidgetsBinding.instance.removeObserver(this);
 
     super.dispose();
   }
