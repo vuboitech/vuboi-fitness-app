@@ -22,6 +22,7 @@ dependencies:
   sign_in_with_apple: ^5.0.0
   crypto: ^3.0.3
   flutter_wear_os_connectivity: ^1.0.0
+  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_test:
@@ -39,14 +40,14 @@ flutter:
     - assets/icons/
     - assets/lottie/
 
-#  fonts:
-#    - family: Poppins
-#      fonts:
-#        - asset: assets/fonts/Poppins-Medium.ttf
-#        - asset: assets/fonts/Poppins-ExtraLight.ttf
-#        - asset: assets/fonts/Poppins-Light.ttf
-#        - asset: assets/fonts/Poppins-Regular.ttf
-#        - asset: assets/fonts/Poppins-Bold.ttf
-#        - asset: assets/fonts/Poppins-ExtraBold.ttf
-#        - asset: assets/fonts/Poppins-SemiBold.ttf
-#        - asset: assets/fonts/Poppins-Thin.ttf
+  fonts:
+    - family: AlbertSans
+      fonts:
+        - asset: assets/google_fonts/AlbertSans-Medium.ttf
+        - asset: assets/google_fonts/AlbertSans-ExtraLight.ttf
+        - asset: assets/google_fonts/AlbertSans-Light.ttf
+        - asset: assets/google_fonts/AlbertSans-Regular.ttf
+        - asset: assets/google_fonts/AlbertSans-Bold.ttf
+        - asset: assets/google_fonts/AlbertSans-ExtraBold.ttf
+        - asset: assets/google_fonts/AlbertSans-SemiBold.ttf
+        - asset: assets/google_fonts/AlbertSans-Thin.ttf

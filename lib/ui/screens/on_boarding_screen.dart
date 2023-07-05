@@ -61,7 +61,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProvider
 
   @override
   Widget build(BuildContext context) {
-    stackCardHeight = MediaQuery.of(context).size.height * 0.58;
+    stackCardHeight = MediaQuery.of(context).size.height * 0.57;
     stackCardWidth = MediaQuery
         .of(context)
         .size
@@ -77,7 +77,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProvider
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: MediaQuery.of(context).size.height * 0.06),
+                SizedBox(height: MediaQuery.of(context).size.height * 0.035),
 
                 const Text(
                   'Welcome to Vuboi',

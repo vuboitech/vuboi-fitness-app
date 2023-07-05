@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
 class AppChip extends StatelessWidget {
-  const AppChip({Key? key}) : super(key: key);
+  final String label;
+  final bool isActive;
+
+  const AppChip({
+    Key? key,
+    required this.label,
+    this.isActive = false
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,26 +20,30 @@ class AppChip extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(24),
         ),
-        side: const BorderSide(color: Colors.white),
       ),
       onPressed: () {},
       child: Container(
-        padding: EdgeInsets.only(left: 16, top: 6, right: 12),
+        padding: const EdgeInsets.only(left: 16, top: 6, right: 12, bottom: 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: EdgeInsets.only(bottom: 6),
+              margin: const EdgeInsets.only(bottom: 6),
               child: Row(
                 children: [
                   Text(
-                    'All Exercise',
+                    label,
                     style: TextStyle(
                       fontSize: 14,
-                      fontWeight: FontWeight.w700
+                      fontWeight: FontWeight.w700,
+                      color: isActive ? Color(0xFF610BEF) : Color(0xFF6E7191)
                     ),
                   ),
-                  Icon(Icons.keyboard_arrow_down)
+                  SizedBox(width: 3),
+                  Icon(
+                    Icons.keyboard_arrow_down,
+                    color: isActive ? Color(0xFF610BEF) : Color(0xFF6E7191),
+                  )
                 ],
               ),
             ),
@@ -40,7 +51,7 @@ class AppChip extends StatelessWidget {
               height: 3,
               width: 32,
               decoration: BoxDecoration(
-                color: Color(0xFF610BEF),
+                color: isActive ? Color(0xFF610BEF) : Color(0xFF6E7191),
                 borderRadius: BorderRadius.only(
                   topRight: Radius.circular(2),
                   topLeft: Radius.circular(2),

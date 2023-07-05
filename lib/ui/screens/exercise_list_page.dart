@@ -1,4 +1,6 @@
 import 'package:fitness/ui/widgets/base/button.dart';
+import 'package:fitness/ui/widgets/base/chip/chip.dart';
+import 'package:fitness/ui/widgets/base/chip/chip_group.dart';
 import 'package:fitness/ui/widgets/modules/vuboi_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -35,6 +37,13 @@ class _ExerciseListPageState extends State<ExerciseListPage> with TickerProvider
           children: [
             VuboiAppBar(
               title: 'Exercise',
+              chipGroup: ChipGroup(
+                chips: [
+                  AppChip(label: 'All Exercise', isActive: true,),
+                  AppChip(label: 'Equipment'),
+                  AppChip(label: 'Target'),
+                ],
+              ),
               onSearch: (String searchQuery) {},
             ),
           ],

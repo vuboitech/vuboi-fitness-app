@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fitness/ui/screens/exercise_list_page.dart';
 import 'package:fitness/ui/widgets/base/button.dart';
 import 'package:fitness/ui/widgets/base/label.dart';
@@ -153,8 +154,10 @@ class ExersicePage extends StatelessWidget {
               ),
             ],
           ),
-          child: CircleAvatar(
-            backgroundImage: NetworkImage("https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Yanomami_Woman_%26_Child.jpg/1200px-Yanomami_Woman_%26_Child.jpg"),
+          child: ClipOval(
+            child: CachedNetworkImage(
+              imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Yanomami_Woman_%26_Child.jpg/1200px-Yanomami_Woman_%26_Child.jpg',
+            ),
           ),
         ),
         const SizedBox(width: 16),
