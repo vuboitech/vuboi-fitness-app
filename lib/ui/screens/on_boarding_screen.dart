@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:fitness/theme/colors.dart';
 import 'package:fitness/ui/screens/home_screen.dart';
 import 'package:fitness/ui/widgets/base/button.dart';
 import 'package:fitness/ui/widgets/modules/app_bottom_sheet.dart';
 import 'package:fitness/ui/widgets/modules/stacks/card_model.dart';
 import 'package:fitness/ui/widgets/modules/stacks/card_stack_widget.dart';
-import 'package:fitness/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_wear_os_connectivity/flutter_wear_os_connectivity.dart';
@@ -47,9 +47,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProvider
     _connectedDevices.length;
 
     await _flutterWearOsConnectivity.sendMessage(Uint8List(8),
-        deviceId: _connectedDevices[0].id,
-        path: "/sample-message",
-        priority: MessagePriority.low
+      deviceId: _connectedDevices[0].id,
+      path: "/sample-message",
+      priority: MessagePriority.low
     );
   }
 

@@ -1,6 +1,7 @@
 import 'package:fitness/ui/widgets/base/button.dart';
 import 'package:fitness/ui/widgets/base/chip/chip.dart';
 import 'package:fitness/ui/widgets/base/chip/chip_group.dart';
+import 'package:fitness/ui/widgets/modules/frame.dart';
 import 'package:fitness/ui/widgets/modules/vuboi_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -20,7 +21,6 @@ class _ExerciseListPageState extends State<ExerciseListPage> with TickerProvider
   @override
   void initState() {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.white,
       statusBarIconBrightness: Brightness.dark,
       statusBarBrightness: Brightness.light, //iOS
     ));
@@ -29,25 +29,123 @@ class _ExerciseListPageState extends State<ExerciseListPage> with TickerProvider
   }
 
   @override
+  void dispose() {
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarIconBrightness: Brightness.light,
+      statusBarBrightness: Brightness.dark, //iOS
+    ));
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xFFEFF0F6),
-      body: SafeArea(
-        child: Column(
-          children: [
-            VuboiAppBar(
-              title: 'Exercise',
-              chipGroup: ChipGroup(
-                chips: [
-                  AppChip(label: 'All Exercise', isActive: true,),
-                  AppChip(label: 'Equipment'),
-                  AppChip(label: 'Target'),
-                ],
-              ),
-              onSearch: (String searchQuery) {},
+      body: Column(
+        children: [
+          VuboiAppBar(
+            title: 'Exercise',
+            chipGroup: ChipGroup(
+              chips: [
+                AppChip(label: 'All Exercise', isActive: true,),
+                AppChip(label: 'Equipment'),
+                AppChip(label: 'Target'),
+              ],
             ),
-          ],
-        ),
+            onSearch: (String searchQuery) {},
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Frame(
+                  title: '834 Exercise',
+                  body: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: 25,
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          TextButton(
+                            onPressed: () {
+
+                            },
+                            style: TextButton.styleFrom(
+                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                              padding: EdgeInsets.zero,
+                              minimumSize: const Size(0, 0),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(0),
+                              ),
+                            ),
+                            child: Container(
+                              padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Dumbbell Bench Press',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w700,
+                                      color: Color(0xFF14142A)
+                                    ),
+                                  ),
+                                  SizedBox(height: 4),
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Pectoral',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 13,
+                                          color: Color(0xFF6E7191)
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.symmetric(horizontal: 2),
+                                        child: Text(
+                                          '•',
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 13,
+                                            color: Color(0xFF6E7191)
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        'Dumbbell',
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 13,
+                                          color: Color(0xFF6E7191)
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+
+                                  SizedBox(height: 16),
+                                ],
+                              ),
+                            )
+                          ),
+                          index != 24 ? Container(
+                            height: 1,
+                            width: double.infinity,
+                            color: Color(0xFFEFF0F6),
+                            margin: EdgeInsets.symmetric(horizontal: 16),
+                          ) : SizedBox()
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
+          )
+        ],
       ),
       bottomNavigationBar: Container(
         decoration: const BoxDecoration(
@@ -80,7 +178,7 @@ class _ExerciseListPageState extends State<ExerciseListPage> with TickerProvider
                 Container(
                   height: MediaQuery.of(context).size.height * 0.1,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                    borderRadius: const BorderRadius.all(Radius.circular(40)),
                     color: Color(0xFF610BEF)
                   ),
                 ),
@@ -88,7 +186,7 @@ class _ExerciseListPageState extends State<ExerciseListPage> with TickerProvider
                   margin: EdgeInsets.only(top: 1),
                   padding: EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(16)),
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
                     color: Colors.white
                   ),
                   child: Column(

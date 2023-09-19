@@ -48,10 +48,10 @@ class AppChip extends StatelessWidget {
               ),
             ),
             Container(
-              height: 3,
+              height: 2.4,
               width: 32,
               decoration: BoxDecoration(
-                color: isActive ? Color(0xFF610BEF) : Color(0xFF6E7191),
+                color: isActive ? Color(0xFF610BEF) : Colors.transparent,
                 borderRadius: BorderRadius.only(
                   topRight: Radius.circular(2),
                   topLeft: Radius.circular(2),

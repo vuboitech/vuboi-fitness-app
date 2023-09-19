@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fitness/theme/colors.dart';
 import 'package:fitness/ui/screens/exercise_list_page.dart';
 import 'package:fitness/ui/widgets/base/button.dart';
 import 'package:fitness/ui/widgets/base/label.dart';
 import 'package:fitness/ui/widgets/modules/stacks/card_model.dart';
 import 'package:fitness/ui/widgets/modules/stacks/card_stack_widget.dart';
-import 'package:fitness/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 

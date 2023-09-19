@@ -1,4 +1,4 @@
-import 'package:fitness/utils/app_color.dart';
+import 'package:fitness/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -7,7 +7,7 @@ enum AppButtonStyle {
   secondary,
   tertiary,
   active,
-  text
+  text,
 }
 
 class Button extends StatelessWidget {
@@ -40,11 +40,13 @@ class Button extends StatelessWidget {
         ? const EdgeInsets.symmetric(horizontal: 8, vertical: 12)
         : const EdgeInsets.symmetric(horizontal: 8, vertical: 14.5);
 
+    double borderRadius = 24;
+
     switch (style) {
       case AppButtonStyle.primary:
         return Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(borderRadius),
             gradient: AppColor.seaHalberd
           ),
           child: TextButton(
@@ -54,7 +56,7 @@ class Button extends StatelessWidget {
               padding: EdgeInsets.zero,
               minimumSize: const Size(0, 0),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(borderRadius),
               ),
             ),
             child: Container(
@@ -75,7 +77,7 @@ class Button extends StatelessWidget {
             padding: EdgeInsets.zero,
             minimumSize: const Size(0, 0),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(borderRadius),
             ),
             side: const BorderSide(color: Colors.white),
           ),
@@ -95,7 +97,7 @@ class Button extends StatelessWidget {
             padding: EdgeInsets.zero,
             minimumSize: const Size(0, 0),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(borderRadius),
             ),
             side: const BorderSide(color: Color(0xFFD9DBE9)),
           ),
@@ -120,12 +122,12 @@ class Button extends StatelessWidget {
                 Color(0xFF36D1DC),
               ],
             ),
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(borderRadius),
           ),
           child: Container(
             padding: padding ?? defaultButtonPadding,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(20)),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
               gradient: LinearGradient(
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
@@ -151,7 +153,7 @@ class Button extends StatelessWidget {
             padding: EdgeInsets.zero,
             minimumSize: const Size(0, 0),
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(borderRadius),
             ),
             side: const BorderSide(color: Colors.white),
           ),

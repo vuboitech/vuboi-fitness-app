@@ -47,72 +47,74 @@ class _VuboiAppBarState extends State<VuboiAppBar> with TickerProviderStateMixin
     return Container(
       color: Colors.white,
       padding: EdgeInsets.zero,
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.fromLTRB(12, 12, 12, 6),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.chevron_left, size: 32,),
-                        style: IconButton.styleFrom(
-                          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      child: SafeArea(
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.fromLTRB(12, 12, 12, 6),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          icon: const Icon(Icons.chevron_left, size: 32,),
+                          style: IconButton.styleFrom(
+                            tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                          ),
+                          onPressed: () {},
                         ),
-                        onPressed: () {},
-                      ),
 
-                      !_searchMode ? Text(
-                        'Exercise',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.w800
+                        !_searchMode ? Text(
+                          'Exercise',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w800
+                          ),
+                        ) : Expanded(
+                          child: TextFormField(),
                         ),
-                      ) : Expanded(
-                        child: TextFormField(),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-                !_searchMode ? IconButton(
-                  icon: Icon(Icons.search),
-                  style: IconButton.styleFrom(
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                  !_searchMode ? IconButton(
+                    icon: Icon(Icons.search),
+                    style: IconButton.styleFrom(
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    ),
+                    onPressed: () {
+                      _searchMode = true;
+                      setState(() {
+
+                      });
+
+                      _fadeAnimController.forward();
+                      _slideAnimController.reverse();
+                    },
+                  ) : IconButton(
+                    icon: Icon(Icons.close),
+                    style: IconButton.styleFrom(
+                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    ),
+                    onPressed: () {
+                      _searchMode = false;
+                      setState(() {
+
+                      });
+
+                      _slideAnimController.forward();
+                      _fadeAnimController.reverse();
+                    },
                   ),
-                  onPressed: () {
-                    _searchMode = true;
-                    setState(() {
-
-                    });
-
-                    _fadeAnimController.forward();
-                    _slideAnimController.reverse();
-                  },
-                ) : IconButton(
-                  icon: Icon(Icons.close),
-                  style: IconButton.styleFrom(
-                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  ),
-                  onPressed: () {
-                    _searchMode = false;
-                    setState(() {
-
-                    });
-
-                    _slideAnimController.forward();
-                    _fadeAnimController.reverse();
-                  },
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          widget.chipGroup != null ? widget.chipGroup! : SizedBox()
-        ],
+            widget.chipGroup != null ? widget.chipGroup! : SizedBox()
+          ],
+        ),
       ),
     );
   }
