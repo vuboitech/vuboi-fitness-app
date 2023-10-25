@@ -21,9 +21,9 @@ class _VuboiAppBarState extends State<VuboiAppBar> with TickerProviderStateMixin
   bool _searchMode = false;
 
   late AnimationController _fadeAnimController;
-  late Animation<double> _fadeAnimation;
+  // late Animation<double> _fadeAnimation;
   late AnimationController _slideAnimController;
-  late Animation<Offset> _slideAnimation;
+  // late Animation<Offset> _slideAnimation;
 
   @override
   void initState() {
@@ -31,13 +31,13 @@ class _VuboiAppBarState extends State<VuboiAppBar> with TickerProviderStateMixin
       vsync: this,
       duration: const Duration(milliseconds: 150),
     );
-    _fadeAnimation = Tween<double>(begin: 1.0, end: 0.0).animate(_fadeAnimController);
+    // _fadeAnimation = Tween<double>(begin: 1.0, end: 0.0).animate(_fadeAnimController);
 
     _slideAnimController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 150),
     );
-    _slideAnimation = Tween<Offset>(begin: Offset.zero, end: Offset(-1.0, 0.0)).animate(_slideAnimController);
+    // _slideAnimation = Tween<Offset>(begin: Offset.zero, end: Offset(-1.0, 0.0)).animate(_slideAnimController);
 
     super.initState();
   }

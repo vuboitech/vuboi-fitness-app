@@ -9,10 +9,11 @@ ThemeData getAppTheme(BuildContext context, bool isDarkTheme) {
     scaffoldBackgroundColor: isDarkTheme ? Colors.black38 : const Color(0xFFEFF0F6),
     textTheme: Theme.of(context).textTheme.copyWith(
       titleSmall: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 12),
-    ).apply(
-      bodyColor: isDarkTheme ? Colors.white : Colors.black,
-      displayColor: Colors.grey,
     ),
+    // .apply(
+    //   bodyColor: isDarkTheme ? Colors.white : Colors.black,
+    //   displayColor: Colors.grey,
+    // ),
     extensions: <ThemeExtension<AppColors>>[
       AppColors(
         neutral10: isDarkTheme ? const Color(0xFF14142AFF) : const Color(0xFFf7f7fcff),

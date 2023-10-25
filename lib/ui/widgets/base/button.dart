@@ -182,7 +182,9 @@ class Button extends StatelessWidget {
           children: [
             SvgPicture.asset(
               iconSvgUri!,
-              color: iconColor ?? warnaIcon,
+              theme: SvgTheme(
+                currentColor: iconColor ?? warnaIcon!
+              ),
               height: iconSize,
               width: iconSize,
             ),

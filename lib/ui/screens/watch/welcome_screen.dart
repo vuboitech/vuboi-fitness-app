@@ -41,6 +41,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           try {
             random = await platform.invokeMethod('getRandomNumber');
           } on PlatformException catch (e) {
+            debugPrint(e.toString());
             random = "";
           }
 
@@ -51,6 +52,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           try {
             heartRate = await platform.invokeMethod('getHeartRate');
           } on PlatformException catch (e) {
+            debugPrint(e.toString());
             heartRate = 0;
           }
 

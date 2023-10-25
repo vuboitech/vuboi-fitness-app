@@ -54,7 +54,7 @@ class Frame extends StatelessWidget {
                   borderRadius: BorderRadius.all(Radius.circular(16)),
                   color: Colors.white
                 ),
-                child: Container(
+                child: SizedBox(
                   width: double.infinity,
                   child: body
                 ),

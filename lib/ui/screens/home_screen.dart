@@ -2,6 +2,7 @@ import 'package:fitness/ui/screens/exersice_page.dart';
 import 'package:fitness/ui/widgets/base/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -52,24 +53,27 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
       print('Widget height: $height');
     });
 
-    _scrollController.addListener(() {
+    _scrollController.addListener(() async {
       double offset = _scrollController.offset;
       double threshold = 92;
 
       if (offset >= threshold && !_isStatusBarAnimationTriggered) {
         SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-          statusBarColor: Color(0xFFEFF0F6),
           statusBarIconBrightness: Brightness.dark,
           statusBarBrightness: Brightness.light, //iOS
         ));
 
+        await FlutterStatusbarcolor.setNavigationBarColor(Color(0xFFEFF0F6));
+
+
         _isStatusBarAnimationTriggered = true;
       } else if (offset < threshold && _isStatusBarAnimationTriggered) {
         SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-          statusBarColor: Colors.transparent,
           statusBarIconBrightness: Brightness.light,
           statusBarBrightness: Brightness.dark, //iOS
         ));
+
+        await FlutterStatusbarcolor.setNavigationBarColor(Colors.transparent);
 
         _isStatusBarAnimationTriggered = false;
       }
@@ -103,7 +107,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
 
   Widget _navigation() {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.5,
+      height: MediaQuery.of(context).size.height,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.centerLeft,
