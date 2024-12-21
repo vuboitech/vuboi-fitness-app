@@ -7,7 +7,6 @@ import 'package:fitness/ui/widgets/modules/stacks/card_stack_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_wear_os_connectivity/flutter_wear_os_connectivity.dart';
-import 'package:lottie/lottie.dart';
 
 class OnBoardingScreen extends StatefulWidget {
   const OnBoardingScreen({Key? key}) : super(key: key);
@@ -59,7 +58,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProvider
 
   @override
   Widget build(BuildContext context) {
-    stackCardHeight = MediaQuery.of(context).size.height * 0.57;
+    stackCardHeight = MediaQuery.of(context).size.height * 0.6;
     stackCardWidth = MediaQuery
         .of(context)
         .size
@@ -93,24 +92,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProvider
                     color: Colors.black
                   ),
                 ),
-
-                Container(
-                  transform: Matrix4.translationValues(0.0, -10, 0.0),
-                  child: Transform.rotate(
-                    angle: 45 * (3.1415926535897932 / 180),
-                    child: Lottie.asset(
-                      'assets/lottie/arrow-right.json',
-                      width: 118,
-                      height: 118,
-                      fit: BoxFit.fill,
-                      controller: _arrowAnimationController,
-                      onLoaded: (composition) {
-                        _arrowAnimationController.duration = composition.duration;
-                        _playDelayedArrowAnimation();
-                      }
-                    ),
-                  ),
-                ),
               ],
             ),
           ),
@@ -119,109 +100,130 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProvider
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          SizedBox(
-            height: stackCardHeight,
-            child: CardStackWidget(
-              opacityChangeOnDrag: true,
-              showIndicator: true,
-              swipeOrientation: CardOrientation.both,
-              cardDismissOrientation: CardOrientation.both,
-              positionFactor: 2.4,
-              scaleFactor: 1,
-              alignment: Alignment.center,
-              reverseOrder: true,
-              dismissedCardDuration: const Duration(milliseconds: 150),
-              animateCardScale: true,
-              cardList: <CardModel>[
-                CardModel(
-                  radius: const Radius.circular(12),
-                  shadowColor: Colors.black.withOpacity(0.2),
-                  cardTitle: "Power Progress",
-                  child: SizedBox(
-                    height: stackCardHeight,
-                    width: stackCardWidth,
-                    child: _onboardingItem(
-                      imageAsset: 'assets/images/img_dumbbell.png',
-                      gradient: AppColor.purpleBlack,
-                      title: "Power Progress",
-                      description: "Say hello to workouts that work for you! Our versatile exercise feature lets you search for programs that fit your goals and lifestyle"
+          Transform.translate(
+            offset: Offset(0, 10),
+            child: SizedBox(
+              height: stackCardHeight,
+              child: CardStackWidget(
+                opacityChangeOnDrag: true,
+                showIndicator: true,
+                swipeOrientation: CardOrientation.both,
+                cardDismissOrientation: CardOrientation.both,
+                positionFactor: 2.8,
+                scaleFactor: 2,
+                alignment: Alignment.center,
+                reverseOrder: true,
+                dismissedCardDuration: const Duration(milliseconds: 150),
+                animateCardScale: true,
+                cardList: <CardModel>[
+                  CardModel(
+                    radius: const Radius.circular(12),
+                    shadowColor: Colors.black.withOpacity(0.2),
+                    cardTitle: "Power Progress",
+                    child: SizedBox(
+                      height: stackCardHeight,
+                      width: stackCardWidth,
+                      child: _onboardingItem(
+                        imageAsset: 'assets/images/img_dumbbell.png',
+                        title: "Power Progress",
+                        description: "Say hello to workouts that work for you! Our versatile exercise feature lets you search for programs that fit your goals and lifestyle"
+                      ),
                     ),
                   ),
-                ),
-                CardModel(
-                  radius: const Radius.circular(12),
-                  shadowColor: Colors.black.withOpacity(0.2),
-                  cardTitle: "Nourish Naturaly",
-                  child: SizedBox(
-                    height: stackCardHeight,
-                    width: stackCardWidth,
-                    child: _onboardingItem(
-                      imageAsset: 'assets/images/img_yoghurt.png',
-                      gradient: AppColor.cyanBlack,
-                      title: "Nourish Naturaly",
-                      description: "Say hello to workouts that work for you! Our versatile exercise feature lets you search for programs that fit your goals and lifestyle"
+                  CardModel(
+                    radius: const Radius.circular(12),
+                    shadowColor: Colors.black.withOpacity(0.2),
+                    cardTitle: "Nourish Naturaly",
+                    child: SizedBox(
+                      height: stackCardHeight,
+                      width: stackCardWidth,
+                      child: _onboardingItem(
+                        imageAsset: 'assets/images/img_yoghurt.png',
+                        title: "Nourish Naturaly",
+                        description: "Say hello to workouts that work for you! Our versatile exercise feature lets you search for programs that fit your goals and lifestyle"
+                      ),
                     ),
                   ),
-                ),
-                CardModel(
-                  radius: const Radius.circular(12),
-                  shadowColor: Colors.black.withOpacity(0.2),
-                  cardTitle: "Strength in Unity",
-                  child: SizedBox(
-                    height: stackCardHeight,
-                    width: stackCardWidth,
-                    child: _onboardingItem(
-                      imageAsset: 'assets/images/img_social.png',
-                      gradient: AppColor.redBlack,
-                      title: "Strength in Unity",
-                      description: "Connect, share, and learn from your friends workout routines and recipes. build a community that inspires and motivates you to keep going"
+                  CardModel(
+                    radius: const Radius.circular(12),
+                    shadowColor: Colors.black.withOpacity(0.2),
+                    cardTitle: "Strength in Unity",
+                    child: SizedBox(
+                      height: stackCardHeight,
+                      width: stackCardWidth,
+                      child: _onboardingItem(
+                        imageAsset: 'assets/images/img_social.png',
+                        title: "Strength in Unity",
+                        description: "Connect, share, and learn from your friends workout routines and recipes. build a community that inspires and motivates you to keep going"
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 20
-            ),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  offset: Offset(0, -9),
-                  blurRadius: 11,
-                  color: Color.fromRGBO(0, 0, 0, 0.1),
-                ),
-              ],
-            ),
-            child: SafeArea(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 22),
-                    child: Text(
-                      "Dive into your personalized fitness journey with Vuboi. Let's start making progress today!",
+
+          // Footer
+
+          ClipPath(
+            clipper: FooterShape(),
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 14,
+              ),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    offset: Offset(0, -9),
+                    blurRadius: 11,
+                    color: Color.fromRGBO(0, 0, 0, 0.1),
+                  ),
+                ],
+              ),
+              child: SafeArea(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const SizedBox(height: 8),
+
+                    Text(
+                      "1 / 2",
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w500,
                         fontSize: 14,
                         color: Colors.black
                       ),
                     ),
-                  ),
 
-                  const SizedBox(height: 16),
+                    const SizedBox(height: 16),
 
-                  Button(
-                    style: AppButtonStyle.primary,
-                    text: "Let's Get Started",
-                    iconSvgUri: 'assets/icons/ic_lightning.svg',
-                    onPressed: () => _showAuthBottomSheet(),
-                  ),
-                ],
+                    Button(
+                      style: AppButtonStyle.primary,
+                      text: "Let's Get Started",
+                      iconSvgUri: 'assets/icons/ic_lightning.svg',
+                      onPressed: () => _showAuthBottomSheet(),
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 22),
+                      child: Text(
+                        "Dive into your personalized fitness journey with Vuboi. Let's start making progress today!",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w400,
+                          fontSize: 14,
+                          color: Colors.black
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 52),
+                  ],
+                ),
               ),
             ),
           ),
@@ -230,30 +232,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProvider
     );
   }
 
-  void _playDelayedArrowAnimation() {
-    _arrowAnimationController.forward(from: 0);
-    Future.delayed(const Duration(milliseconds: 560), () {
-      _arrowAnimationController.stop();
-
-      _replayDelayedArrowAninmation();
-    });
-  }
-
-  void _replayDelayedArrowAninmation() {
-    Future.delayed(const Duration(seconds: 2), () {
-      _arrowAnimationController.forward();
-
-      Future.delayed(const Duration(seconds: 2), () {
-        _playDelayedArrowAnimation();
-      });
-    });
-  }
-
   void _showAuthBottomSheet() {
     AppBottomSheet(
       context: context,
       title: 'Your Fitness Path Awaits',
-      imageAssets: 'assets/images/image_lock.png',
+      imageAssets: 'assets/images/img_lock.png',
       body: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -332,16 +315,15 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProvider
     required String imageAsset,
     required String title,
     required String description,
-    required LinearGradient gradient
   }) {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(Radius.circular(12)),
-        gradient: gradient,
+        color: Color(0xFF000A23),
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -350,23 +332,24 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProvider
             imageAsset,
             height: MediaQuery.of(context).size.height * 0.24,
           ),
-          const SizedBox(height: 32),
+          const SizedBox(height: 15),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  title,
-                  style: const TextStyle(
+                  title.toUpperCase(),
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
                     fontWeight: FontWeight.w700,
-                    fontSize: 24,
+                    fontSize: 33,
                     color: Colors.white
                   ),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 8),
                 Text(
                   description,
+                  textAlign: TextAlign.center,
                   style: const TextStyle(
                     fontWeight: FontWeight.w400,
                     fontSize: 16,
@@ -382,27 +365,22 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProvider
   }
 }
 
-class CurvedPainter extends CustomPainter {
+class FooterShape extends CustomClipper<Path> {
   @override
-  void paint(Canvas canvas, Size size) {
-    var paint = Paint()
-      ..color = Colors.teal
-      ..strokeWidth = 15;
-
-    var path = Path();
-
-    path.moveTo(0, size.height * 0.7);
-    path.quadraticBezierTo(size.width * 0.25, size.height * 0.7, size.width * 0.5, size.height * 0.8);
-    path.quadraticBezierTo(size.width * 0.75, size.height * 0.9, size.width * 1.0, size.height * 0.8);
-    path.lineTo(size.width, size.height);
-    path.lineTo(0, size.height);
-
-    canvas.drawShadow(path, Colors.red.withAlpha(90), 4.0, false);
-    canvas.drawPath(path, paint);
+  Path getClip(Size size) {
+    Path path = Path();
+    path.addPolygon([
+      Offset(0, size.height * 1 / 20),
+      Offset(size.width / 2, 0),
+      Offset(size.width, size.height * 1 / 20),
+      Offset(size.width * 5 / 5, size.height),
+      Offset(0, size.height),
+    ], true);
+    return path;
   }
 
   @override
-  bool shouldRepaint(CustomPainter oldDelegate) {
-    return true;
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) {
+    return false;
   }
 }

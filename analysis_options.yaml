@@ -9,6 +9,25 @@
 # packages, and plugins designed to encourage good coding practices.
 include: package:flutter_lints/flutter.yaml
 
+analyzer:
+  strong-mode: true
+
+# Custom rules for dartfmt
+dart_style:
+  # Set the number of spaces for indentation
+  line-length: 120
+  indent: 2
+
+  # Control whether to format collections (lists, maps, sets) with a single item per line.
+  # true: Single item per line
+  # false: All items in a single line
+  collection_literals: true
+
+  # Control whether to format named arguments in a function call with a single argument per line.
+  # true: Single argument per line
+  # false: All arguments in a single line
+  single_cascade_in_expression_statements: true
+
 linter:
   # The lint rules applied to this project can be customized in the
   # section below to disable rules from the `package:flutter_lints/flutter.yaml`

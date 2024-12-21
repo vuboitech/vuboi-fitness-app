@@ -9,20 +9,20 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
-  flutter_svg: ^2.0.6
-  google_fonts: ^5.0.0
-  lottie: ^2.4.0
-  shared_preferences: ^2.1.2
-  wearable_rotary: ^2.0.1
-  firebase_core: ^2.14.0
-  firebase_auth: ^4.6.3
-  google_sign_in: ^6.1.4
+  cupertino_icons: ^1.0.6
+  flutter_svg: ^2.0.9
+  google_fonts: ^6.1.0
+  lottie: ^2.7.0
+  shared_preferences: ^2.2.2
+  wearable_rotary: ^2.0.2
+  firebase_core: ^2.24.0
+  firebase_auth: ^4.15.0
+  google_sign_in: ^6.1.6
 #  flutter_facebook_auth: ^6.0.0
   sign_in_with_apple: ^5.0.0
   crypto: ^3.0.3
   flutter_wear_os_connectivity: ^1.0.0
-  cached_network_image: ^3.2.3
+  cached_network_image: ^3.3.0
   flutter_statusbarcolor_ns: ^0.5.0
 
 dev_dependencies:
@@ -35,7 +35,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/google_fonts/
+    - assets/fonts/
     - assets/illustrations/
     - assets/images/
     - assets/icons/
@@ -44,11 +44,24 @@ flutter:
   fonts:
     - family: AlbertSans
       fonts:
-        - asset: assets/google_fonts/AlbertSans-Medium.ttf
-        - asset: assets/google_fonts/AlbertSans-ExtraLight.ttf
-        - asset: assets/google_fonts/AlbertSans-Light.ttf
-        - asset: assets/google_fonts/AlbertSans-Regular.ttf
-        - asset: assets/google_fonts/AlbertSans-Bold.ttf
-        - asset: assets/google_fonts/AlbertSans-ExtraBold.ttf
-        - asset: assets/google_fonts/AlbertSans-SemiBold.ttf
-        - asset: assets/google_fonts/AlbertSans-Thin.ttf
+        - asset: assets/fonts/AlbertSans-Medium.ttf
+        - asset: assets/fonts/AlbertSans-ExtraLight.ttf
+        - asset: assets/fonts/AlbertSans-Light.ttf
+        - asset: assets/fonts/AlbertSans-Regular.ttf
+        - asset: assets/fonts/AlbertSans-Bold.ttf
+        - asset: assets/fonts/AlbertSans-ExtraBold.ttf
+        - asset: assets/fonts/AlbertSans-SemiBold.ttf
+        - asset: assets/fonts/AlbertSans-Thin.ttf
+    - family: Overpass
+      fonts:
+        - asset: assets/fonts/Overpass-Medium.ttf
+        - asset: assets/fonts/Overpass-ExtraLight.ttf
+        - asset: assets/fonts/Overpass-Light.ttf
+        - asset: assets/fonts/Overpass-Regular.ttf
+        - asset: assets/fonts/Overpass-Bold.ttf
+        - asset: assets/fonts/Overpass-ExtraBold.ttf
+        - asset: assets/fonts/Overpass-SemiBold.ttf
+        - asset: assets/fonts/Overpass-Thin.ttf
+    - family: Prototype
+      fonts:
+        - asset: assets/fonts/Prototype.ttf

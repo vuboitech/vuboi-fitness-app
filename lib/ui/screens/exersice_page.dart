@@ -8,9 +8,14 @@ import 'package:fitness/ui/widgets/modules/stacks/card_stack_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ExersicePage extends StatelessWidget {
+class ExersicePage extends StatefulWidget {
   const ExersicePage({Key? key}) : super(key: key);
 
+  @override
+  State<ExersicePage> createState() => _ExersicePageState();
+}
+
+class _ExersicePageState extends State<ExersicePage> {
   @override
   Widget build(BuildContext context) {
     final mockList = _buildMockList(context, size: 3);
@@ -32,7 +37,7 @@ class ExersicePage extends StatelessWidget {
             children: [
               Expanded(
                 child: _subMenuItem(
-                  iconSvgUri: 'assets/icons/ic_dumbbell.svg',
+                  iconSvgUri: 'assets/icons/ic_program.svg',
                   text: 'Program',
                   onPressed: () {
                     Navigator.push(context, MaterialPageRoute(
@@ -43,19 +48,19 @@ class ExersicePage extends StatelessWidget {
               ),
               Expanded(
                 child: _subMenuItem(
-                  iconSvgUri: 'assets/icons/ic_book.svg',
+                  iconSvgUri: 'assets/icons/ic_insight.svg',
                   text: 'Insight'
                 ),
               ),
               Expanded(
                 child: _subMenuItem(
-                  iconSvgUri: 'assets/icons/ic_watch.svg',
+                  iconSvgUri: 'assets/icons/ic_device.svg',
                   text: 'Device'
                 ),
               ),
               Expanded(
                 child: _subMenuItem(
-                  iconSvgUri: 'assets/icons/ic_location_pin.svg',
+                  iconSvgUri: 'assets/icons/ic_gymnasium.svg',
                   text: 'Gymnasium'
                 ),
               ),
@@ -111,15 +116,15 @@ class ExersicePage extends StatelessWidget {
           children: [
             SvgPicture.asset(
               iconSvgUri,
-              height: 24,
-              width: 24,
+              height: 32,
+              width: 32,
             ),
             const SizedBox(height: 7),
             Text(
               text,
               style: const TextStyle(
                 fontWeight: FontWeight.w500,
-                fontSize: 13,
+                fontSize: 14,
                 color: Colors.black
               ),
             )
@@ -166,8 +171,7 @@ class ExersicePage extends StatelessWidget {
           children: [
             Text(
               'Hi, Dianne Ruscell',
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
+              style: Theme.of(context).textTheme.titleSmall!.copyWith(
                 fontSize: 24
               ),
             ),

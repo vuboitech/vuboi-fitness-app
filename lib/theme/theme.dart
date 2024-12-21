@@ -7,8 +7,12 @@ ThemeData getAppTheme(BuildContext context, bool isDarkTheme) {
     useMaterial3: true,
     fontFamily: "AlbertSans",
     scaffoldBackgroundColor: isDarkTheme ? Colors.black38 : const Color(0xFFEFF0F6),
-    textTheme: Theme.of(context).textTheme.copyWith(
-      titleSmall: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 12),
+    textTheme: TextTheme(
+      titleSmall: const TextStyle(
+        fontFamily: 'Prototype',
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+      )
     ),
     // .apply(
     //   bodyColor: isDarkTheme ? Colors.white : Colors.black,

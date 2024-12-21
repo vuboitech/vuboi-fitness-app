@@ -1,0 +1,43 @@
+name: Build Signed Debug Apps
+
+on:
+  pull_request:
+    branches:
+      - development
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.16.2'
+          channel: 'stable'
+      - run: flutter --version
+      - name: Install dependencies
+        run: dart pub get
+  build-android:
+    name: Build Android
+    needs: prepare
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.16.2'
+          channel: 'stable'
+      - name: Build Android APK
+        run: flutter build apk
+    build-ios:
+      name: Build iOS
+      needs: prepare
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+        - uses: subosito/flutter-action@v2
+          with:
+            flutter-version: '3.16.2'
+            channel: 'stable'
+        - name: Build iOS IPA
+          run: flutter build ios

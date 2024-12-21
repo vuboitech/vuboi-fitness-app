@@ -44,10 +44,11 @@ class Button extends StatelessWidget {
 
     switch (style) {
       case AppButtonStyle.primary:
+        borderRadius = 8;
         return Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(borderRadius),
-            gradient: AppColor.seaHalberd
+            color: Color(0xFF000A23)
           ),
           child: TextButton(
             onPressed: onPressed,
@@ -62,7 +63,7 @@ class Button extends StatelessWidget {
             child: Container(
               padding: padding ?? defaultButtonPadding,
               child: _buildButtonChild(
-                textColor: Colors.white,
+                textColor: Color(0xFFFFD700),
                 warnaIcon: Colors.white
               ),
             )
@@ -70,6 +71,7 @@ class Button extends StatelessWidget {
         );
 
       case AppButtonStyle.secondary:
+        borderRadius = 8;
         return TextButton(
           onPressed: onPressed,
           style: TextButton.styleFrom(
@@ -84,7 +86,8 @@ class Button extends StatelessWidget {
           child: Container(
             padding: padding ?? defaultButtonPadding,
             child: _buildButtonChild(
-              textColor: Colors.white
+              textColor: Colors.white,
+              warnaIcon: Colors.white
             ),
           ),
         );
@@ -105,6 +108,7 @@ class Button extends StatelessWidget {
             padding: padding ?? defaultButtonPadding,
             child: _buildButtonChild(
               textColor: Colors.black,
+              warnaIcon: Colors.white
             ),
           ),
         );
@@ -175,7 +179,7 @@ class Button extends StatelessWidget {
   }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisSize: mainAxisSize,
       children: <Widget>[
         iconSvgUri != null ? Row(
