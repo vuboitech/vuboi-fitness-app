@@ -10,13 +10,14 @@ import 'package:flutter_wear_os_connectivity/flutter_wear_os_connectivity.dart';
 import 'package:lottie/lottie.dart';
 
 class OnBoardingScreen extends StatefulWidget {
-  const OnBoardingScreen({Key? key}) : super(key: key);
+  const OnBoardingScreen({super.key});
 
   @override
   State<OnBoardingScreen> createState() => _OnBoardingScreenState();
 }
 
-class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProviderStateMixin {
+class _OnBoardingScreenState extends State<OnBoardingScreen>
+    with TickerProviderStateMixin {
   late double stackCardHeight;
   late double stackCardWidth;
 
@@ -24,11 +25,13 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProvider
 
   @override
   void initState() {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Color(0xFFEFF0F6),
-      statusBarIconBrightness: Brightness.dark,
-      statusBarBrightness: Brightness.light, //iOS
-    ));
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Color(0xFFEFF0F6),
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.light, //iOS
+      ),
+    );
 
     _arrowAnimationController = AnimationController(vsync: this);
 
@@ -38,16 +41,19 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProvider
   }
 
   void getWearOs() async {
-    FlutterWearOsConnectivity _flutterWearOsConnectivity = FlutterWearOsConnectivity();
-    _flutterWearOsConnectivity.configureWearableAPI();
+    FlutterWearOsConnectivity flutterWearOsConnectivity =
+        FlutterWearOsConnectivity();
+    flutterWearOsConnectivity.configureWearableAPI();
 
-    List<WearOsDevice> _connectedDevices = await _flutterWearOsConnectivity.getConnectedDevices();
-    _connectedDevices.length;
+    List<WearOsDevice> connectedDevices =
+        await flutterWearOsConnectivity.getConnectedDevices();
+    connectedDevices.length;
 
-    await _flutterWearOsConnectivity.sendMessage(Uint8List(8),
-      deviceId: _connectedDevices[0].id,
-      path: "/sample-message",
-      priority: MessagePriority.low
+    await flutterWearOsConnectivity.sendMessage(
+      Uint8List(8),
+      deviceId: connectedDevices[0].id,
+      path: '/sample-message',
+      priority: MessagePriority.low,
     );
   }
 
@@ -60,10 +66,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProvider
   @override
   Widget build(BuildContext context) {
     stackCardHeight = MediaQuery.of(context).size.height * 0.57;
-    stackCardWidth = MediaQuery
-        .of(context)
-        .size
-        .width - 32;
+    stackCardWidth = MediaQuery.of(context).size.width - 32;
 
     return Scaffold(
       backgroundColor: const Color(0xFFEFF0F6),
@@ -76,13 +79,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProvider
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.035),
-
                 const Text(
                   'Welcome to Vuboi',
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 32,
-                    color: Colors.black
+                    color: Colors.black,
                   ),
                 ),
                 const Text(
@@ -90,10 +92,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProvider
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     fontSize: 20,
-                    color: Colors.black
+                    color: Colors.black,
                   ),
                 ),
-
                 Container(
                   transform: Matrix4.translationValues(0.0, -10, 0.0),
                   child: Transform.rotate(
@@ -105,9 +106,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProvider
                       fit: BoxFit.fill,
                       controller: _arrowAnimationController,
                       onLoaded: (composition) {
-                        _arrowAnimationController.duration = composition.duration;
+                        _arrowAnimationController.duration =
+                            composition.duration;
                         _playDelayedArrowAnimation();
-                      }
+                      },
                     ),
                   ),
                 ),
@@ -136,45 +138,48 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProvider
                 CardModel(
                   radius: const Radius.circular(12),
                   shadowColor: Colors.black.withOpacity(0.2),
-                  cardTitle: "Power Progress",
+                  cardTitle: 'Power Progress',
                   child: SizedBox(
                     height: stackCardHeight,
                     width: stackCardWidth,
                     child: _onboardingItem(
                       imageAsset: 'assets/images/img_dumbbell.png',
                       gradient: AppColor.purpleBlack,
-                      title: "Power Progress",
-                      description: "Say hello to workouts that work for you! Our versatile exercise feature lets you search for programs that fit your goals and lifestyle"
+                      title: 'Power Progress',
+                      description:
+                          'Say hello to workouts that work for you! Our versatile exercise feature lets you search for programs that fit your goals and lifestyle',
                     ),
                   ),
                 ),
                 CardModel(
                   radius: const Radius.circular(12),
                   shadowColor: Colors.black.withOpacity(0.2),
-                  cardTitle: "Nourish Naturaly",
+                  cardTitle: 'Nourish Naturaly',
                   child: SizedBox(
                     height: stackCardHeight,
                     width: stackCardWidth,
                     child: _onboardingItem(
                       imageAsset: 'assets/images/img_yoghurt.png',
                       gradient: AppColor.cyanBlack,
-                      title: "Nourish Naturaly",
-                      description: "Say hello to workouts that work for you! Our versatile exercise feature lets you search for programs that fit your goals and lifestyle"
+                      title: 'Nourish Naturaly',
+                      description:
+                          'Say hello to workouts that work for you! Our versatile exercise feature lets you search for programs that fit your goals and lifestyle',
                     ),
                   ),
                 ),
                 CardModel(
                   radius: const Radius.circular(12),
                   shadowColor: Colors.black.withOpacity(0.2),
-                  cardTitle: "Strength in Unity",
+                  cardTitle: 'Strength in Unity',
                   child: SizedBox(
                     height: stackCardHeight,
                     width: stackCardWidth,
                     child: _onboardingItem(
                       imageAsset: 'assets/images/img_social.png',
                       gradient: AppColor.redBlack,
-                      title: "Strength in Unity",
-                      description: "Connect, share, and learn from your friends workout routines and recipes. build a community that inspires and motivates you to keep going"
+                      title: 'Strength in Unity',
+                      description:
+                          'Connect, share, and learn from your friends workout routines and recipes. build a community that inspires and motivates you to keep going',
                     ),
                   ),
                 ),
@@ -184,7 +189,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProvider
           Container(
             padding: const EdgeInsets.symmetric(
               horizontal: 16,
-              vertical: 20
+              vertical: 20,
             ),
             decoration: const BoxDecoration(
               color: Colors.white,
@@ -208,13 +213,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProvider
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
                         fontSize: 14,
-                        color: Colors.black
+                        color: Colors.black,
                       ),
                     ),
                   ),
-
                   const SizedBox(height: 16),
-
                   Button(
                     style: AppButtonStyle.primary,
                     text: "Let's Get Started",
@@ -261,12 +264,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProvider
             'Log in to your Vuboi account to continue your fitness journey. Stay on track with your Progress',
             style: TextStyle(
               fontSize: 14,
-              fontWeight: FontWeight.w400
+              fontWeight: FontWeight.w400,
             ),
           ),
-
           const SizedBox(height: 16),
-
           Button(
             style: AppButtonStyle.tertiary,
             iconSvgUri: 'assets/icons/ic_google.svg',
@@ -287,9 +288,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProvider
               // UserCredential result = await FirebaseAuth.instance.signInWithCredential(credential);
             },
           ),
-
           const SizedBox(height: 16),
-
           Button(
             style: AppButtonStyle.tertiary,
             iconSvgUri: 'assets/icons/ic_facebook.svg',
@@ -310,21 +309,22 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProvider
               }*/
             },
           ),
-
           const SizedBox(height: 16),
-
           /*Platform.isIOS ?*/ Button(
             style: AppButtonStyle.tertiary,
             iconSvgUri: 'assets/icons/ic_apple.svg',
             text: 'Continue with Apple',
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(
-                builder: (context) => const HomeScreen()
-              ));
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const HomeScreen(),
+                ),
+              );
             },
           ) /*: const SizedBox()*/,
         ],
-      )
+      ),
     ).show();
   }
 
@@ -332,7 +332,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProvider
     required String imageAsset,
     required String title,
     required String description,
-    required LinearGradient gradient
+    required LinearGradient gradient,
   }) {
     return Container(
       width: double.infinity,
@@ -361,7 +361,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProvider
                   style: const TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 24,
-                    color: Colors.white
+                    color: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 12),
@@ -370,7 +370,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> with TickerProvider
                   style: const TextStyle(
                     fontWeight: FontWeight.w400,
                     fontSize: 16,
-                    color: Colors.white
+                    color: Colors.white,
                   ),
                 ),
               ],
@@ -392,8 +392,18 @@ class CurvedPainter extends CustomPainter {
     var path = Path();
 
     path.moveTo(0, size.height * 0.7);
-    path.quadraticBezierTo(size.width * 0.25, size.height * 0.7, size.width * 0.5, size.height * 0.8);
-    path.quadraticBezierTo(size.width * 0.75, size.height * 0.9, size.width * 1.0, size.height * 0.8);
+    path.quadraticBezierTo(
+      size.width * 0.25,
+      size.height * 0.7,
+      size.width * 0.5,
+      size.height * 0.8,
+    );
+    path.quadraticBezierTo(
+      size.width * 0.75,
+      size.height * 0.9,
+      size.width * 1.0,
+      size.height * 0.8,
+    );
     path.lineTo(size.width, size.height);
     path.lineTo(0, size.height);
 

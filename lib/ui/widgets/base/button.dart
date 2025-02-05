@@ -22,7 +22,7 @@ class Button extends StatelessWidget {
   final VoidCallback onPressed;
 
   const Button({
-    Key? key,
+    super.key,
     this.style = AppButtonStyle.primary,
     this.padding,
     this.iconSvgUri,
@@ -32,7 +32,7 @@ class Button extends StatelessWidget {
     this.iconColor,
     this.fontWeight,
     required this.onPressed,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class Button extends StatelessWidget {
         return Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(borderRadius),
-            gradient: AppColor.seaHalberd
+            gradient: AppColor.seaHalberd,
           ),
           child: TextButton(
             onPressed: onPressed,
@@ -63,9 +63,9 @@ class Button extends StatelessWidget {
               padding: padding ?? defaultButtonPadding,
               child: _buildButtonChild(
                 textColor: Colors.white,
-                warnaIcon: Colors.white
+                warnaIcon: Colors.white,
               ),
-            )
+            ),
           ),
         );
 
@@ -84,7 +84,7 @@ class Button extends StatelessWidget {
           child: Container(
             padding: padding ?? defaultButtonPadding,
             child: _buildButtonChild(
-              textColor: Colors.white
+              textColor: Colors.white,
             ),
           ),
         );
@@ -128,7 +128,7 @@ class Button extends StatelessWidget {
             padding: padding ?? defaultButtonPadding,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
-              gradient: LinearGradient(
+              gradient: const LinearGradient(
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
                 stops: [0.1358, 0.8678],
@@ -140,7 +140,7 @@ class Button extends StatelessWidget {
             ),
             child: _buildButtonChild(
               textColor: Colors.black,
-              warnaIcon: Colors.black
+              warnaIcon: Colors.black,
             ),
           ),
         );
@@ -161,7 +161,7 @@ class Button extends StatelessWidget {
             padding: padding ?? defaultButtonPadding,
             child: _buildButtonChild(
               textColor: Colors.black,
-              mainAxisSize: MainAxisSize.min
+              mainAxisSize: MainAxisSize.min,
             ),
           ),
         );
@@ -171,35 +171,34 @@ class Button extends StatelessWidget {
   Widget _buildButtonChild({
     required Color textColor,
     Color? warnaIcon,
-    MainAxisSize mainAxisSize = MainAxisSize.max
+    MainAxisSize mainAxisSize = MainAxisSize.max,
   }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: mainAxisSize,
       children: <Widget>[
-        iconSvgUri != null ? Row(
-          children: [
-            SvgPicture.asset(
-              iconSvgUri!,
-              theme: SvgTheme(
-                currentColor: iconColor ?? warnaIcon!
-              ),
-              height: iconSize,
-              width: iconSize,
-            ),
-
-            const SizedBox(width: 8)
-          ],
-        ) :
-        const SizedBox(),
-
+        iconSvgUri != null
+            ? Row(
+                children: [
+                  SvgPicture.asset(
+                    iconSvgUri!,
+                    theme: SvgTheme(
+                      currentColor: iconColor ?? warnaIcon!,
+                    ),
+                    height: iconSize,
+                    width: iconSize,
+                  ),
+                  const SizedBox(width: 8),
+                ],
+              )
+            : const SizedBox(),
         Text(
           text,
           style: TextStyle(
             color: textColor,
             fontSize: fontSize ?? 16,
-            fontWeight: fontWeight ?? FontWeight.w600
+            fontWeight: fontWeight ?? FontWeight.w600,
           ),
         ),
       ],

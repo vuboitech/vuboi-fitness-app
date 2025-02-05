@@ -7,11 +7,11 @@ class VuboiAppBar extends StatefulWidget {
   final ChipGroup? chipGroup;
 
   const VuboiAppBar({
-    Key? key,
+    super.key,
     required this.title,
     this.onSearch,
-    this.chipGroup
-  }) : super(key: key);
+    this.chipGroup,
+  });
 
   @override
   State<VuboiAppBar> createState() => _VuboiAppBarState();
@@ -68,11 +68,11 @@ class _VuboiAppBarState extends State<VuboiAppBar> with TickerProviderStateMixin
                           onPressed: () {},
                         ),
 
-                        !_searchMode ? Text(
+                        !_searchMode ? const Text(
                           'Exercise',
                           style: TextStyle(
                             fontSize: 20,
-                            fontWeight: FontWeight.w800
+                            fontWeight: FontWeight.w800,
                           ),
                         ) : Expanded(
                           child: TextFormField(),
@@ -81,7 +81,7 @@ class _VuboiAppBarState extends State<VuboiAppBar> with TickerProviderStateMixin
                     ),
                   ),
                   !_searchMode ? IconButton(
-                    icon: Icon(Icons.search),
+                    icon: const Icon(Icons.search),
                     style: IconButton.styleFrom(
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     ),
@@ -95,7 +95,7 @@ class _VuboiAppBarState extends State<VuboiAppBar> with TickerProviderStateMixin
                       _slideAnimController.reverse();
                     },
                   ) : IconButton(
-                    icon: Icon(Icons.close),
+                    icon: const Icon(Icons.close),
                     style: IconButton.styleFrom(
                       tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                     ),
@@ -112,7 +112,7 @@ class _VuboiAppBarState extends State<VuboiAppBar> with TickerProviderStateMixin
                 ],
               ),
             ),
-            widget.chipGroup != null ? widget.chipGroup! : SizedBox()
+            widget.chipGroup != null ? widget.chipGroup! : const SizedBox(),
           ],
         ),
       ),

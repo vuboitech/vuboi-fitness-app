@@ -7,33 +7,36 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class ExerciseListPage extends StatefulWidget {
-
   const ExerciseListPage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
-  _ExerciseListPageState createState() => _ExerciseListPageState();
+  State<ExerciseListPage> createState() => _ExerciseListPageState();
 }
 
-class _ExerciseListPageState extends State<ExerciseListPage> with TickerProviderStateMixin {
-
+class _ExerciseListPageState extends State<ExerciseListPage>
+    with TickerProviderStateMixin {
   @override
   void initState() {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarIconBrightness: Brightness.dark,
-      statusBarBrightness: Brightness.light, //iOS
-    ));
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.light, //iOS
+      ),
+    );
 
     super.initState();
   }
 
   @override
   void dispose() {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarIconBrightness: Brightness.light,
-      statusBarBrightness: Brightness.dark, //iOS
-    ));
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark, //iOS
+      ),
+    );
 
     super.dispose();
   }
@@ -41,14 +44,17 @@ class _ExerciseListPageState extends State<ExerciseListPage> with TickerProvider
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFEFF0F6),
+      backgroundColor: const Color(0xFFEFF0F6),
       body: Column(
         children: [
           VuboiAppBar(
             title: 'Exercise',
-            chipGroup: ChipGroup(
+            chipGroup: const ChipGroup(
               chips: [
-                AppChip(label: 'All Exercise', isActive: true,),
+                AppChip(
+                  label: 'All Exercise',
+                  isActive: true,
+                ),
                 AppChip(label: 'Equipment'),
                 AppChip(label: 'Target'),
               ],
@@ -64,15 +70,13 @@ class _ExerciseListPageState extends State<ExerciseListPage> with TickerProvider
                   body: ListView.builder(
                     shrinkWrap: true,
                     itemCount: 25,
-                    padding: EdgeInsets.symmetric(vertical: 16),
+                    padding: const EdgeInsets.symmetric(vertical: 16),
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) {
                       return Column(
                         children: [
                           TextButton(
-                            onPressed: () {
-
-                            },
+                            onPressed: () {},
                             style: TextButton.styleFrom(
                               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                               padding: EdgeInsets.zero,
@@ -82,15 +86,15 @@ class _ExerciseListPageState extends State<ExerciseListPage> with TickerProvider
                               ),
                             ),
                             child: Container(
-                              padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
-                              child: Column(
+                              padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+                              child: const Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     'Dumbbell Bench Press',
                                     style: TextStyle(
                                       fontWeight: FontWeight.w700,
-                                      color: Color(0xFF14142A)
+                                      color: Color(0xFF14142A),
                                     ),
                                   ),
                                   SizedBox(height: 4),
@@ -101,17 +105,18 @@ class _ExerciseListPageState extends State<ExerciseListPage> with TickerProvider
                                         style: TextStyle(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 13,
-                                          color: Color(0xFF6E7191)
+                                          color: Color(0xFF6E7191),
                                         ),
                                       ),
                                       Padding(
-                                        padding: const EdgeInsets.symmetric(horizontal: 2),
+                                        padding:
+                                            EdgeInsets.symmetric(horizontal: 2),
                                         child: Text(
                                           '•',
                                           style: TextStyle(
                                             fontWeight: FontWeight.w400,
                                             fontSize: 13,
-                                            color: Color(0xFF6E7191)
+                                            color: Color(0xFF6E7191),
                                           ),
                                         ),
                                       ),
@@ -120,23 +125,26 @@ class _ExerciseListPageState extends State<ExerciseListPage> with TickerProvider
                                         style: TextStyle(
                                           fontWeight: FontWeight.w400,
                                           fontSize: 13,
-                                          color: Color(0xFF6E7191)
+                                          color: Color(0xFF6E7191),
                                         ),
                                       ),
                                     ],
                                   ),
-
                                   SizedBox(height: 16),
                                 ],
                               ),
-                            )
+                            ),
                           ),
-                          index != 24 ? Container(
-                            height: 1,
-                            width: double.infinity,
-                            color: Color(0xFFEFF0F6),
-                            margin: EdgeInsets.symmetric(horizontal: 16),
-                          ) : SizedBox()
+                          index != 24
+                              ? Container(
+                                  height: 1,
+                                  width: double.infinity,
+                                  color: const Color(0xFFEFF0F6),
+                                  margin: const EdgeInsets.symmetric(
+                                    horizontal: 16,
+                                  ),
+                                )
+                              : const SizedBox(),
                         ],
                       );
                     },
@@ -144,7 +152,7 @@ class _ExerciseListPageState extends State<ExerciseListPage> with TickerProvider
                 ),
               ),
             ),
-          )
+          ),
         ],
       ),
       bottomNavigationBar: Container(
@@ -163,13 +171,13 @@ class _ExerciseListPageState extends State<ExerciseListPage> with TickerProvider
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
               child: Text(
                 '0 Selected',
                 style: TextStyle(
                   fontSize: 14,
-                  fontWeight: FontWeight.w600
+                  fontWeight: FontWeight.w600,
                 ),
               ),
             ),
@@ -177,17 +185,20 @@ class _ExerciseListPageState extends State<ExerciseListPage> with TickerProvider
               children: [
                 Container(
                   height: MediaQuery.of(context).size.height * 0.1,
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(40)),
-                    color: Color(0xFF610BEF)
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(40)),
+                    color: Color(0xFF610BEF),
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 1),
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(topLeft: Radius.circular(40), topRight: Radius.circular(40)),
-                    color: Colors.white
+                  margin: const EdgeInsets.only(top: 1),
+                  padding: const EdgeInsets.all(16),
+                  decoration: const BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(40),
+                      topRight: Radius.circular(40),
+                    ),
+                    color: Colors.white,
                   ),
                   child: Column(
                     children: [
@@ -196,7 +207,7 @@ class _ExerciseListPageState extends State<ExerciseListPage> with TickerProvider
                         text: 'Start Exercise',
                         onPressed: () {},
                       ),
-                      SizedBox(height: 8),
+                      const SizedBox(height: 8),
                       SizedBox(
                         width: double.infinity,
                         child: Button(
@@ -204,10 +215,10 @@ class _ExerciseListPageState extends State<ExerciseListPage> with TickerProvider
                           text: 'Custom',
                           onPressed: () {},
                         ),
-                      )
+                      ),
                     ],
                   ),
-                )
+                ),
               ],
             ),
           ],

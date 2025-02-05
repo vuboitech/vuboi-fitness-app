@@ -4,7 +4,7 @@ import 'package:flutter/services.dart';
 class AppScreen extends StatefulWidget {
   final Widget child;
 
-  const AppScreen({Key? key, required this.child}) : super(key: key);
+  const AppScreen({super.key, required this.child});
 
   @override
   State<AppScreen> createState() => _AppScreenState();

@@ -5,9 +5,9 @@ class ChipGroup extends StatelessWidget {
   final List<AppChip> chips;
 
   const ChipGroup({
-    Key? key,
+    super.key,
     required this.chips,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,12 +16,12 @@ class ChipGroup extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          SizedBox(width: 12),
+          const SizedBox(width: 12),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
-            children: chips
+            children: chips,
           ),
-          SizedBox(width: 4),
+          const SizedBox(width: 4),
         ],
       ),
     );

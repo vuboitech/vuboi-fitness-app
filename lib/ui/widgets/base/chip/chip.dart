@@ -5,10 +5,10 @@ class AppChip extends StatelessWidget {
   final bool isActive;
 
   const AppChip({
-    Key? key,
+    super.key,
     required this.label,
-    this.isActive = false
-  }) : super(key: key);
+    this.isActive = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -36,14 +36,18 @@ class AppChip extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w700,
-                      color: isActive ? Color(0xFF610BEF) : Color(0xFF6E7191)
+                      color: isActive
+                          ? const Color(0xFF610BEF)
+                          : const Color(0xFF6E7191),
                     ),
                   ),
-                  SizedBox(width: 3),
+                  const SizedBox(width: 3),
                   Icon(
                     Icons.keyboard_arrow_down,
-                    color: isActive ? Color(0xFF610BEF) : Color(0xFF6E7191),
-                  )
+                    color: isActive
+                        ? const Color(0xFF610BEF)
+                        : const Color(0xFF6E7191),
+                  ),
                 ],
               ),
             ),
@@ -51,13 +55,13 @@ class AppChip extends StatelessWidget {
               height: 2.4,
               width: 32,
               decoration: BoxDecoration(
-                color: isActive ? Color(0xFF610BEF) : Colors.transparent,
-                borderRadius: BorderRadius.only(
+                color: isActive ? const Color(0xFF610BEF) : Colors.transparent,
+                borderRadius: const BorderRadius.only(
                   topRight: Radius.circular(2),
                   topLeft: Radius.circular(2),
-                )
+                ),
               ),
-            )
+            ),
           ],
         ),
       ),

@@ -4,13 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, WidgetsBindingObserver {
+class _HomeScreenState extends State<HomeScreen>
+    with TickerProviderStateMixin, WidgetsBindingObserver {
   final navigationContainerState = GlobalKey<ScaffoldState>();
 
   late ScrollController _scrollController;
@@ -22,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if(state == AppLifecycleState.resumed){
+    if (state == AppLifecycleState.resumed) {
       print('hello');
     }
   }
@@ -41,11 +42,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
       curve: Curves.easeOut,
     ).drive(Tween<double>(begin: 1.0, end: 0.7));
 
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.light,
-      statusBarBrightness: Brightness.dark, //iOS
-    ));
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.dark, //iOS
+      ),
+    );
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       double height = getHeightOfWidget();
@@ -57,29 +60,37 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
       double threshold = 92;
 
       if (offset >= threshold && !_isStatusBarAnimationTriggered) {
-        SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-          statusBarIconBrightness: Brightness.dark,
-          statusBarBrightness: Brightness.light, //iOS
-        ));
-
+        SystemChrome.setSystemUIOverlayStyle(
+          const SystemUiOverlayStyle(
+            statusBarIconBrightness: Brightness.dark,
+            statusBarBrightness: Brightness.light, //iOS
+          ),
+        );
 
         _isStatusBarAnimationTriggered = true;
       } else if (offset < threshold && _isStatusBarAnimationTriggered) {
-        SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-          statusBarIconBrightness: Brightness.light,
-          statusBarBrightness: Brightness.dark, //iOS
-        ));
+        SystemChrome.setSystemUIOverlayStyle(
+          const SystemUiOverlayStyle(
+            statusBarIconBrightness: Brightness.light,
+            statusBarBrightness: Brightness.dark, //iOS
+          ),
+        );
 
         _isStatusBarAnimationTriggered = false;
       }
 
       // Navigation
       if (offset < threshold) {
-        double newScrollPercentage = (_scrollController.position.pixels / _scrollController.position.maxScrollExtent).clamp(0.0, 1.0);
+        double newScrollPercentage = (_scrollController.position.pixels /
+                _scrollController.position.maxScrollExtent)
+            .clamp(0.0, 1.0);
 
         if (newScrollPercentage != _scrollPercentage) {
           _scrollPercentage = newScrollPercentage;
-          _animationController.animateTo(_scrollPercentage, duration: const Duration(milliseconds: 50 ));
+          _animationController.animateTo(
+            _scrollPercentage,
+            duration: const Duration(milliseconds: 50),
+          );
         }
       }
     });
@@ -96,7 +107,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
   }
 
   double getHeightOfWidget() {
-    final RenderBox renderBox = navigationContainerState.currentContext!.findRenderObject() as RenderBox;
+    final RenderBox renderBox = navigationContainerState.currentContext!
+        .findRenderObject() as RenderBox;
     return renderBox.size.height;
   }
 
@@ -132,10 +144,13 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
                         Button(
                           style: AppButtonStyle.secondary,
                           iconSvgUri: 'assets/icons/ic_people.svg',
-                          text: "Discover",
+                          text: 'Discover',
                           fontSize: 14,
                           iconSize: 13,
-                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 14,
+                            vertical: 6,
+                          ),
                           onPressed: () {},
                         ),
                         Padding(
@@ -143,28 +158,34 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
                           child: Button(
                             style: AppButtonStyle.active,
                             iconSvgUri: 'assets/icons/ic_dumbbell.svg',
-                            text: "Exercise",
+                            text: 'Exercise',
                             iconSize: 22,
                             fontSize: 16,
-                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 16,
+                              vertical: 8,
+                            ),
                             onPressed: () {},
                           ),
                         ),
                         Button(
                           style: AppButtonStyle.secondary,
                           iconSvgUri: 'assets/icons/ic_pizza.svg',
-                          text: "Nutrition",
+                          text: 'Nutrition',
                           fontSize: 14,
                           iconSize: 13,
-                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 14,
+                            vertical: 6,
+                          ),
                           onPressed: () {},
-                        )
+                        ),
                       ],
                     ),
                   ],
                 ),
               );
-            }
+            },
           ),
         ),
       ),
@@ -180,7 +201,8 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
           SingleChildScrollView(
             controller: _scrollController,
             child: Container(
-              padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 92),
+              padding:
+                  EdgeInsets.only(top: MediaQuery.of(context).padding.top + 92),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -209,14 +231,14 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
                             topRight: Radius.circular(10),
                           ),
                         ),
-                        child: ExersicePage(),
+                        child: ExercisePage(),
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );

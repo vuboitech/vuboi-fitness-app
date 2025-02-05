@@ -6,11 +6,11 @@ class Frame extends StatelessWidget {
   final Widget body;
 
   const Frame({
-    Key? key,
+    super.key,
     required this.title,
     this.actions,
-    required this.body
-  }) : super(key: key);
+    required this.body,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,12 +30,12 @@ class Frame extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 14,
-                    fontWeight: FontWeight.w700
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
-                actions != null ? actions! : const SizedBox()
+                actions != null ? actions! : const SizedBox(),
               ],
             ),
           ),
@@ -43,22 +43,22 @@ class Frame extends StatelessWidget {
             children: [
               Container(
                 height: MediaQuery.of(context).size.height * 0.1,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(16)),
-                  color: Color(0xFF610BEF)
+                  color: Color(0xFF610BEF),
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(top: 1),
-                decoration: BoxDecoration(
+                margin: const EdgeInsets.only(top: 1),
+                decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(16)),
-                  color: Colors.white
+                  color: Colors.white,
                 ),
                 child: SizedBox(
                   width: double.infinity,
-                  child: body
+                  child: body,
                 ),
-              )
+              ),
             ],
           ),
         ],

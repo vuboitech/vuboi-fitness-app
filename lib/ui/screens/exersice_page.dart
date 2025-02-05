@@ -8,8 +8,8 @@ import 'package:fitness/ui/widgets/modules/stacks/card_stack_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ExersicePage extends StatelessWidget {
-  const ExersicePage({Key? key}) : super(key: key);
+class ExercisePage extends StatelessWidget {
+  const ExercisePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +18,11 @@ class ExersicePage extends StatelessWidget {
     return Column(
       children: [
         const SizedBox(height: 24),
-
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: _profileBar(),
         ),
-
         const SizedBox(height: 18),
-
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
@@ -35,36 +32,37 @@ class ExersicePage extends StatelessWidget {
                   iconSvgUri: 'assets/icons/ic_dumbbell.svg',
                   text: 'Program',
                   onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(
-                      builder: (context) => ExerciseListPage()
-                    ));
-                  }
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ExerciseListPage(),
+                      ),
+                    );
+                  },
                 ),
               ),
               Expanded(
                 child: _subMenuItem(
                   iconSvgUri: 'assets/icons/ic_book.svg',
-                  text: 'Insight'
+                  text: 'Insight',
                 ),
               ),
               Expanded(
                 child: _subMenuItem(
                   iconSvgUri: 'assets/icons/ic_watch.svg',
-                  text: 'Device'
+                  text: 'Device',
                 ),
               ),
               Expanded(
                 child: _subMenuItem(
                   iconSvgUri: 'assets/icons/ic_location_pin.svg',
-                  text: 'Gymnasium'
+                  text: 'Gymnasium',
                 ),
               ),
             ],
           ),
         ),
-
         const SizedBox(height: 18),
-
         SizedBox(
           height: 262,
           child: CardStackWidget(
@@ -80,8 +78,7 @@ class ExersicePage extends StatelessWidget {
             cardList: mockList,
           ),
         ),
-
-        const SizedBox(height: 800)
+        const SizedBox(height: 800),
       ],
     );
   }
@@ -89,7 +86,7 @@ class ExersicePage extends StatelessWidget {
   Widget _subMenuItem({
     required String iconSvgUri,
     required String text,
-    Function? onPressed
+    Function? onPressed,
   }) {
     return TextButton(
       style: TextButton.styleFrom(
@@ -120,9 +117,9 @@ class ExersicePage extends StatelessWidget {
               style: const TextStyle(
                 fontWeight: FontWeight.w500,
                 fontSize: 13,
-                color: Colors.black
+                color: Colors.black,
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -138,7 +135,7 @@ class ExersicePage extends StatelessWidget {
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(
-              color: Color(0xFFF7F7FC),
+              color: const Color(0xFFF7F7FC),
               width: 2,
             ),
             boxShadow: const [
@@ -156,7 +153,8 @@ class ExersicePage extends StatelessWidget {
           ),
           child: ClipOval(
             child: CachedNetworkImage(
-              imageUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Yanomami_Woman_%26_Child.jpg/1200px-Yanomami_Woman_%26_Child.jpg',
+              imageUrl:
+                  'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Yanomami_Woman_%26_Child.jpg/1200px-Yanomami_Woman_%26_Child.jpg',
             ),
           ),
         ),
@@ -164,11 +162,11 @@ class ExersicePage extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               'Hi, Dianne Ruscell',
               style: TextStyle(
                 fontWeight: FontWeight.w600,
-                fontSize: 24
+                fontSize: 24,
               ),
             ),
             Row(
@@ -178,27 +176,27 @@ class ExersicePage extends StatelessWidget {
                   height: 12,
                   width: 12,
                 ),
-                SizedBox(width: 4),
-                Text(
+                const SizedBox(width: 4),
+                const Text(
                   'Tier:',
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
-                    fontSize: 14
+                    fontSize: 14,
                   ),
                 ),
-                SizedBox(width: 2),
-                Text(
+                const SizedBox(width: 2),
+                const Text(
                   'Gym Rat',
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 14,
-                    color: Color(0xFF14142A)
+                    color: Color(0xFF14142A),
                   ),
                 ),
               ],
-            )
+            ),
           ],
-        )
+        ),
       ],
     );
   }
@@ -219,18 +217,16 @@ class ExersicePage extends StatelessWidget {
         children: [
           Text(
             name,
-            style: TextStyle(
+            style: const TextStyle(
               fontWeight: FontWeight.w700,
               fontSize: 24,
-              color: Colors.white
+              color: Colors.white,
             ),
           ),
-
           const SizedBox(height: 8),
-
           Container(
             height: 18,
-            margin: EdgeInsets.only(bottom: 16),
+            margin: const EdgeInsets.only(bottom: 16),
             child: ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
@@ -238,10 +234,10 @@ class ExersicePage extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 return Container(
-                  margin: EdgeInsets.only(right: 8),
-                  child: Label(text: 'Moshingan'),
+                  margin: const EdgeInsets.only(right: 8),
+                  child: const Label(text: 'Moshingan'),
                 );
-              }
+              },
             ),
           ),
           Button(
@@ -249,22 +245,19 @@ class ExersicePage extends StatelessWidget {
             iconSvgUri: 'assets/icons/ic_lightning.svg',
             text: "Start Exercise",
             onPressed: () {},
-          )
+          ),
         ],
       ),
     );
   }
 
   _buildMockList(BuildContext context, {int size = 0}) {
-    final double containerWidth = MediaQuery
-        .of(context)
-        .size
-        .width - 32;
+    final double containerWidth = MediaQuery.of(context).size.width - 32;
 
     var list = <CardModel>[];
     list.add(
       CardModel(
-        radius: Radius.circular(12),
+        radius: const Radius.circular(12),
         shadowColor: Colors.black.withOpacity(0.2),
         cardTitle: "Hypertrophy Leg",
         child: SizedBox(

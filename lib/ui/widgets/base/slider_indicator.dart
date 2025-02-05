@@ -9,7 +9,7 @@ class SliderIndicator extends StatelessWidget {
     super.key,
     required this.indicatorCount,
     required this.activeIndicator,
-    this.indicatorSize = 8
+    this.indicatorSize = 8,
   });
 
   @override

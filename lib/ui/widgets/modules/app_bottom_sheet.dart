@@ -14,13 +14,13 @@ class AppBottomSheet {
     required this.context,
     required this.title,
     this.imageAssets,
-    required this.body
+    required this.body,
   });
 
   void show() {
     showModalBottomSheet(
       context: context,
-      isScrollControlled:true,
+      isScrollControlled: true,
       backgroundColor: Colors.transparent,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -50,7 +50,7 @@ class AppBottomSheet {
                       title,
                       style: const TextStyle(
                         fontSize: 20,
-                        fontWeight: FontWeight.w700
+                        fontWeight: FontWeight.w700,
                       ),
                     ),
                   ),
@@ -64,30 +64,32 @@ class AppBottomSheet {
                       ),
                       border: Border.all(
                         color: const Color(0xFFD9DBE9),
-                        width: 1
-                      )
+                        width: 1,
+                      ),
                     ),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        body
+                        body,
                       ],
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
             Positioned(
               right: 24,
-              child: imageAssets != null ? Image.asset(
-                imageAssets!,
-                height: 78,
-                width: 68,
-              ) : const SizedBox(),
+              child: imageAssets != null
+                  ? Image.asset(
+                      imageAssets!,
+                      height: 78,
+                      width: 68,
+                    )
+                  : const SizedBox(),
             ),
           ],
         );
-      }
+      },
     );
   }
 }

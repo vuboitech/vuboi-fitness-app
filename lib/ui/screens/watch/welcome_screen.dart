@@ -3,10 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_wear_os_connectivity/flutter_wear_os_connectivity.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen({Key? key}) : super(key: key);
+  const WelcomeScreen({super.key});
 
   @override
-  _WelcomeScreenState createState() => _WelcomeScreenState();
+  State<WelcomeScreen> createState() => _WelcomeScreenState();
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
@@ -19,13 +19,13 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   }
 
   void getDevice() async {
-    FlutterWearOsConnectivity _flutterWearOsConnectivity = FlutterWearOsConnectivity();
-    _flutterWearOsConnectivity.configureWearableAPI();
+    FlutterWearOsConnectivity flutterWearOsConnectivity = FlutterWearOsConnectivity();
+    flutterWearOsConnectivity.configureWearableAPI();
 
-    List<WearOsDevice> _connectedDevices = await _flutterWearOsConnectivity.getConnectedDevices();
-    _connectedDevices.length;
+    List<WearOsDevice> connectedDevices = await flutterWearOsConnectivity.getConnectedDevices();
+    connectedDevices.length;
 
-    _flutterWearOsConnectivity.messageReceived().listen((message) {
+    flutterWearOsConnectivity.messageReceived().listen((message) {
       print(message.path);
     });
   }

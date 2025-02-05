@@ -4,7 +4,7 @@ import 'package:fitness/ui/screens/watch/welcome_screen.dart';
 import 'package:flutter/material.dart';
 
 class MainApp extends StatelessWidget {
-  const MainApp({Key? key}) : super(key: key);
+  const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,14 +18,14 @@ class MainApp extends StatelessWidget {
 
           // Watch-sized device
           if (constraints.maxWidth < 300) {
-            return WelcomeScreen();
+            return const WelcomeScreen();
           }
           // Phone-sized device
           else {
             return const OnBoardingScreen();
           }
         },
-      )
+      ),
     );
   }
 }

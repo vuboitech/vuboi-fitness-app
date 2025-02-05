@@ -50,7 +50,7 @@ class CardWidget extends StatefulWidget {
   final ValueNotifier<double>? listenableDismissedAnimation;
 
   const CardWidget({
-    Key? key,
+    super.key,
     required this.position,
     required this.totalItem,
     required this.showIndicator,
@@ -67,10 +67,10 @@ class CardWidget extends StatefulWidget {
     this.dismissOrientation = CardOrientation.both,
     this.swipeOrientation = CardOrientation.both,
     this.opacityChangeOnDrag = false,
-  }) : super(key: key);
+  });
 
   @override
-  _CardWidgetState createState() => _CardWidgetState();
+  State<CardWidget> createState() => _CardWidgetState();
 }
 
 class _CardWidgetState extends State<CardWidget> with TickerProviderStateMixin {
@@ -97,7 +97,8 @@ class _CardWidgetState extends State<CardWidget> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    final animListenable = widget.listenableDismissedAnimation ?? ValueNotifier<double>(0.0);
+    final animListenable =
+        widget.listenableDismissedAnimation ?? ValueNotifier<double>(0.0);
 
     final scale = widget.scale ?? 1.0;
 
@@ -134,11 +135,12 @@ class _CardWidgetState extends State<CardWidget> with TickerProviderStateMixin {
         _draggingAnimationY = _dragAnimation.value.dy;
 
         _dragAnimation = Tween(
-            begin: Offset(0, _dragAnimation.value.dy),
-            end: Offset(
-              0,
-              _dragAnimation.value.dy + details.delta.dy,
-            )).animate(_dragAnimationController);
+          begin: Offset(0, _dragAnimation.value.dy),
+          end: Offset(
+            0,
+            _dragAnimation.value.dy + details.delta.dy,
+          ),
+        ).animate(_dragAnimationController);
       });
 
       widget.onCardUpdate?.call(details.delta);
@@ -156,14 +158,17 @@ class _CardWidgetState extends State<CardWidget> with TickerProviderStateMixin {
         _currentOpacity = 1.0;
 
         _dragAnimation = Tween(
-            begin: Offset(0, _dragAnimation.value.dy),
-            end: Offset(
-              0,
-              widget.positionTop,
-            )).animate(CurvedAnimation(
-          parent: _dragAnimationController,
-          curve: Curves.easeIn,
-        ));
+          begin: Offset(0, _dragAnimation.value.dy),
+          end: Offset(
+            0,
+            widget.positionTop,
+          ),
+        ).animate(
+          CurvedAnimation(
+            parent: _dragAnimationController,
+            curve: Curves.easeIn,
+          ),
+        );
 
         _draggingAnimationY = widget.positionTop;
       });
@@ -290,7 +295,7 @@ class CardBodyWidget extends StatelessWidget {
   final Function(CardModel)? onCardTap;
 
   const CardBodyWidget({
-    Key? key,
+    super.key,
     required this.position,
     required this.totalItem,
     required this.showIndicator,
@@ -305,7 +310,7 @@ class CardBodyWidget extends StatelessWidget {
     required this.handleVerticalEnd,
     required this.handleVerticalUpdate,
     required this.onCardTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -363,7 +368,7 @@ class CardChildWidget extends StatelessWidget {
   final Function(CardModel)? onCardTap;
 
   const CardChildWidget({
-    Key? key,
+    super.key,
     required this.position,
     required this.totalItem,
     required this.showIndicator,
@@ -371,7 +376,7 @@ class CardChildWidget extends StatelessWidget {
     required this.handleVerticalUpdate,
     required this.handleVerticalEnd,
     required this.onCardTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -391,43 +396,45 @@ class CardChildWidget extends StatelessWidget {
             BoxShadow(
               blurRadius: model.shadowBlurRadius,
               color: model.shadowColor,
-            )
+            ),
           ],
           color: model.backgroundColor,
         ),
-        child: position == (totalItem - 1) ? model.child : Stack(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(model.radius),
-                color: _getBodyColor(position, totalItem)
+        child: position == (totalItem - 1)
+            ? model.child
+            : Stack(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(model.radius),
+                      color: _getBodyColor(position, totalItem),
+                    ),
+                    child: Opacity(
+                      opacity: 0,
+                      child: model.child!,
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.all(12),
+                    child: Text(
+                      model.cardTitle ?? '',
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              child: Opacity(
-                opacity: 0,
-                child: model.child!
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.all(12),
-              child: Text(
-                model.cardTitle ?? "",
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white
-                ),
-              ),
-            )
-          ],
-        ),
       ),
     );
   }
 
   Color _getBodyColor(int position, int totalItem) {
-    if (position == totalItem-2) {
+    if (position == totalItem - 2) {
       return const Color(0xFFA0A3BD);
-    } else if (position == totalItem-3) {
+    } else if (position == totalItem - 3) {
       return const Color(0xFFD9DBE9);
     } else {
       return const Color(0xFFD9DBE9).withOpacity(0.7);
