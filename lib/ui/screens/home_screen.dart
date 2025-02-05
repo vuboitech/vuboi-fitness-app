@@ -2,7 +2,6 @@ import 'package:fitness/ui/screens/exersice_page.dart';
 import 'package:fitness/ui/widgets/base/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_statusbarcolor_ns/flutter_statusbarcolor_ns.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -63,8 +62,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
           statusBarBrightness: Brightness.light, //iOS
         ));
 
-        await FlutterStatusbarcolor.setNavigationBarColor(Color(0xFFEFF0F6));
-
 
         _isStatusBarAnimationTriggered = true;
       } else if (offset < threshold && _isStatusBarAnimationTriggered) {
@@ -72,8 +69,6 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin, 
           statusBarIconBrightness: Brightness.light,
           statusBarBrightness: Brightness.dark, //iOS
         ));
-
-        await FlutterStatusbarcolor.setNavigationBarColor(Colors.transparent);
 
         _isStatusBarAnimationTriggered = false;
       }
