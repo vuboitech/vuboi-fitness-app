@@ -210,7 +210,7 @@ class ExercisePage extends StatelessWidget {
           topLeft: Radius.circular(12),
           topRight: Radius.circular(12),
         ),
-        gradient: AppColor.seaHalberd,
+        gradient: AppColors.seaHalberd,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

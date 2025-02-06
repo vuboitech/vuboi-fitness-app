@@ -47,7 +47,7 @@ class Button extends StatelessWidget {
         return Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(borderRadius),
-            gradient: AppColor.seaHalberd,
+            gradient: AppColors.seaHalberd,
           ),
           child: TextButton(
             onPressed: onPressed,
@@ -184,7 +184,7 @@ class Button extends StatelessWidget {
                   SvgPicture.asset(
                     iconSvgUri!,
                     theme: SvgTheme(
-                      currentColor: iconColor ?? warnaIcon!,
+                      currentColor: iconColor ?? warnaIcon ?? textColor,
                     ),
                     height: iconSize,
                     width: iconSize,

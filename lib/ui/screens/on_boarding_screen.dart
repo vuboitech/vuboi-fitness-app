@@ -144,7 +144,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                     width: stackCardWidth,
                     child: _onboardingItem(
                       imageAsset: 'assets/images/img_dumbbell.png',
-                      gradient: AppColor.purpleBlack,
+                      gradient: AppColors.purpleBlack,
                       title: 'Power Progress',
                       description:
                           'Say hello to workouts that work for you! Our versatile exercise feature lets you search for programs that fit your goals and lifestyle',
@@ -160,7 +160,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                     width: stackCardWidth,
                     child: _onboardingItem(
                       imageAsset: 'assets/images/img_yoghurt.png',
-                      gradient: AppColor.cyanBlack,
+                      gradient: AppColors.cyanBlack,
                       title: 'Nourish Naturaly',
                       description:
                           'Say hello to workouts that work for you! Our versatile exercise feature lets you search for programs that fit your goals and lifestyle',
@@ -176,7 +176,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                     width: stackCardWidth,
                     child: _onboardingItem(
                       imageAsset: 'assets/images/img_social.png',
-                      gradient: AppColor.redBlack,
+                      gradient: AppColors.redBlack,
                       title: 'Strength in Unity',
                       description:
                           'Connect, share, and learn from your friends workout routines and recipes. build a community that inspires and motivates you to keep going',
