@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fitness/theme/colors.dart';
+import 'package:fitness/theme/themes/commons/app_theme.dart';
 import 'package:fitness/ui/screens/exercise_list_page.dart';
 import 'package:fitness/ui/widgets/base/button.dart';
 import 'package:fitness/ui/widgets/base/label.dart';
@@ -8,9 +9,14 @@ import 'package:fitness/ui/widgets/modules/stacks/card_stack_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ExercisePage extends StatelessWidget {
+class ExercisePage extends StatefulWidget {
   const ExercisePage({super.key});
 
+  @override
+  State<ExercisePage> createState() => _ExercisePageState();
+}
+
+class _ExercisePageState extends State<ExercisePage> {
   @override
   Widget build(BuildContext context) {
     final mockList = _buildMockList(context, size: 3);
@@ -114,11 +120,7 @@ class ExercisePage extends StatelessWidget {
             const SizedBox(height: 7),
             Text(
               text,
-              style: const TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 13,
-                color: Colors.black,
-              ),
+              style: context.theme.appTextThemeExtension.body13Medium,
             ),
           ],
         ),
@@ -162,12 +164,9 @@ class ExercisePage extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Hi, Dianne Ruscell',
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 24,
-              ),
+              style: context.theme.appTextThemeExtension.title24SemiBold,
             ),
             Row(
               children: [
@@ -177,21 +176,14 @@ class ExercisePage extends StatelessWidget {
                   width: 12,
                 ),
                 const SizedBox(width: 4),
-                const Text(
+                Text(
                   'Tier:',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 14,
-                  ),
+                  style: context.theme.appTextThemeExtension.body14Regular,
                 ),
                 const SizedBox(width: 2),
-                const Text(
+                Text(
                   'Gym Rat',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14,
-                    color: Color(0xFF14142A),
-                  ),
+                  style: context.theme.appTextThemeExtension.body14Medium,
                 ),
               ],
             ),
@@ -243,7 +235,7 @@ class ExercisePage extends StatelessWidget {
           Button(
             style: AppButtonStyle.secondary,
             iconSvgUri: 'assets/icons/ic_lightning.svg',
-            text: "Start Exercise",
+            text: 'Start Exercise',
             onPressed: () {},
           ),
         ],
@@ -251,7 +243,7 @@ class ExercisePage extends StatelessWidget {
     );
   }
 
-  _buildMockList(BuildContext context, {int size = 0}) {
+  List<CardModel> _buildMockList(BuildContext context, {int size = 0}) {
     final double containerWidth = MediaQuery.of(context).size.width - 32;
 
     var list = <CardModel>[];
@@ -259,11 +251,11 @@ class ExercisePage extends StatelessWidget {
       CardModel(
         radius: const Radius.circular(12),
         shadowColor: Colors.black.withOpacity(0.2),
-        cardTitle: "Hypertrophy Leg",
+        cardTitle: 'Hypertrophy Leg',
         child: SizedBox(
           height: 310,
           width: containerWidth,
-          child: _exerciseItem("Hypertrophy Leg"), // Whatever you want
+          child: _exerciseItem('Hypertrophy Leg'), // Whatever you want
         ),
       ),
     );
@@ -272,11 +264,11 @@ class ExercisePage extends StatelessWidget {
       CardModel(
         radius: const Radius.circular(12),
         shadowColor: Colors.black.withOpacity(0.2),
-        cardTitle: "Sikel",
+        cardTitle: 'Sikel',
         child: SizedBox(
           height: 310,
           width: containerWidth,
-          child: _exerciseItem("Sikel"), // Whatever you want
+          child: _exerciseItem('Sikel'), // Whatever you want
         ),
       ),
     );
@@ -285,11 +277,11 @@ class ExercisePage extends StatelessWidget {
       CardModel(
         radius: const Radius.circular(12),
         shadowColor: Colors.black.withOpacity(0.2),
-        cardTitle: "Asto",
+        cardTitle: 'Asto',
         child: SizedBox(
           height: 310,
           width: containerWidth,
-          child: _exerciseItem("Astoo"), // Whatever you want
+          child: _exerciseItem('Astoo'), // Whatever you want
         ),
       ),
     );
