@@ -1,4 +1,5 @@
 import 'package:fitness/theme/colors.dart';
+import 'package:fitness/theme/themes/commons/app_theme.dart';
 import 'package:fitness/ui/screens/home_screen.dart';
 import 'package:fitness/ui/widgets/base/button.dart';
 import 'package:fitness/ui/widgets/modules/app_bottom_sheet.dart';
@@ -79,21 +80,15 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.035),
-                const Text(
+                Text(
                   'Welcome to Vuboi',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 32,
+                  style: context.theme.appTextThemeExtension.title32Bold.copyWith(
                     color: Colors.black,
                   ),
                 ),
-                const Text(
+                Text(
                   'Discover Trifecta of Sustainable Fitness!',
-                  style: TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 20,
-                    color: Colors.black,
-                  ),
+                  style: context.theme.appTextThemeExtension.body20Regular,
                 ),
                 Container(
                   transform: Matrix4.translationValues(0.0, -10, 0.0),
@@ -144,7 +139,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                     width: stackCardWidth,
                     child: _onboardingItem(
                       imageAsset: 'assets/images/img_dumbbell.png',
-                      gradient: AppColor.purpleBlack,
+                      gradient: AppColors.purpleBlack,
                       title: 'Power Progress',
                       description:
                           'Say hello to workouts that work for you! Our versatile exercise feature lets you search for programs that fit your goals and lifestyle',
@@ -160,7 +155,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                     width: stackCardWidth,
                     child: _onboardingItem(
                       imageAsset: 'assets/images/img_yoghurt.png',
-                      gradient: AppColor.cyanBlack,
+                      gradient: AppColors.cyanBlack,
                       title: 'Nourish Naturaly',
                       description:
                           'Say hello to workouts that work for you! Our versatile exercise feature lets you search for programs that fit your goals and lifestyle',
@@ -176,7 +171,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                     width: stackCardWidth,
                     child: _onboardingItem(
                       imageAsset: 'assets/images/img_social.png',
-                      gradient: AppColor.redBlack,
+                      gradient: AppColors.redBlack,
                       title: 'Strength in Unity',
                       description:
                           'Connect, share, and learn from your friends workout routines and recipes. build a community that inspires and motivates you to keep going',
@@ -205,16 +200,12 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Padding(
+                  Padding(
                     padding: EdgeInsets.symmetric(horizontal: 22),
                     child: Text(
                       "Dive into your personalized fitness journey with Vuboi. Let's start making progress today!",
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 14,
-                        color: Colors.black,
-                      ),
+                      style: context.theme.appTextThemeExtension.body14Regular,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -260,12 +251,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
       body: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          const Text(
+          Text(
             'Log in to your Vuboi account to continue your fitness journey. Stay on track with your Progress',
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w400,
-            ),
+            style: context.theme.appTextThemeExtension.body14Regular,
           ),
           const SizedBox(height: 16),
           Button(
@@ -358,18 +346,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 24,
+                  style: context.theme.appTextThemeExtension.title24Bold.copyWith(
                     color: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 12),
                 Text(
                   description,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 16,
+                  style: context.theme.appTextThemeExtension.body14Regular.copyWith(
                     color: Colors.white,
                   ),
                 ),

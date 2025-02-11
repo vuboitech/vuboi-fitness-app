@@ -82,7 +82,7 @@ class AppBottomSheet {
               child: imageAssets != null
                   ? Image.asset(
                       imageAssets!,
-                      height: 78,
+                      height: 88,
                       width: 68,
                     )
                   : const SizedBox(),
