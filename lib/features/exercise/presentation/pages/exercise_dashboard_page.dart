@@ -1,22 +1,24 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:fitness/features/exercise/presentation/pages/exercise_list_page.dart';
+import 'package:fitness/features/home/presentation/widgets/base/button.dart';
+import 'package:fitness/features/home/presentation/widgets/base/label.dart';
+import 'package:fitness/features/home/presentation/widgets/modules/stacks/card_model.dart';
+import 'package:fitness/features/home/presentation/widgets/modules/stacks/card_stack_widget.dart';
 import 'package:fitness/theme/colors.dart';
 import 'package:fitness/theme/themes/commons/app_theme.dart';
-import 'package:fitness/ui/screens/exercise_list_page.dart';
-import 'package:fitness/ui/widgets/base/button.dart';
-import 'package:fitness/ui/widgets/base/label.dart';
-import 'package:fitness/ui/widgets/modules/stacks/card_model.dart';
-import 'package:fitness/ui/widgets/modules/stacks/card_stack_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class ExercisePage extends StatefulWidget {
-  const ExercisePage({super.key});
+class ExerciseDashboardPage extends StatefulWidget {
+  static const String routeName = '/exercise/dashboard';
+
+  const ExerciseDashboardPage({super.key});
 
   @override
-  State<ExercisePage> createState() => _ExercisePageState();
+  State<ExerciseDashboardPage> createState() => _ExerciseDashboardPageState();
 }
 
-class _ExercisePageState extends State<ExercisePage> {
+class _ExerciseDashboardPageState extends State<ExerciseDashboardPage> {
   @override
   Widget build(BuildContext context) {
     final mockList = _buildMockList(context, size: 3);
@@ -84,7 +86,71 @@ class _ExercisePageState extends State<ExercisePage> {
             cardList: mockList,
           ),
         ),
-        const SizedBox(height: 800),
+      ],
+    );
+  }
+
+  Widget _profileBar() {
+    return Row(
+      children: [
+        Container(
+          width: 48,
+          height: 48,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(
+              color: const Color(0xFFF7F7FC),
+              width: 2,
+            ),
+            boxShadow: const [
+              BoxShadow(
+                color: Color.fromRGBO(48, 49, 51, 0.08),
+                offset: Offset(0, 2),
+                blurRadius: 2,
+              ),
+              BoxShadow(
+                color: Color.fromRGBO(48, 49, 51, 0.08),
+                offset: Offset(0, 0),
+                blurRadius: 0.5,
+              ),
+            ],
+          ),
+          child: ClipOval(
+            child: CachedNetworkImage(
+              imageUrl:
+              'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Yanomami_Woman_%26_Child.jpg/1200px-Yanomami_Woman_%26_Child.jpg',
+            ),
+          ),
+        ),
+        const SizedBox(width: 16),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Hi, Dianne Ruscell',
+              style: context.theme.appTextTheme.title24SemiBold,
+            ),
+            Row(
+              children: [
+                SvgPicture.asset(
+                  'assets/icons/ic_diamond.svg',
+                  height: 12,
+                  width: 12,
+                ),
+                const SizedBox(width: 4),
+                Text(
+                  'Tier:',
+                  style: context.theme.appTextTheme.body14Regular,
+                ),
+                const SizedBox(width: 2),
+                Text(
+                  'Gym Rat',
+                  style: context.theme.appTextTheme.body14Medium,
+                ),
+              ],
+            ),
+          ],
+        ),
       ],
     );
   }
@@ -120,76 +186,11 @@ class _ExercisePageState extends State<ExercisePage> {
             const SizedBox(height: 7),
             Text(
               text,
-              style: context.theme.appTextThemeExtension.body13Medium,
+              style: context.theme.appTextTheme.body13Medium,
             ),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _profileBar() {
-    return Row(
-      children: [
-        Container(
-          width: 48,
-          height: 48,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: const Color(0xFFF7F7FC),
-              width: 2,
-            ),
-            boxShadow: const [
-              BoxShadow(
-                color: Color.fromRGBO(48, 49, 51, 0.08),
-                offset: Offset(0, 2),
-                blurRadius: 2,
-              ),
-              BoxShadow(
-                color: Color.fromRGBO(48, 49, 51, 0.08),
-                offset: Offset(0, 0),
-                blurRadius: 0.5,
-              ),
-            ],
-          ),
-          child: ClipOval(
-            child: CachedNetworkImage(
-              imageUrl:
-                  'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Yanomami_Woman_%26_Child.jpg/1200px-Yanomami_Woman_%26_Child.jpg',
-            ),
-          ),
-        ),
-        const SizedBox(width: 16),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Hi, Dianne Ruscell',
-              style: context.theme.appTextThemeExtension.title24SemiBold,
-            ),
-            Row(
-              children: [
-                SvgPicture.asset(
-                  'assets/icons/ic_diamond.svg',
-                  height: 12,
-                  width: 12,
-                ),
-                const SizedBox(width: 4),
-                Text(
-                  'Tier:',
-                  style: context.theme.appTextThemeExtension.body14Regular,
-                ),
-                const SizedBox(width: 2),
-                Text(
-                  'Gym Rat',
-                  style: context.theme.appTextThemeExtension.body14Medium,
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
     );
   }
 

@@ -117,9 +117,9 @@ ThemeData createAppTheme({
 }
 
 extension AppThemeExtension on ThemeData {
-  AppColorExtension get appColorExtension => extension<AppColorExtension>()!;
+  AppColorExtension get appColor => extension<AppColorExtension>()!;
 
-  AppTextThemeExtension get appTextThemeExtension => extension<AppTextThemeExtension>()!;
+  AppTextThemeExtension get appTextTheme => extension<AppTextThemeExtension>()!;
 }
 
 extension ThemeGetter on BuildContext {

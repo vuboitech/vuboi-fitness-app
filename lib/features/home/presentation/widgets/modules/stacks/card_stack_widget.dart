@@ -1,6 +1,7 @@
-import 'package:fitness/ui/widgets/modules/stacks/card_model.dart';
-import 'package:fitness/ui/widgets/modules/stacks/card_widget.dart';
 import 'package:flutter/material.dart';
+
+import 'card_model.dart';
+import 'card_widget.dart';
 
 typedef CardStackWidgetBuilder = CardModel Function(int index);
 

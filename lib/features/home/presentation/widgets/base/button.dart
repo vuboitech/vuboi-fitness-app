@@ -14,25 +14,77 @@ class Button extends StatelessWidget {
   final AppButtonStyle style;
   final EdgeInsets? padding;
   final String? iconSvgUri;
+  final Widget? icon;
   final double? iconSize;
-  final String text;
+  final String? text;
   final double? fontSize;
   final Color? iconColor;
   final FontWeight? fontWeight;
   final VoidCallback onPressed;
 
-  const Button({
+  const Button._({
     super.key,
-    this.style = AppButtonStyle.primary,
+    required this.style,
     this.padding,
     this.iconSvgUri,
+    this.icon,
     this.iconSize = 22,
-    required this.text,
+    this.text,
     this.fontSize,
     this.iconColor,
     this.fontWeight,
     required this.onPressed,
   });
+
+  factory Button({
+    Key? key,
+    AppButtonStyle style = AppButtonStyle.primary,
+    EdgeInsets? padding,
+    String? iconSvgUri,
+    double? iconSize,
+    required String text,
+    double? fontSize,
+    Color? iconColor,
+    FontWeight? fontWeight,
+    required VoidCallback onPressed,
+  }) {
+    return Button._(
+      key: key,
+      style: style,
+      padding: padding,
+      iconSvgUri: iconSvgUri,
+      iconSize: iconSize,
+      text: text,
+      fontSize: fontSize ,
+      iconColor: iconColor,
+      fontWeight: fontWeight,
+      onPressed: onPressed,
+    );
+  }
+
+  factory Button.icon({
+    Key? key,
+    AppButtonStyle style = AppButtonStyle.primary,
+    EdgeInsets? padding,
+    required Widget icon,
+    String? text,
+    double? fontSize,
+    Color? iconColor,
+    FontWeight? fontWeight,
+    required VoidCallback onPressed,
+  }) {
+    return Button._(
+      key: key,
+      style: style,
+      padding: padding,
+      icon: icon,
+      text: text,
+      fontSize: fontSize ,
+      iconColor: iconColor,
+      fontWeight: fontWeight,
+      onPressed: onPressed,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -110,37 +162,40 @@ class Button extends StatelessWidget {
         );
 
       case AppButtonStyle.active:
-        return Container(
-          padding: const EdgeInsets.all(1),
-          decoration: BoxDecoration(
-            gradient: const LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              stops: [0.0617, 0.9383],
-              colors: [
-                Color(0xFF5B86E5),
-                Color(0xFF36D1DC),
-              ],
-            ),
-            borderRadius: BorderRadius.circular(borderRadius),
-          ),
+        return GestureDetector(
+          onTap: onPressed,
           child: Container(
-            padding: padding ?? defaultButtonPadding,
+            padding: const EdgeInsets.all(1),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
               gradient: const LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                stops: [0.1358, 0.8678],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                stops: [0.0617, 0.9383],
                 colors: [
-                  Color(0xFFCEC1DE),
-                  Color(0xFF9E89BA),
+                  Color(0xFF5B86E5),
+                  Color(0xFF36D1DC),
                 ],
               ),
+              borderRadius: BorderRadius.circular(borderRadius),
             ),
-            child: _buildButtonChild(
-              textColor: Colors.black,
-              warnaIcon: Colors.black,
+            child: Container(
+              padding: padding ?? defaultButtonPadding,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
+                gradient: const LinearGradient(
+                  begin: Alignment.centerLeft,
+                  end: Alignment.centerRight,
+                  stops: [0.1358, 0.8678],
+                  colors: [
+                    Color(0xFFCEC1DE),
+                    Color(0xFF9E89BA),
+                  ],
+                ),
+              ),
+              child: _buildButtonChild(
+                textColor: Colors.black,
+                warnaIcon: Colors.black,
+              ),
             ),
           ),
         );
@@ -178,29 +233,30 @@ class Button extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisSize: mainAxisSize,
       children: <Widget>[
-        iconSvgUri != null
-            ? Row(
-                children: [
-                  SvgPicture.asset(
-                    iconSvgUri!,
-                    theme: SvgTheme(
-                      currentColor: iconColor ?? warnaIcon ?? textColor,
-                    ),
-                    height: iconSize,
-                    width: iconSize,
-                  ),
-                  const SizedBox(width: 8),
-                ],
-              )
-            : const SizedBox(),
-        Text(
-          text,
-          style: TextStyle(
-            color: textColor,
-            fontSize: fontSize ?? 16,
-            fontWeight: fontWeight ?? FontWeight.w600,
+        if (iconSvgUri != null)
+          Row(
+            children: [
+              SvgPicture.asset(
+                iconSvgUri!,
+                theme: SvgTheme(
+                  currentColor: iconColor ?? warnaIcon ?? textColor,
+                ),
+                height: iconSize,
+                width: iconSize,
+              ),
+              const SizedBox(width: 8),
+            ],
           ),
-        ),
+        if (icon != null) icon!,
+        if (text != null)
+          Text(
+            text!,
+            style: TextStyle(
+              color: textColor,
+              fontSize: fontSize ?? 16,
+              fontWeight: fontWeight ?? FontWeight.w600,
+            ),
+          ),
       ],
     );
   }
