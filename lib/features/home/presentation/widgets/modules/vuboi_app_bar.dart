@@ -1,5 +1,6 @@
-import 'package:fitness/ui/widgets/base/chip/chip_group.dart';
 import 'package:flutter/material.dart';
+
+import '../base/chip/chip_group.dart';
 
 class VuboiAppBar extends StatefulWidget {
   final String title;

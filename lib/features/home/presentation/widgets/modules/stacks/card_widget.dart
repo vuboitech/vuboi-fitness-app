@@ -1,6 +1,6 @@
-import 'package:fitness/ui/widgets/modules/stacks/card_model.dart';
 import 'package:flutter/material.dart';
 
+import 'card_model.dart';
 class CardWidget extends StatefulWidget {
   /// Current card model shown
   final CardModel model;

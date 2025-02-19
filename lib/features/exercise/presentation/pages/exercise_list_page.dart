@@ -1,12 +1,14 @@
-import 'package:fitness/ui/widgets/base/button.dart';
-import 'package:fitness/ui/widgets/base/chip/chip.dart';
-import 'package:fitness/ui/widgets/base/chip/chip_group.dart';
-import 'package:fitness/ui/widgets/modules/frame.dart';
-import 'package:fitness/ui/widgets/modules/vuboi_app_bar.dart';
+import 'package:fitness/features/home/presentation/widgets/base/button.dart';
+import 'package:fitness/features/home/presentation/widgets/base/chip/chip.dart';
+import 'package:fitness/features/home/presentation/widgets/base/chip/chip_group.dart';
+import 'package:fitness/features/home/presentation/widgets/modules/frame.dart';
+import 'package:fitness/features/home/presentation/widgets/modules/vuboi_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class ExerciseListPage extends StatefulWidget {
+  static const String routeName = '/exercise-list';
+
   const ExerciseListPage({
     super.key,
   });

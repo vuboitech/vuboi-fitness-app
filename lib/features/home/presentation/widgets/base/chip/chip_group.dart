@@ -1,5 +1,6 @@
-import 'package:fitness/ui/widgets/base/chip/chip.dart';
 import 'package:flutter/material.dart';
+
+import 'chip.dart';
 
 class ChipGroup extends StatelessWidget {
   final List<AppChip> chips;
