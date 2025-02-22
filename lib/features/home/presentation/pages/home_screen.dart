@@ -1,3 +1,4 @@
+import 'package:fitness/features/discover/presentation/pages/discover_page.dart';
 import 'package:fitness/features/exercise/presentation/pages/exercise_dashboard_page.dart';
 import 'package:fitness/features/home/presentation/widgets/base/button.dart';
 import 'package:fitness/features/home/presentation/widgets/modules/main_navigation_button.dart';
@@ -42,7 +43,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _navigation() {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.16,
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.centerLeft,
@@ -54,83 +54,13 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      child: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const SizedBox(height: 0),
-            SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(width: 12),
-                  Button.icon(
-                    style: GoRouter.of(context)
-                                .routerDelegate
-                                .currentConfiguration
-                                .uri
-                                .toString() ==
-                            ProfilePage.routeName
-                        ? AppButtonStyle.active
-                        : AppButtonStyle.secondary,
-                    icon: const Icon(
-                      Icons.person,
-                      color: Colors.white,
-                    ),
-                    padding: GoRouter.of(context)
-                        .routerDelegate
-                        .currentConfiguration
-                        .uri
-                        .toString() ==
-                        ProfilePage.routeName
-                        ? const EdgeInsets.all(6)
-                        : const EdgeInsets.all(10),
-                    onPressed: () => widget.navigationShell.goBranch(0),
-                  ),
-                  const SizedBox(width: 8),
-                  MainNavigationButton(
-                    onPressed: () => widget.navigationShell.goBranch(1),
-                    svg: 'assets/icons/ic_people.svg',
-                    text: 'Discover',
-                    isActive: GoRouter.of(context)
-                            .routerDelegate
-                            .currentConfiguration
-                            .uri
-                            .toString() ==
-                        '/discover',
-                  ),
-                  const SizedBox(width: 8),
-                  MainNavigationButton(
-                    onPressed: () => widget.navigationShell.goBranch(2),
-                    svg: 'assets/icons/ic_dumbbell.svg',
-                    text: 'Exercise',
-                    isActive: GoRouter.of(context)
-                            .routerDelegate
-                            .currentConfiguration
-                            .uri
-                            .toString() ==
-                        ExerciseDashboardPage.routeName,
-                  ),
-                  const SizedBox(width: 8),
-                  MainNavigationButton(
-                    onPressed: () => widget.navigationShell.goBranch(3),
-                    svg: 'assets/icons/ic_pizza.svg',
-                    text: 'Nutrition',
-                    isActive: GoRouter.of(context)
-                            .routerDelegate
-                            .currentConfiguration
-                            .uri
-                            .toString() ==
-                        '/nutrition',
-                  ),
-                  const SizedBox(width: 8),
-                ],
-              ),
-            ),
-            Container(
+      child: Stack(
+        children: [
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
               height: 12,
+              width: double.infinity,
               decoration: BoxDecoration(
                 color: context.theme.appColor.background,
                 borderRadius: const BorderRadius.only(
@@ -139,8 +69,83 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+          SafeArea(
+            child: Align(
+              alignment: Alignment.center,
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(width: 12),
+                    Button.icon(
+                      style: GoRouter.of(context)
+                                  .routerDelegate
+                                  .currentConfiguration
+                                  .uri
+                                  .toString() ==
+                              ProfilePage.routeName
+                          ? AppButtonStyle.active
+                          : AppButtonStyle.secondary,
+                      icon: const Icon(
+                        Icons.person,
+                        color: Colors.white,
+                      ),
+                      padding: GoRouter.of(context)
+                                  .routerDelegate
+                                  .currentConfiguration
+                                  .uri
+                                  .toString() ==
+                              ProfilePage.routeName
+                          ? const EdgeInsets.all(6)
+                          : const EdgeInsets.all(10),
+                      onPressed: () => widget.navigationShell.goBranch(0),
+                    ),
+                    const SizedBox(width: 8),
+                    MainNavigationButton(
+                      onPressed: () => widget.navigationShell.goBranch(1),
+                      svg: 'assets/icons/ic_people.svg',
+                      text: 'Discover',
+                      isActive: GoRouter.of(context)
+                              .routerDelegate
+                              .currentConfiguration
+                              .uri
+                              .toString() ==
+                          DiscoverPage.routeName,
+                    ),
+                    const SizedBox(width: 8),
+                    MainNavigationButton(
+                      onPressed: () => widget.navigationShell.goBranch(2),
+                      svg: 'assets/icons/ic_dumbbell.svg',
+                      text: 'Exercise',
+                      isActive: GoRouter.of(context)
+                              .routerDelegate
+                              .currentConfiguration
+                              .uri
+                              .toString() ==
+                          ExerciseDashboardPage.routeName,
+                    ),
+                    const SizedBox(width: 8),
+                    MainNavigationButton(
+                      onPressed: () => widget.navigationShell.goBranch(3),
+                      svg: 'assets/icons/ic_pizza.svg',
+                      text: 'Nutrition',
+                      isActive: GoRouter.of(context)
+                              .routerDelegate
+                              .currentConfiguration
+                              .uri
+                              .toString() ==
+                          '/nutrition',
+                    ),
+                    const SizedBox(width: 8),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -150,8 +155,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: Column(
         children: [
-          _navigation(),
-          Expanded(
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.16,
+            child: _navigation(),
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.84,
             child: widget.navigationShell,
           ),
         ],

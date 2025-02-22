@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fitness/features/exercise/presentation/pages/exercise_list_page.dart';
+import 'package:fitness/features/exercise/presentation/widgets/custom_expansion.dart';
 import 'package:fitness/features/home/presentation/widgets/base/button.dart';
 import 'package:fitness/features/home/presentation/widgets/base/label.dart';
 import 'package:fitness/features/home/presentation/widgets/modules/stacks/card_model.dart';
@@ -118,7 +119,7 @@ class _ExerciseDashboardPageState extends State<ExerciseDashboardPage> {
           child: ClipOval(
             child: CachedNetworkImage(
               imageUrl:
-              'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Yanomami_Woman_%26_Child.jpg/1200px-Yanomami_Woman_%26_Child.jpg',
+                  'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Yanomami_Woman_%26_Child.jpg/1200px-Yanomami_Woman_%26_Child.jpg',
             ),
           ),
         ),

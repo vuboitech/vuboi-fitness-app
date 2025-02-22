@@ -2,13 +2,13 @@ import 'dart:ui';
 
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:fitness/features/exercise/presentation/pages/exercise_dashboard_page.dart';
+import 'package:fitness/features/exercise/presentation/pages/ongoing_exercise_page.dart';
 import 'package:fitness/features/exercise/presentation/pages/schedule_page.dart';
 import 'package:fitness/theme/themes/commons/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class ExercisePage extends StatefulWidget {
-
   final Widget navigationShell;
 
   const ExercisePage({
@@ -27,7 +27,7 @@ class _ExercisePageState extends State<ExercisePage> {
       backgroundColor: Colors.transparent,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          setState(() {});
+          context.push(OngoingExercisePage.routeName);
         },
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
@@ -107,12 +107,9 @@ class _ExercisePageState extends State<ExercisePage> {
               context.push(SchedulePage.routeName);
               break;
             case 2:
-              context.go('/exercise/start');
-              break;
-            case 3:
               context.go('/exercise/report');
               break;
-            case 4:
+            case 3:
               context.go('/exercise/badge');
               break;
             default:

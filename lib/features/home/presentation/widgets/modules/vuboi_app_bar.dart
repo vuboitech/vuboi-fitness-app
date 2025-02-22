@@ -66,12 +66,12 @@ class _VuboiAppBarState extends State<VuboiAppBar> with TickerProviderStateMixin
                           style: IconButton.styleFrom(
                             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                           ),
-                          onPressed: () {},
+                          onPressed: () => Navigator.pop(context),
                         ),
 
-                        !_searchMode ? const Text(
-                          'Exercise',
-                          style: TextStyle(
+                        !_searchMode ? Text(
+                          widget.title,
+                          style: const TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.w800,
                           ),
