@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../variant.dart';
+import '../themes/variant.dart';
 
 class AppTheme extends StatefulWidget {
   final ValueWidgetBuilder<AppThemeData>? builder;

@@ -3,7 +3,7 @@ import 'package:fitness/features/exercise/presentation/pages/exercise_dashboard_
 import 'package:fitness/features/home/presentation/widgets/base/button.dart';
 import 'package:fitness/features/home/presentation/widgets/modules/main_navigation_button.dart';
 import 'package:fitness/features/profile/presentation/pages/profile_page.dart';
-import 'package:fitness/theme/themes/commons/app_theme.dart';
+import 'package:fitness/theme/lib.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';

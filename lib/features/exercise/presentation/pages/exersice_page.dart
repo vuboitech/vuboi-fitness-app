@@ -2,9 +2,9 @@ import 'dart:ui';
 
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:fitness/features/exercise/presentation/pages/exercise_dashboard_page.dart';
-import 'package:fitness/features/exercise/presentation/pages/ongoing_exercise_page.dart';
+import 'package:fitness/features/exercise/presentation/pages/exercise_list_page_new.dart';
 import 'package:fitness/features/exercise/presentation/pages/schedule_page.dart';
-import 'package:fitness/theme/themes/commons/app_theme.dart';
+import 'package:fitness/theme/lib.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -27,7 +27,7 @@ class _ExercisePageState extends State<ExercisePage> {
       backgroundColor: Colors.transparent,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          context.push(OngoingExercisePage.routeName);
+          context.push(ExerciseListPageNew.routeName);
         },
         clipBehavior: Clip.antiAlias,
         shape: RoundedRectangleBorder(
@@ -81,7 +81,7 @@ class _ExercisePageState extends State<ExercisePage> {
               const SizedBox(height: 4),
               Text(
                 labels[index],
-                style: context.theme.appTextTheme.body14Medium.copyWith(
+                style: context.theme.appTextTheme.textSmMedium.copyWith(
                   color: isActive
                       ? context.theme.colorScheme.primary
                       : context.theme.colorScheme.onSurface,

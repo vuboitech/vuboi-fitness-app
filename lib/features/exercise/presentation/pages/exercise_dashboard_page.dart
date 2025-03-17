@@ -1,13 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fitness/features/exercise/presentation/pages/exercise_list_page.dart';
-import 'package:fitness/features/exercise/presentation/widgets/custom_expansion.dart';
 import 'package:fitness/features/home/presentation/widgets/base/button.dart';
 import 'package:fitness/features/home/presentation/widgets/base/label.dart';
 import 'package:fitness/features/home/presentation/widgets/modules/stacks/card_model.dart';
 import 'package:fitness/features/home/presentation/widgets/modules/stacks/card_stack_widget.dart';
-import 'package:fitness/theme/colors.dart';
-import 'package:fitness/theme/themes/commons/app_theme.dart';
-import 'package:flutter/material.dart';
+import 'package:fitness/theme/lib.dart';
+import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
+import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class ExerciseDashboardPage extends StatefulWidget {
@@ -129,7 +128,7 @@ class _ExerciseDashboardPageState extends State<ExerciseDashboardPage> {
           children: [
             Text(
               'Hi, Dianne Ruscell',
-              style: context.theme.appTextTheme.title24SemiBold,
+              style: context.theme.appTextTheme.displayXsSemibold,
             ),
             Row(
               children: [
@@ -141,12 +140,12 @@ class _ExerciseDashboardPageState extends State<ExerciseDashboardPage> {
                 const SizedBox(width: 4),
                 Text(
                   'Tier:',
-                  style: context.theme.appTextTheme.body14Regular,
+                  style: context.theme.appTextTheme.textSmRegular,
                 ),
                 const SizedBox(width: 2),
                 Text(
                   'Gym Rat',
-                  style: context.theme.appTextTheme.body14Medium,
+                  style: context.theme.appTextTheme.textSmMedium,
                 ),
               ],
             ),
@@ -187,7 +186,7 @@ class _ExerciseDashboardPageState extends State<ExerciseDashboardPage> {
             const SizedBox(height: 7),
             Text(
               text,
-              style: context.theme.appTextTheme.body13Medium,
+              style: context.theme.appTextTheme.textSmMedium,
             ),
           ],
         ),

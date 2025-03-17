@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 
 class AppColors {
-  static const Color primaryColor = Color(0xFF6503CE);
+  // static const Color primaryColor = Color(0xFF6503CE);
+  static const Color primaryColor = Color(0xFF7F56D9);
 
   static LinearGradient seaHalberd = const LinearGradient(
     begin: Alignment.topLeft,

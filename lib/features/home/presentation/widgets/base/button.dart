@@ -1,4 +1,4 @@
-import 'package:fitness/theme/colors.dart';
+import 'package:fitness/theme/lib.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 

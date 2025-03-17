@@ -1,8 +1,7 @@
 import 'package:fitness/router.dart';
-import 'package:fitness/theme/variant.dart';
 import 'package:flutter/material.dart';
 
-import 'theme/theme_widgets/inherited_theme.dart';
+import 'theme/lib.dart';
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});

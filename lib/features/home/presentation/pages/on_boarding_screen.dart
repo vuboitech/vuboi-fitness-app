@@ -3,8 +3,7 @@ import 'package:fitness/features/home/presentation/widgets/base/button.dart';
 import 'package:fitness/features/home/presentation/widgets/modules/app_bottom_sheet.dart';
 import 'package:fitness/features/home/presentation/widgets/modules/stacks/card_model.dart';
 import 'package:fitness/features/home/presentation/widgets/modules/stacks/card_stack_widget.dart';
-import 'package:fitness/theme/colors.dart';
-import 'package:fitness/theme/themes/commons/app_theme.dart';
+import 'package:fitness/theme/lib.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_wear_os_connectivity/flutter_wear_os_connectivity.dart';
@@ -85,13 +84,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                 SizedBox(height: MediaQuery.of(context).size.height * 0.035),
                 Text(
                   'Welcome to Vuboi',
-                  style: context.theme.appTextTheme.title32Bold.copyWith(
-                    color: Colors.black,
-                  ),
+                  style: context.theme.appTextTheme.displaySmBold,
                 ),
                 Text(
                   'Discover Trifecta of Sustainable Fitness!',
-                  style: context.theme.appTextTheme.body20Regular,
+                  style: context.theme.appTextTheme.textXlRegular,
                 ),
                 Container(
                   transform: Matrix4.translationValues(0.0, -10, 0.0),
@@ -208,7 +205,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
                     child: Text(
                       "Dive into your personalized fitness journey with Vuboi. Let's start making progress today!",
                       textAlign: TextAlign.center,
-                      style: context.theme.appTextTheme.body14Regular,
+                      style: context.theme.appTextTheme.textSmRegular,
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -256,7 +253,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
         children: [
           Text(
             'Log in to your Vuboi account to continue your fitness journey. Stay on track with your Progress',
-            style: context.theme.appTextTheme.body14Regular,
+            style: context.theme.appTextTheme.textSmRegular,
           ),
           const SizedBox(height: 16),
           Button(
@@ -342,14 +339,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen>
               children: [
                 Text(
                   title,
-                  style: context.theme.appTextTheme.title24Bold.copyWith(
+                  style: context.theme.appTextTheme.displayXsBold.copyWith(
                     color: Colors.white,
                   ),
                 ),
                 const SizedBox(height: 12),
                 Text(
                   description,
-                  style: context.theme.appTextTheme.body14Regular.copyWith(
+                  style: context.theme.appTextTheme.textSmRegular.copyWith(
                     color: Colors.white,
                   ),
                 ),

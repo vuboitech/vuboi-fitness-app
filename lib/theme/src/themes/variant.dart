@@ -1,6 +1,7 @@
-import 'package:fitness/theme/pink.dart';
-import 'package:fitness/theme/purple.dart';
 import 'package:flutter/material.dart';
+
+import 'pink.dart';
+import 'purple.dart';
 
 enum AppThemeVariant {
   purple(Color(0xFF5C03BC)),

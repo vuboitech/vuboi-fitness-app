@@ -1,6 +1,5 @@
-import 'package:fitness/theme/themes/commons/app_theme.dart';
-
 import 'colors.dart';
+import 'commons/app_theme.dart';
 
 const _primaryColor = AppColors.primaryColor;
 
