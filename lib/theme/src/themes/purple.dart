@@ -1,7 +1,8 @@
-import 'colors.dart';
+import 'package:fitness/theme/src/themes/token/colors.dart';
+
 import 'commons/app_theme.dart';
 
-const _primaryColor = AppColors.primaryColor;
+final _primaryColor = AppColors.colorsBrand600;
 
 final purpleLight = createAppLightTheme(
   primaryColor: _primaryColor,

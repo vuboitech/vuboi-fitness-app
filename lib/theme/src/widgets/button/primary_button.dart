@@ -1,3 +1,5 @@
+import 'package:fitness/theme/src/themes/commons/app_theme.dart';
+import 'package:fitness/theme/src/themes/token/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -28,25 +30,56 @@ class PrimaryButton extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     final ButtonColors buttonColors = _getButtonColors(theme);
 
+    var defaultButtonPadding = iconSvgUri != null
+        ? const EdgeInsets.symmetric(horizontal: 12, vertical: 8)
+        : const EdgeInsets.symmetric(horizontal: 12, vertical: 12);
+
     return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: buttonColors.background,
-        foregroundColor: buttonColors.foreground,
-        side: buttonColors.border != null ? BorderSide(
-          color: buttonColors.border!,
-          width: 1,
-        ) : null,
-        elevation: 1,
-        shadowColor: variant != ButtonVariant.tertiary
-            ? Colors.black.withOpacity(0.1)
-            : Colors.transparent,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
+      style: ButtonStyle(
+        backgroundColor: WidgetStateProperty.resolveWith<Color>((Set<WidgetState> states) {
+            if (states.contains(WidgetState.pressed) || states.contains(WidgetState.hovered)) {
+              return buttonColors.backgroundHover;
+            }
+            return buttonColors.background;
+          },
         ),
+        foregroundColor: WidgetStateProperty.resolveWith<Color>((Set<WidgetState> states) {
+            if (states.contains(WidgetState.pressed) || states.contains(WidgetState.hovered)) {
+              return buttonColors.foregroundHover;
+            }
+            return buttonColors.foreground;
+          },
+        ),
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        padding: WidgetStateProperty.all<EdgeInsetsGeometry>(EdgeInsets.zero),
+        minimumSize: WidgetStateProperty.all<Size>(Size.zero),
+        elevation: WidgetStateProperty.all<double>(0),
+        shadowColor: WidgetStateProperty.all<Color>(variant != ButtonVariant.tertiary
+            ? Colors.black.withOpacity(0.1)
+            : Colors.transparent),
+        shape: WidgetStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+        splashFactory: InkRipple.splashFactory,
       ),
       onPressed: onPressed,
-      child: _buildButtonChild(
-        contentColor: buttonColors.contentColor,
+      child: Container(
+        padding: defaultButtonPadding,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          border: Border.all(
+            color: buttonColors.border ?? Colors.transparent,
+            width: 1,
+            style: buttonColors.border != null
+                ? BorderStyle.solid
+                : BorderStyle.none,
+          ),
+        ),
+        child: _buildButtonChild(
+          contentColor: buttonColors.foreground,
+        ),
       ),
     );
   }
@@ -93,36 +126,44 @@ class PrimaryButton extends StatelessWidget {
   }
 
   ButtonColors _getButtonColors(ThemeData theme) {
-    Color mainColor = theme.colorScheme.primary;
+    Color mainColor = theme.appColor.primary;
 
     switch (variant) {
       case ButtonVariant.primary:
         return ButtonColors(
           background: mainColor,
-          foreground: Colors.white,
+          backgroundHover: AppColors.colorsBrand700,
+          foreground: AppColors.colorsBaseWhite,
+          foregroundHover: AppColors.colorsBaseWhite,
           border: null,
-          contentColor: Colors.white,
+          borderHover: null,
         );
       case ButtonVariant.secondary:
         return ButtonColors(
-          background: Colors.transparent,
-          foreground: Colors.black.withOpacity(0.05),
-          border: Color(0xFFD5D7DA),
-          contentColor: Colors.black,
+          background: theme.appColor.btnSecondaryBg,
+          backgroundHover: theme.appColor.btnSecondaryBgHover,
+          foreground: theme.appColor.btnSecondaryFg,
+          foregroundHover: theme.appColor.btnSecondaryFgHover,
+          border: theme.appColor.btnSecondaryBorder,
+          borderHover: theme.appColor.btnSecondaryBorderHover,
         );
       case ButtonVariant.secondaryColor:
         return ButtonColors(
           background: Colors.transparent,
+          backgroundHover: Colors.transparent,
           foreground: mainColor,
-          border: Color(0xFFD5D7DA),
-          contentColor: mainColor,
+          foregroundHover: mainColor,
+          border: theme.appColor.borderSecondary,
+          borderHover: theme.appColor.borderSecondary,
         );
       case ButtonVariant.tertiary:
         return ButtonColors(
           background: Colors.transparent,
+          backgroundHover: Colors.transparent,
           foreground: mainColor,
+          foregroundHover: mainColor,
           border: Colors.transparent,
-          contentColor: mainColor,
+          borderHover: Colors.transparent,
         );
     }
   }

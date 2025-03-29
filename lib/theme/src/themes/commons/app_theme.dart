@@ -1,3 +1,4 @@
+import 'package:fitness/theme/src/themes/extensions/shadow_extension.dart';
 import 'package:flutter/material.dart';
 
 import '../extensions/color_extension.dart';
@@ -57,54 +58,6 @@ AppTextThemeExtension createAppTextThemeExtension({
   );
 }
 
-ThemeData createAppDarkTheme({
-  required Color primaryColor,
-  Color? elevatedButtonColor,
-  Color? elevatedButtonTextColor,
-  bool? useMaterial3 = true,
-}) {
-  AppColorExtension darkAppColor = AppColorExtension(
-    primary: primaryColor,
-    success: const Color(0xFF00C48C),
-    divider: const Color(0xFFE0E0E0),
-    background: const Color(0xFF121212),
-    surface: const Color(0xFF121212),
-
-    bgPrimary: AppColors.colorsGrayDarkMode950,
-    bgSecondary: AppColors.colorsGrayDarkMode900,
-    bgTertiary: AppColors.colorsGrayDarkMode800,
-    bgActive: AppColors.colorsGrayDarkMode800,
-
-    textPrimary: AppColors.colorsGrayDarkMode50,
-    textSecondary: AppColors.colorsGrayDarkMode300,
-    textTertiary: AppColors.colorsGrayDarkMode400,
-    textDisabled: AppColors.colorsGrayDarkMode500,
-    textPlaceholder: AppColors.colorsGrayDarkMode500,
-
-    borderPrimary: AppColors.colorsGrayDarkMode700,
-    borderSecondary: AppColors.colorsGrayDarkMode800,
-    borderTertiary: AppColors.colorsGrayDarkMode800,
-    borderDisabled: AppColors.colorsGrayDarkMode700,
-  );
-
-  final darkTextTheme = createAppTextThemeExtension(
-    headingTextColor: darkAppColor.textPrimary,
-    bodyTextColor: darkAppColor.textSecondary,
-  );
-
-  final colorScheme = ColorScheme.fromSeed(
-    seedColor: darkAppColor.primary,
-    brightness: Brightness.dark,
-    surface: darkAppColor.surface,
-  );
-
-  return createAppTheme(
-    colorScheme: colorScheme,
-    appColorExtension: darkAppColor,
-    appTextThemeExtension: darkTextTheme,
-  );
-}
-
 ThemeData createAppLightTheme({
   required Color primaryColor,
   Color? elevatedButtonColor,
@@ -123,6 +76,11 @@ ThemeData createAppLightTheme({
     bgTertiary: AppColors.colorsGrayLightMode100,
     bgActive: AppColors.colorsGrayLightMode50,
 
+    fgPrimary: AppColors.colorsGrayLightMode900,
+    fgSecondary: AppColors.colorsGrayLightMode700,
+    fgTertiary: AppColors.colorsGrayLightMode600,
+    fgQuinary: AppColors.colorsGrayLightMode400,
+
     textPrimary: AppColors.colorsGrayLightMode900,
     textSecondary: AppColors.colorsGrayLightMode700,
     textTertiary: AppColors.colorsGrayLightMode600,
@@ -133,11 +91,31 @@ ThemeData createAppLightTheme({
     borderSecondary: AppColors.colorsGrayLightMode200,
     borderTertiary: AppColors.colorsGrayLightMode100,
     borderDisabled: AppColors.colorsGrayLightMode300,
+    borderError: AppColors.colorsError500,
+    borderErrorSubtle: AppColors.colorsError300,
+
+    btnSecondaryBg: AppColors.colorsBaseWhite,
+    btnSecondaryBgHover: AppColors.colorsGrayLightMode50,
+    btnSecondaryFg: AppColors.colorsGrayLightMode700,
+    btnSecondaryFgHover: AppColors.colorsGrayLightMode800,
+    btnSecondaryBorder: AppColors.colorsGrayLightMode300,
+    btnSecondaryBorderHover: AppColors.colorsGrayLightMode300,
   );
 
   final lightTextTheme = createAppTextThemeExtension(
-    headingTextColor: lightAppColor.primary,
-    bodyTextColor: const Color(0xFF000000),
+    headingTextColor: lightAppColor.textSecondary,
+    bodyTextColor: lightAppColor.textTertiary,
+  );
+
+  final lightShadowTheme = AppShadowExtension(
+    shadowXs: [
+      const BoxShadow(
+        color: Color(0x0D0A0D12),
+        blurRadius: 2,
+        offset: Offset(0.0, 1.0),
+        spreadRadius: 0,
+      ),
+    ],
   );
 
   final colorScheme = ColorScheme.fromSeed(
@@ -150,6 +128,81 @@ ThemeData createAppLightTheme({
     colorScheme: colorScheme,
     appColorExtension: lightAppColor,
     appTextThemeExtension: lightTextTheme,
+    appShadowExtension: lightShadowTheme,
+  );
+}
+
+ThemeData createAppDarkTheme({
+  required Color primaryColor,
+  Color? elevatedButtonColor,
+  Color? elevatedButtonTextColor,
+  bool? useMaterial3 = true,
+}) {
+  AppColorExtension darkAppColor = AppColorExtension(
+    primary: primaryColor,
+    success: const Color(0xFF00C48C),
+    divider: const Color(0xFFE0E0E0),
+    background: const Color(0xFF121212),
+    surface: const Color(0xFF121212),
+
+    bgPrimary: AppColors.colorsGrayDarkMode950,
+    bgSecondary: AppColors.colorsGrayDarkMode900,
+    bgTertiary: AppColors.colorsGrayDarkMode800,
+    bgActive: AppColors.colorsGrayDarkMode800,
+
+    fgPrimary: AppColors.colorsBaseWhite,
+    fgSecondary: AppColors.colorsGrayDarkMode300,
+    fgTertiary: AppColors.colorsGrayDarkMode400,
+    fgQuinary: AppColors.colorsGrayDarkMode500,
+
+    textPrimary: AppColors.colorsGrayDarkMode50,
+    textSecondary: AppColors.colorsGrayDarkMode300,
+    textTertiary: AppColors.colorsGrayDarkMode400,
+    textDisabled: AppColors.colorsGrayDarkMode500,
+    textPlaceholder: AppColors.colorsGrayDarkMode500,
+
+    borderPrimary: AppColors.colorsGrayDarkMode700,
+    borderSecondary: AppColors.colorsGrayDarkMode800,
+    borderTertiary: AppColors.colorsGrayDarkMode800,
+    borderDisabled: AppColors.colorsGrayDarkMode700,
+    borderError: AppColors.colorsError400,
+    borderErrorSubtle: AppColors.colorsError400,
+
+    btnSecondaryBg: AppColors.colorsGrayDarkMode900,
+    btnSecondaryBgHover: AppColors.colorsGrayDarkMode800,
+    btnSecondaryFg: AppColors.colorsGrayDarkMode300,
+    btnSecondaryFgHover: AppColors.colorsGrayDarkMode100,
+    btnSecondaryBorder: AppColors.colorsGrayDarkMode700,
+    btnSecondaryBorderHover: AppColors.colorsGrayDarkMode700,
+  );
+
+  final darkTextTheme = createAppTextThemeExtension(
+    headingTextColor: darkAppColor.textSecondary,
+    bodyTextColor: darkAppColor.textTertiary,
+  );
+
+  final darkShadowTheme = AppShadowExtension(
+    shadowXs: [
+      const BoxShadow(
+        color: AppColors.colorsBaseTransparent,
+        blurRadius: 2,
+        offset: Offset(0.0, 1.0),
+        spreadRadius: 0,
+      ),
+    ],
+  );
+
+  final colorScheme = ColorScheme.fromSeed(
+    seedColor: darkAppColor.primary,
+    brightness: Brightness.dark,
+    surface: darkAppColor.surface,
+  );
+
+  return createAppTheme(
+    colorScheme: colorScheme,
+    appColorExtension: darkAppColor,
+    appTextThemeExtension: darkTextTheme,
+    appShadowExtension: darkShadowTheme,
   );
 }
 
@@ -158,6 +211,7 @@ ThemeData createAppTheme({
   bool? useMaterial3 = true,
   required AppColorExtension appColorExtension,
   required AppTextThemeExtension appTextThemeExtension,
+  required AppShadowExtension appShadowExtension,
 }) {
   return ThemeData(
     colorScheme: colorScheme,
@@ -166,6 +220,7 @@ ThemeData createAppTheme({
     extensions: [
       appColorExtension,
       appTextThemeExtension,
+      appShadowExtension,
     ],
   );
 }
@@ -174,6 +229,7 @@ extension AppThemeExtension on ThemeData {
   AppColorExtension get appColor => extension<AppColorExtension>()!;
 
   AppTextThemeExtension get appTextTheme => extension<AppTextThemeExtension>()!;
+  AppShadowExtension get appShadow => extension<AppShadowExtension>()!;
 }
 
 extension ThemeGetter on BuildContext {
