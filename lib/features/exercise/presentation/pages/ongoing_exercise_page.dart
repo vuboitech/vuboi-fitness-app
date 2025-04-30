@@ -1,52 +1,195 @@
-import 'package:fitness/features/exercise/domain/models/exercise_item.dart';
-import 'package:fitness/features/exercise/presentation/widgets/custom_expansion.dart';
-import 'package:fitness/features/home/presentation/widgets/modules/vuboi_app_bar.dart';
+import 'package:fitness/features/exercise/presentation/widgets/ongoing_exercise_item.dart';
+import 'package:fitness/theme/lib.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
 class OngoingExercisePage extends StatefulWidget {
-  static const routeName = '/exercise/ongoing';
+  static const String routeName = '/exercise/ongoing';
 
-  const OngoingExercisePage({super.key});
+  const OngoingExercisePage({
+    super.key,
+  });
 
   @override
   State<OngoingExercisePage> createState() => _OngoingExercisePageState();
 }
 
 class _OngoingExercisePageState extends State<OngoingExercisePage> {
-  final List<ExerciseItem> items = List.generate(
-    10,
-    (index) => ExerciseItem(
-      id: index.toString(),
-      title: 'Item ${index + 1}',
-      content: 'Content of item ${index + 1}',
-      isExpanded: true,
-    ),
-  );
-  List<ExerciseItem> previousStates = [];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              gradient: AppColors.purpleBlack,
+            ),
+            child: SafeArea(
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.only(
+                      left: 16,
+                      right: 16,
+                      top: 24,
+                      bottom: 24,
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              '👑 Chest Pride',
+                              style: context.theme.appTextTheme.textXlBold
+                                  .copyWith(
+                                color: Colors.white,
+                              ),
+                            ),
+                            const SizedBox(height: 2),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                SvgPicture.asset(
+                                  'assets/icons/ic_clock.svg',
+                                  width: 14,
+                                  height: 14,
+                                  color: const Color(0xFFFFFFCC),
+                                ),
+                                const SizedBox(width: 4),
+                                Text(
+                                  '12 min 20 sec',
+                                  style: context.theme.appTextTheme.textSmMedium
+                                      .copyWith(
+                                    color: const Color(0xFFFFFFCC),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Opacity(
+                              opacity: 0.8,
+                              child: PrimaryButton(
+                                variant: ButtonVariant.secondary,
+                                text: 'End',
+                                onPressed: () {
+                                  // Handle start button press
+                                },
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Opacity(
+                              opacity: 0.8,
+                              child: PrimaryButton(
+                                variant: ButtonVariant.secondary,
+                                iconSvgUri: 'assets/icons/ic_settings.svg',
+                                onPressed: () {
+                                  // Handle pause button press
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 8,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: context.theme.appColor.background,
+                      borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(8),
+                        topRight: Radius.circular(8),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Expanded(
+            child: ReorderableExpandableListExample(),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
-  int? highlightedIndex;
+class ListItem {
+  final String id;
+  final String title;
+  final String content;
+
+  ListItem({
+    required this.id,
+    required this.title,
+    required this.content,
+  });
+}
+
+class ReorderableExpandableListExample extends StatefulWidget {
+  const ReorderableExpandableListExample({super.key});
+
+  @override
+  State<ReorderableExpandableListExample> createState() =>
+      _ReorderableExpandableListExampleState();
+}
+
+class _ReorderableExpandableListExampleState
+    extends State<ReorderableExpandableListExample> {
+  late List<ListItem> _items;
+
+  // Map to track expansion state of each item by its ID
+  final Map<String, bool> _expandedState = {};
+
+  // Flag to track if drag is in progress
+  bool _isDragging = false;
 
   final AutoScrollController _autoScrollController = AutoScrollController();
 
+  int? highlightedIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _items = List.generate(
+      8,
+      (index) => ListItem(
+        id: 'item-$index',
+        title: 'Item ${index + 1}',
+        content:
+            'This is the content for item ${index + 1}. You can put any widget here.',
+      ),
+    );
+
+    // Initialize all items as expanded
+    for (var item in _items) {
+      _expandedState[item.id] = true;
+    }
+  }
+
   void _onReorder(int oldIndex, int newIndex) async {
-    if (newIndex > oldIndex) newIndex--; // Adjust index for correct movement
     setState(() {
-      final item = items.removeAt(oldIndex);
-      items.insert(newIndex, item);
+      if (oldIndex < newIndex) {
+        newIndex -= 1;
+      }
+      final item = _items.removeAt(oldIndex);
+      _items.insert(newIndex, item);
+
+      // Set dragging flag to false as reorder is complete
+      _isDragging = false;
+
       highlightedIndex = newIndex;
     });
 
-    setState(() {
-      items[newIndex].isExpanded = true;
-    });
-
-    // restore previous expansion states
-    // for (var i = 0; i < items.length; i++) {
-    //   items[i].isExpanded = previousStates.where((element) => element.id == items[i].id).first.isExpanded;
-    // }
-
-    // Remove highlight after some time
     await Future.delayed(const Duration(milliseconds: 250));
     if (mounted) {
       setState(() {
@@ -62,327 +205,158 @@ class _OngoingExercisePageState extends State<OngoingExercisePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          VuboiAppBar(
-            title: 'Sikel Day',
-            onSearch: (String searchQuery) {},
+    return ReorderableListView.builder(
+      scrollController: _autoScrollController,
+      padding: const EdgeInsets.all(16),
+      proxyDecorator: (child, index, animation) {
+        return Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            border: Border.all(
+              color: context.theme.appColor.borderSecondary,
+              width: 0.5,
+            ),
+            boxShadow: highlightedIndex == index
+                ? [
+              const BoxShadow(
+                color: Colors.blue,
+                blurRadius: 4,
+                offset: Offset(0.0, 1.0),
+                spreadRadius: 1,
+              ),
+            ]
+                : context.theme.appShadow.shadowXs,
           ),
-          Expanded(
-            child: ReorderableListView.builder(
-              scrollController: _autoScrollController,
-              itemCount: items.length,
-              onReorder: _onReorder,
-              onReorderStart: (index) {
-                setState(() {
-                  // Save previous expansion states
-                  previousStates = items
-                      .map(
-                        (item) => ExerciseItem(
-                          id: item.id,
-                          title: item.title,
-                          content: item.content,
-                          isExpanded: item.isExpanded,
-                        ),
-                      )
-                      .toList();
-
-                  // Collapse **all** items before dragging, including the dragged one
-                  for (var element in items) {
-                    element.isExpanded = false;
-                  }
-                });
-
-                print(previousStates[index].isExpanded); // Debugging
-                print(items[index].isExpanded); // Should be false now
-              },
-              padding: const EdgeInsets.all(8),
-              proxyDecorator: (widget, index, animation) {
-                return Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      const BoxShadow(
-                        color: Colors.black12,
-                        blurRadius: 4,
-                      ),
-                    ],
-                  ),
-                  child: TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      padding: EdgeInsets.zero,
-                      minimumSize: const Size(0, 0),
-                      shape: const RoundedRectangleBorder(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(12),
-                          topRight: Radius.circular(12),
-                        ),
+          child: Row(
+            children: [
+              Expanded(
+                child: Row(
+                  children: [
+                    Container(
+                      height: 52,
+                      width: 52,
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(4),
                       ),
                     ),
-                    child: Container(
-                      padding: const EdgeInsets.only(
-                        left: 16,
-                        right: 16,
-                        top: 16,
-                        bottom: 8,
-                      ),
-                      child: Row(
-                        key: ValueKey(items[index]),
-                        children: [
-                          Expanded(
-                            child: Row(
-                              children: [
-                                Container(
-                                  height: 52,
-                                  width: 52,
-                                  decoration: BoxDecoration(
-                                    color: Colors.blue,
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                ),
-                                const SizedBox(width: 12),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                    const SizedBox(width: 12),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Lat Pulldown•Cable',
+                          style: context.theme.appTextTheme.textSmMedium,
+                        ),
+                        SizedBox(
+                          height: 20,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: 3,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, item) {
+                              return Container(
+                                margin: const EdgeInsets.only(right: 10),
+                                child: Row(
                                   children: [
-                                    const Text(
-                                      'Lat Pulldown•Cable',
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 16,
+                                    Container(
+                                      height: 6,
+                                      width: 6,
+                                      margin: const EdgeInsets.only(right: 5),
+                                      decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.green,
                                       ),
                                     ),
                                     Text(
-                                      items[index].content,
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                      ),
-                                    ),
+                                        'Hewo'
+                                    )
                                   ],
                                 ),
-                              ],
-                            ),
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              ReorderableDragStartListener(
-                                index: index,
-                                child: const Icon(Icons.drag_indicator),
-                              ),
-                              const Icon(Icons.expand_more),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              },
-              itemBuilder: (context, index) {
-                return AutoScrollTag(
-                  key: ValueKey(items[index]),
-                  controller: _autoScrollController,
-                  index: index,
-                  child: Container(
-                    margin: const EdgeInsets.only(bottom: 12),
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 500),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(12),
-                        boxShadow: highlightedIndex == index
-                            ? [
-                                const BoxShadow(
-                                  color: Colors.blue,
-                                  blurRadius: 12,
-                                  spreadRadius: 2,
-                                ),
-                              ]
-                            : [
-                                const BoxShadow(
-                                  color: Colors.black12,
-                                  blurRadius: 4,
-                                ),
-                              ],
-                      ),
-                      child: CustomExpansionWidget(
-                        isExpanded: items[index].isExpanded,
-                        onExpansionChanged: (isExpanded) {
-                          setState(() {
-                            items[index].isExpanded = isExpanded;
-                          });
-                        },
-                        headerBuilder: (isExpanded, toggleExpand) {
-                          return TextButton(
-                            onPressed: () => toggleExpand(),
-                            style: TextButton.styleFrom(
-                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                              padding: EdgeInsets.zero,
-                              minimumSize: const Size(0, 0),
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(12),
-                                  topRight: Radius.circular(12),
-                                ),
-                              ),
-                            ),
-                            child: Container(
-                              padding: const EdgeInsets.only(
-                                left: 16,
-                                right: 16,
-                                top: 16,
-                                bottom: 8,
-                              ),
-                              child: Row(
-                                key: ValueKey(items[index]),
-                                children: [
-                                  Expanded(
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                          height: 52,
-                                          width: 52,
-                                          decoration: BoxDecoration(
-                                            color: Colors.blue,
-                                            borderRadius:
-                                                BorderRadius.circular(4),
-                                          ),
-                                        ),
-                                        const SizedBox(width: 12),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            const Text(
-                                              'Lat Pulldown•Cable',
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w700,
-                                                fontSize: 16,
-                                              ),
-                                            ),
-                                            Text(
-                                              items[index].content,
-                                              style: const TextStyle(
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      ReorderableDragStartListener(
-                                        index: index,
-                                        child: const Icon(Icons.drag_indicator),
-                                      ),
-                                      Icon(
-                                        isExpanded
-                                            ? Icons.expand_less
-                                            : Icons.expand_more,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                        body: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.grey.withOpacity(0.2),
-                          ),
-                          child: const Column(
-                            children: [
-                              RepWidget(),
-                              RepWidget(),
-                              RepWidget(),
-                              RepWidget(),
-                            ],
+                              );
+                            },
                           ),
                         ),
-                      ),
+                      ],
                     ),
+                  ],
+                ),
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.expand_more,
                   ),
-                );
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+      onReorderStart: (index) {
+        setState(() {
+          // Set dragging flag to true when drag starts
+          _isDragging = true;
+        });
+      },
+      onReorderEnd: (index) async {
+        setState(() {
+          // Set dragging flag to false when drag ends (but before onReorder)
+          // onReorder will be called immediately after this
+          _isDragging = false;
+        });
+      },
+      onReorder: _onReorder,
+      itemCount: _items.length,
+      itemBuilder: (context, index) {
+        final item = _items[index];
+        // Use the item's id to track its expanded state, default to false if not found
+        final isExpanded = !_isDragging && (_expandedState[item.id] ?? false);
+
+        return AutoScrollTag(
+          key: ValueKey(_items[index]),
+          controller: _autoScrollController,
+          index: index,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 500),
+            margin: const EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(
+                color: context.theme.appColor.borderSecondary,
+                width: 0.5,
+              ),
+              boxShadow: highlightedIndex == index
+                  ? [
+                      const BoxShadow(
+                        color: Colors.blue,
+                        blurRadius: 4,
+                        offset: Offset(0.0, 1.0),
+                        spreadRadius: 1,
+                      ),
+                    ]
+                  : context.theme.appShadow.shadowXs,
+            ),
+            child: OngoingExerciseItem(
+              isExpanded: isExpanded,
+              onLongPress: () {},
+              onExpansionChanged: (expanded) {
+                // Only update expansion state if not dragging
+                if (!_isDragging) {
+                  setState(() {
+                    _expandedState[item.id] = expanded;
+                  });
+                }
               },
             ),
           ),
-        ],
-      ),
+        );
+      },
     );
-  }
-}
-
-class RepWidget extends StatelessWidget {
-  const RepWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          // add radio button without any additional padding or margin!
-          Radio(
-            value: null,
-            groupValue: null,
-            onChanged: (value) {},
-          ),
-          // add textfield that filled and has rounded corner
-          Container(
-            width: 68,
-            height: 48,
-            child: TextField(
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-            ),
-          ),
-          const Text(
-            'Kg',
-          ),
-          Container(
-            width: 68,
-            height: 48,
-            child: TextField(
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-            ),
-          ),
-          const Text(
-            'Reps',
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class CollapsibleHeader extends StatelessWidget {
-  const CollapsibleHeader({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }

@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fitness/features/exercise/presentation/pages/exercise_list_page.dart';
+import 'package:fitness/features/exercise/presentation/pages/ongoing_exercise_example_page.dart';
+import 'package:fitness/features/exercise/presentation/pages/ongoing_exercise_page.dart';
 import 'package:fitness/features/home/presentation/widgets/base/button.dart';
 import 'package:fitness/features/home/presentation/widgets/base/label.dart';
 import 'package:fitness/features/home/presentation/widgets/modules/stacks/card_model.dart';
@@ -8,6 +10,7 @@ import 'package:fitness/theme/lib.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_shadow/flutter_inset_shadow.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 class ExerciseDashboardPage extends StatefulWidget {
   static const String routeName = '/exercise/dashboard';
@@ -118,7 +121,7 @@ class _ExerciseDashboardPageState extends State<ExerciseDashboardPage> {
           child: ClipOval(
             child: CachedNetworkImage(
               imageUrl:
-                  'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Yanomami_Woman_%26_Child.jpg/1200px-Yanomami_Woman_%26_Child.jpg',
+              'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Yanomami_Woman_%26_Child.jpg/1200px-Yanomami_Woman_%26_Child.jpg',
             ),
           ),
         ),
@@ -237,7 +240,12 @@ class _ExerciseDashboardPageState extends State<ExerciseDashboardPage> {
             style: AppButtonStyle.secondary,
             iconSvgUri: 'assets/icons/ic_lightning.svg',
             text: 'Start Exercise',
-            onPressed: () {},
+            onPressed: () {
+              context.push(OngoingExercisePage.routeName);
+            },
+            onLongPress: () {
+              context.push(OngoingExerciseExamplePage.routeName);
+            },
           ),
         ],
       ),
@@ -245,7 +253,10 @@ class _ExerciseDashboardPageState extends State<ExerciseDashboardPage> {
   }
 
   List<CardModel> _buildMockList(BuildContext context, {int size = 0}) {
-    final double containerWidth = MediaQuery.of(context).size.width - 32;
+    final double containerWidth = MediaQuery
+        .of(context)
+        .size
+        .width - 32;
 
     var list = <CardModel>[];
     list.add(

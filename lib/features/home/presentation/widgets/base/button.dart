@@ -21,6 +21,7 @@ class Button extends StatelessWidget {
   final Color? iconColor;
   final FontWeight? fontWeight;
   final VoidCallback onPressed;
+  final VoidCallback? onLongPress;
 
   const Button._({
     super.key,
@@ -34,6 +35,7 @@ class Button extends StatelessWidget {
     this.iconColor,
     this.fontWeight,
     required this.onPressed,
+    this.onLongPress,
   });
 
   factory Button({
@@ -47,6 +49,7 @@ class Button extends StatelessWidget {
     Color? iconColor,
     FontWeight? fontWeight,
     required VoidCallback onPressed,
+    VoidCallback? onLongPress,
   }) {
     return Button._(
       key: key,
@@ -59,6 +62,7 @@ class Button extends StatelessWidget {
       iconColor: iconColor,
       fontWeight: fontWeight,
       onPressed: onPressed,
+      onLongPress: onLongPress,
     );
   }
 
@@ -72,6 +76,7 @@ class Button extends StatelessWidget {
     Color? iconColor,
     FontWeight? fontWeight,
     required VoidCallback onPressed,
+    VoidCallback? onLongPress,
   }) {
     return Button._(
       key: key,
@@ -83,6 +88,7 @@ class Button extends StatelessWidget {
       iconColor: iconColor,
       fontWeight: fontWeight,
       onPressed: onPressed,
+      onLongPress: onLongPress,
     );
   }
 
@@ -103,6 +109,7 @@ class Button extends StatelessWidget {
           ),
           child: TextButton(
             onPressed: onPressed,
+            onLongPress: onLongPress,
             style: TextButton.styleFrom(
               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
               padding: EdgeInsets.zero,
@@ -124,6 +131,7 @@ class Button extends StatelessWidget {
       case AppButtonStyle.secondary:
         return TextButton(
           onPressed: onPressed,
+          onLongPress: onLongPress,
           style: TextButton.styleFrom(
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             padding: EdgeInsets.zero,
@@ -144,6 +152,7 @@ class Button extends StatelessWidget {
       case AppButtonStyle.tertiary:
         return TextButton(
           onPressed: onPressed,
+          onLongPress: onLongPress,
           style: TextButton.styleFrom(
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             padding: EdgeInsets.zero,
@@ -203,6 +212,7 @@ class Button extends StatelessWidget {
       case AppButtonStyle.text:
         return TextButton(
           onPressed: onPressed,
+          onLongPress: onLongPress,
           style: TextButton.styleFrom(
             tapTargetSize: MaterialTapTargetSize.shrinkWrap,
             padding: EdgeInsets.zero,

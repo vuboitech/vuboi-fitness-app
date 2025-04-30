@@ -2,6 +2,7 @@ import 'package:fitness/features/discover/presentation/pages/discover_page.dart'
 import 'package:fitness/features/exercise/presentation/pages/exercise_dashboard_page.dart';
 import 'package:fitness/features/exercise/presentation/pages/exercise_list_page_new.dart';
 import 'package:fitness/features/exercise/presentation/pages/exersice_page.dart';
+import 'package:fitness/features/exercise/presentation/pages/ongoing_exercise_example_page.dart';
 import 'package:fitness/features/exercise/presentation/pages/ongoing_exercise_page.dart';
 import 'package:fitness/features/exercise/presentation/pages/schedule_page.dart';
 import 'package:fitness/features/home/presentation/pages/home_screen.dart';
@@ -85,6 +86,25 @@ final router = GoRouter(
       path: ExerciseListPageNew.routeName,
       pageBuilder: (context, state) => CustomTransitionPage(
         child: const ExerciseListPageNew(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          const begin = Offset(0.0, 1.0);
+          const end = Offset.zero;
+          const curve = Curves.ease;
+
+          var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+          var offsetAnimation = animation.drive(tween);
+
+          return SlideTransition(
+            position: offsetAnimation,
+            child: child,
+          );
+        },
+      ),
+    ),
+    GoRoute(
+      path: OngoingExerciseExamplePage.routeName,
+      pageBuilder: (context, state) => CustomTransitionPage(
+        child: const OngoingExerciseExamplePage(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           const begin = Offset(0.0, 1.0);
           const end = Offset.zero;
