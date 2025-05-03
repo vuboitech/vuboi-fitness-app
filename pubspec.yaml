@@ -30,6 +30,7 @@ dependencies:
   flutter_inset_shadow: ^2.0.3
   glass: ^2.0.0+2
   flex_dropdown: ^0.1.0
+  flutter_slidable: ^4.0.0
 
 dev_dependencies:
   flutter_test:
