@@ -1,6 +1,8 @@
+import 'package:fitness/core/theme_cubit/theme_cubit.dart';
 import 'package:fitness/features/exercise/presentation/widgets/ongoing_exercise_item.dart';
 import 'package:fitness/theme/lib.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
@@ -90,7 +92,7 @@ class _OngoingExercisePageState extends State<OngoingExercisePage> {
                                 variant: ButtonVariant.secondary,
                                 iconSvgUri: 'assets/icons/ic_settings.svg',
                                 onPressed: () {
-                                  // Handle pause button press
+                                  context.read<ThemeCubit>().toggleTheme();
                                 },
                               ),
                             ),
