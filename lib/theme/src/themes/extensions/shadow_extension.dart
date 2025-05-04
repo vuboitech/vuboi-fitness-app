@@ -1,18 +1,30 @@
 import 'package:flutter/material.dart';
 
 class AppShadowExtension extends ThemeExtension<AppShadowExtension> {
-  final List<BoxShadow> shadowXs;
+  final BoxShadow shadowXs;
+  final BoxShadow shadowLg1;
+  final BoxShadow shadowLg2;
+  final BoxShadow shadowLg3;
 
   AppShadowExtension({
     required this.shadowXs,
+    required this.shadowLg1,
+    required this.shadowLg2,
+    required this.shadowLg3,
   });
 
   @override
   ThemeExtension<AppShadowExtension> copyWith({
-    List<BoxShadow>? surface,
+    BoxShadow? shadowXs,
+    BoxShadow? shadowLg1,
+    BoxShadow? shadowLg2,
+    BoxShadow? shadowLg3,
   }) {
     return AppShadowExtension(
-      shadowXs: surface ?? this.shadowXs,
+      shadowXs: shadowXs ?? this.shadowXs,
+      shadowLg1: shadowLg1 ?? this.shadowLg1,
+      shadowLg2: shadowLg2 ?? this.shadowLg2,
+      shadowLg3: shadowLg3 ?? this.shadowLg3,
     );
   }
 
@@ -25,20 +37,11 @@ class AppShadowExtension extends ThemeExtension<AppShadowExtension> {
       return this;
     }
 
-    final shorterList = shadowXs.length < other.shadowXs.length ? shadowXs : other.shadowXs;
-    final longerList = shadowXs.length >= other.shadowXs.length ? shadowXs : other.shadowXs;
-
-    final lerpedSurface = List<BoxShadow>.generate(longerList.length, (i) {
-      if (i < shorterList.length) {
-        return BoxShadow.lerp(shorterList[i], longerList[i], t)!;
-      } else {
-        // Handle cases where one theme has more shadows
-        return longerList[i].scale(t); // Apply scaling for missing shadows
-      }
-    });
-
     return AppShadowExtension(
-      shadowXs: lerpedSurface,
+      shadowXs: BoxShadow.lerp(shadowXs, other.shadowXs, t)!,
+      shadowLg1: BoxShadow.lerp(shadowLg1, other.shadowLg1, t)!,
+      shadowLg2: BoxShadow.lerp(shadowLg2, other.shadowLg2, t)!,
+      shadowLg3: BoxShadow.lerp(shadowLg3, other.shadowLg3, t)!,
     );
   }
 }

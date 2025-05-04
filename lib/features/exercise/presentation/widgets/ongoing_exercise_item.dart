@@ -3,6 +3,8 @@ import 'package:fitness/theme/lib.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
+import 'overlay_dropdown_menu.dart';
+
 class ExerciseRepetition {
   int repetition;
   final TextEditingController repetitionController;
@@ -440,13 +442,9 @@ class _OngoingExerciseItemState extends State<OngoingExerciseItem>
                           ),
                         ),
                         const SizedBox(width: 12),
-                        Expanded(
+                        const Expanded(
                           flex: 1,
-                          child: PrimaryButton(
-                            iconSvgUri: 'assets/icons/ic_vertical_dots.svg',
-                            variant: ButtonVariant.secondary,
-                            onPressed: () {},
-                          ),
+                          child: CustomDropDown(),
                         ),
                       ],
                     ),

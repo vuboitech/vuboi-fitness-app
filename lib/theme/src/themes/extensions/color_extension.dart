@@ -16,6 +16,11 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
   final Color fgSecondary;
   final Color fgTertiary;
   final Color fgQuinary;
+  final Color fgQuaternary;
+  final Color fgErrorPrimary;
+  final Color fgErrorSecondary;
+  final Color fgWarningPrimary;
+  final Color fgWarningSecondary;
 
   final Color textPrimary;
   final Color textSecondary;
@@ -82,6 +87,11 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
     required this.fgSecondary,
     required this.fgTertiary,
     required this.fgQuinary,
+    required this.fgQuaternary,
+    required this.fgErrorPrimary,
+    required this.fgErrorSecondary,
+    required this.fgWarningPrimary,
+    required this.fgWarningSecondary,
 
     required this.textPrimary,
     required this.textSecondary,
@@ -148,6 +158,17 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
     Color? fgSecondary,
     Color? fgTertiary,
     Color? fgQuinary,
+    Color? fgQuaternary,
+    Color? fgErrorPrimary,
+    Color? fgErrorSecondary,
+    Color? fgWarningPrimary,
+    Color? fgWarningSecondary,
+
+    Color? textPrimary,
+    Color? textSecondary,
+    Color? textTertiary,
+    Color? textDisabled,
+    Color? textPlaceholder,
 
     Color? textColorHeading,
     Color? textColorBody,
@@ -189,12 +210,12 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
     Color? utilityWarning600,
     Color? utilityWarning700,
 
-    Color? buttonSecondaryFg,
-    Color? buttonSecondaryFgHover,
-    Color? buttonSecondaryBg,
-    Color? buttonSecondaryBgHover,
-    Color? buttonSecondaryBorder,
-    Color? buttonSecondaryBorderHover,
+    Color? btnSecondaryFg,
+    Color? btnSecondaryFgHover,
+    Color? btnSecondaryBg,
+    Color? btnSecondaryBgHover,
+    Color? btnSecondaryBorder,
+    Color? btnSecondaryBorderHover,
   }) {
     return AppColorExtension(
       primary: primary ?? this.primary,
@@ -212,12 +233,17 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
       fgSecondary: fgSecondary ?? this.fgSecondary,
       fgTertiary: fgTertiary ?? this.fgTertiary,
       fgQuinary: fgQuinary ?? this.fgQuinary,
+      fgQuaternary: fgQuaternary ?? this.fgQuaternary,
+      fgErrorPrimary: fgErrorPrimary ?? this.fgErrorPrimary,
+      fgErrorSecondary: fgErrorSecondary ?? this.fgErrorSecondary,
+      fgWarningPrimary: fgWarningPrimary ?? this.fgWarningPrimary,
+      fgWarningSecondary: fgWarningSecondary ?? this.fgWarningSecondary,
 
-      textPrimary: textColorHeading ?? this.textPrimary,
-      textSecondary: textColorBody ?? this.textSecondary,
-      textTertiary: textColorDisabled ?? this.textTertiary,
-      textDisabled: textColorPlaceholder ?? this.textDisabled,
-      textPlaceholder: textColorOnColor ?? this.textPlaceholder,
+      textPrimary: textPrimary ?? this.textPrimary,
+      textSecondary: textSecondary ?? this.textSecondary,
+      textTertiary: textTertiary ?? this.textTertiary,
+      textDisabled: textDisabled ?? this.textDisabled,
+      textPlaceholder: textPlaceholder ?? this.textPlaceholder,
 
       borderPrimary: borderPrimary ?? this.borderPrimary,
       borderSecondary: borderSecondary ?? this.borderSecondary,
@@ -253,12 +279,12 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
       utilityWarning600: utilityWarning600 ?? this.utilityWarning600,
       utilityWarning700: utilityWarning700 ?? this.utilityWarning700,
 
-      btnSecondaryFg: buttonSecondaryFg ?? this.btnSecondaryFg,
-      btnSecondaryFgHover: buttonSecondaryFgHover ?? this.btnSecondaryFgHover,
-      btnSecondaryBg: buttonSecondaryBg ?? this.btnSecondaryBg,
-      btnSecondaryBgHover: buttonSecondaryBgHover ?? this.btnSecondaryBgHover,
-      btnSecondaryBorder: buttonSecondaryBorder ?? this.btnSecondaryBorder,
-      btnSecondaryBorderHover: buttonSecondaryBorderHover ?? this.btnSecondaryBorderHover,
+      btnSecondaryFg: btnSecondaryFg ?? this.btnSecondaryFg,
+      btnSecondaryFgHover: btnSecondaryFgHover ?? this.btnSecondaryFgHover,
+      btnSecondaryBg: btnSecondaryBg ?? this.btnSecondaryBg,
+      btnSecondaryBgHover: btnSecondaryBgHover ?? this.btnSecondaryBgHover,
+      btnSecondaryBorder: btnSecondaryBorder ?? this.btnSecondaryBorder,
+      btnSecondaryBorderHover: btnSecondaryBorderHover ?? this.btnSecondaryBorderHover,
     );
   }
 
@@ -284,6 +310,11 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
       fgSecondary: Color.lerp(fgSecondary, other.fgSecondary, t)!,
       fgTertiary: Color.lerp(fgTertiary, other.fgTertiary, t)!,
       fgQuinary: Color.lerp(fgQuinary, other.fgQuinary, t)!,
+      fgQuaternary: Color.lerp(fgQuaternary, other.fgQuaternary, t)!,
+      fgErrorPrimary: Color.lerp(fgErrorPrimary, other.fgErrorPrimary, t)!,
+      fgErrorSecondary: Color.lerp(fgErrorSecondary, other.fgErrorSecondary, t)!,
+      fgWarningPrimary: Color.lerp(fgWarningPrimary, other.fgWarningPrimary, t)!,
+      fgWarningSecondary: Color.lerp(fgWarningSecondary, other.fgWarningSecondary, t)!,
 
       textPrimary: Color.lerp(textPrimary, other.textPrimary, t)!,
       textSecondary: Color.lerp(textSecondary, other.textSecondary, t)!,

@@ -220,16 +220,14 @@ class _ReorderableExpandableListExampleState
               color: context.theme.appColor.borderSecondary,
               width: 0.5,
             ),
-            boxShadow: highlightedIndex == index
-                ? [
-              const BoxShadow(
+            boxShadow: [
+              highlightedIndex == index ? const BoxShadow(
                 color: Colors.blue,
                 blurRadius: 4,
                 offset: Offset(0.0, 1.0),
                 spreadRadius: 1,
-              ),
-            ]
-                : context.theme.appShadow.shadowXs,
+              ) : context.theme.appShadow.shadowXs,
+            ],
           ),
           child: Row(
             children: [
@@ -333,16 +331,14 @@ class _ReorderableExpandableListExampleState
                 color: context.theme.appColor.borderSecondary,
                 width: 0.5,
               ),
-              boxShadow: highlightedIndex == index
-                  ? [
-                      const BoxShadow(
-                        color: Colors.blue,
-                        blurRadius: 4,
-                        offset: Offset(0.0, 1.0),
-                        spreadRadius: 1,
-                      ),
-                    ]
-                  : context.theme.appShadow.shadowXs,
+              boxShadow: [
+                highlightedIndex == index ? const BoxShadow(
+                  color: Colors.blue,
+                  blurRadius: 4,
+                  offset: Offset(0.0, 1.0),
+                  spreadRadius: 1,
+                ) : context.theme.appShadow.shadowXs,
+              ],
             ),
             child: OngoingExerciseItem(
               isExpanded: isExpanded,

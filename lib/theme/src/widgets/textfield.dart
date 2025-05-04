@@ -39,7 +39,9 @@ class Textfield extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        boxShadow: theme.appShadow.shadowXs,
+        boxShadow: [
+          theme.appShadow.shadowXs,
+        ],
       ),
       child: TextFormField(
         controller: controller,

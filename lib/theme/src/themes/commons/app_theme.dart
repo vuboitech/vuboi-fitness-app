@@ -80,6 +80,11 @@ ThemeData createAppLightTheme({
     fgSecondary: AppColors.colorsGrayLightMode700,
     fgTertiary: AppColors.colorsGrayLightMode600,
     fgQuinary: AppColors.colorsGrayLightMode400,
+    fgQuaternary: AppColors.colorsGrayLightMode400,
+    fgErrorPrimary: AppColors.colorsError600,
+    fgErrorSecondary: AppColors.colorsError500,
+    fgWarningPrimary: AppColors.colorsWarning600,
+    fgWarningSecondary: AppColors.colorsWarning500,
 
     textPrimary: AppColors.colorsGrayLightMode900,
     textSecondary: AppColors.colorsGrayLightMode700,
@@ -135,14 +140,30 @@ ThemeData createAppLightTheme({
   );
 
   final lightShadowTheme = AppShadowExtension(
-    shadowXs: [
-      const BoxShadow(
-        color: Color(0x0D0A0D12),
-        blurRadius: 2,
-        offset: Offset(0.0, 1.0),
-        spreadRadius: 0,
-      ),
-    ],
+    shadowXs: const BoxShadow(
+      color: Color(0x0D0A0D12),
+      blurRadius: 2,
+      offset: Offset(0.0, 1.0),
+      spreadRadius: 0,
+    ),
+    shadowLg1: const BoxShadow(
+      color: Color(0x140A0D12),
+      offset: Offset(0, 12),
+      blurRadius: 16,
+      spreadRadius: -4,
+    ),
+    shadowLg2: const BoxShadow(
+      color: Color(0x080A0D12),
+      offset: Offset(0, 4),
+      blurRadius: 6,
+      spreadRadius: -2,
+    ),
+    shadowLg3: const BoxShadow(
+      color: Color(0x0A0A0D12),
+      offset: Offset(0, 2),
+      blurRadius: 2,
+      spreadRadius: -1,
+    ),
   );
 
   final colorScheme = ColorScheme.fromSeed(
@@ -181,6 +202,11 @@ ThemeData createAppDarkTheme({
     fgSecondary: AppColors.colorsGrayDarkMode300,
     fgTertiary: AppColors.colorsGrayDarkMode400,
     fgQuinary: AppColors.colorsGrayDarkMode500,
+    fgQuaternary: AppColors.colorsGrayDarkMode600,
+    fgErrorPrimary: AppColors.colorsError500,
+    fgErrorSecondary: AppColors.colorsError400,
+    fgWarningPrimary: AppColors.colorsWarning500,
+    fgWarningSecondary: AppColors.colorsWarning400,
 
     textPrimary: AppColors.colorsGrayDarkMode50,
     textSecondary: AppColors.colorsGrayDarkMode300,
@@ -236,14 +262,30 @@ ThemeData createAppDarkTheme({
   );
 
   final darkShadowTheme = AppShadowExtension(
-    shadowXs: [
-      const BoxShadow(
-        color: AppColors.colorsBaseTransparent,
-        blurRadius: 2,
-        offset: Offset(0.0, 1.0),
-        spreadRadius: 0,
-      ),
-    ],
+    shadowXs: const BoxShadow(
+      color: AppColors.colorsBaseTransparent,
+      blurRadius: 2,
+      offset: Offset(0.0, 1.0),
+      spreadRadius: 0,
+    ),
+    shadowLg1: const BoxShadow(
+      color: AppColors.colorsBaseTransparent,
+      offset: Offset(0, 12),
+      blurRadius: 16,
+      spreadRadius: -4,
+    ),
+    shadowLg2: const BoxShadow(
+      color: AppColors.colorsBaseTransparent,
+      offset: Offset(0, 4),
+      blurRadius: 6,
+      spreadRadius: -2,
+    ),
+    shadowLg3: const BoxShadow(
+      color: AppColors.colorsBaseTransparent,
+      offset: Offset(0, 2),
+      blurRadius: 2,
+      spreadRadius: -1,
+    ),
   );
 
   final colorScheme = ColorScheme.fromSeed(
