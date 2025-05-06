@@ -27,6 +27,7 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
   final Color textTertiary;
   final Color textDisabled;
   final Color textPlaceholder;
+  final Color textQuaternary;
 
   final Color borderPrimary;
   final Color borderSecondary;
@@ -98,6 +99,7 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
     required this.textTertiary,
     required this.textDisabled,
     required this.textPlaceholder,
+    required this.textQuaternary,
 
     required this.borderPrimary,
     required this.borderSecondary,
@@ -175,6 +177,7 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
     Color? textColorDisabled,
     Color? textColorPlaceholder,
     Color? textColorOnColor,
+    Color? textQuaternary,
 
     Color? borderPrimary,
     Color? borderSecondary,
@@ -244,6 +247,7 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
       textTertiary: textTertiary ?? this.textTertiary,
       textDisabled: textDisabled ?? this.textDisabled,
       textPlaceholder: textPlaceholder ?? this.textPlaceholder,
+      textQuaternary: textQuaternary ?? this.textQuaternary,
 
       borderPrimary: borderPrimary ?? this.borderPrimary,
       borderSecondary: borderSecondary ?? this.borderSecondary,
@@ -321,6 +325,7 @@ class AppColorExtension extends ThemeExtension<AppColorExtension> {
       textTertiary: Color.lerp(textTertiary, other.textTertiary, t)!,
       textDisabled: Color.lerp(textDisabled, other.textDisabled, t)!,
       textPlaceholder: Color.lerp(textPlaceholder, other.textPlaceholder, t)!,
+      textQuaternary: Color.lerp(textQuaternary, other.textQuaternary, t)!,
 
       borderPrimary: Color.lerp(borderPrimary, other.borderPrimary, t)!,
       borderSecondary: Color.lerp(borderSecondary, other.borderSecondary, t)!,

@@ -116,7 +116,7 @@ class _OngoingExercisePageState extends State<OngoingExercisePage> {
               ),
             ),
           ),
-          Expanded(
+          const Expanded(
             child: ReorderableExpandableListExample(),
           ),
         ],
@@ -270,9 +270,9 @@ class _ReorderableExpandableListExampleState
                                         color: Colors.green,
                                       ),
                                     ),
-                                    Text(
-                                        'Hewo'
-                                    )
+                                    const Text(
+                                    'Hewo',
+                                    ),
                                   ],
                                 ),
                               );
@@ -284,7 +284,7 @@ class _ReorderableExpandableListExampleState
                   ],
                 ),
               ),
-              Column(
+              const Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

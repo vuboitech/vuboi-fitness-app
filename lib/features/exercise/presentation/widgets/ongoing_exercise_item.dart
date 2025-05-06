@@ -3,7 +3,7 @@ import 'package:fitness/theme/lib.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
-import 'overlay_dropdown_menu.dart';
+import 'exercise_item_option_dropdown.dart';
 
 class ExerciseRepetition {
   int repetition;
@@ -442,9 +442,11 @@ class _OngoingExerciseItemState extends State<OngoingExerciseItem>
                           ),
                         ),
                         const SizedBox(width: 12),
-                        const Expanded(
+                        Expanded(
                           flex: 1,
-                          child: CustomDropDown(),
+                          child: ExerciseItemOptionDropdown(
+                            onSelected: (value) {},
+                          ),
                         ),
                       ],
                     ),

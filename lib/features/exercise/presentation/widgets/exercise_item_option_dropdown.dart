@@ -1,18 +1,27 @@
 import 'package:fitness/theme/src/themes/commons/app_theme.dart';
 import 'package:fitness/theme/src/widgets/button/primary_button.dart';
+import 'package:fitness/theme/src/widgets/radio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CustomDropDown extends StatefulWidget {
-  const CustomDropDown({
+enum ExerciseUnitMeasurement {
+  kg,
+  lbs,
+}
+
+class ExerciseItemOptionDropdown extends StatefulWidget {
+  final ValueChanged<ExerciseUnitMeasurement> onSelected;
+
+  const ExerciseItemOptionDropdown({
     super.key,
+    required this.onSelected,
   });
 
   @override
-  State<StatefulWidget> createState() => CustomDropDownState();
+  State<StatefulWidget> createState() => ExerciseItemOptionDropdownState();
 }
 
-class CustomDropDownState extends State<CustomDropDown> {
+class ExerciseItemOptionDropdownState extends State<ExerciseItemOptionDropdown> {
   final OverlayPortalController _tooltipController = OverlayPortalController();
 
   final _link = LayerLink();
@@ -60,15 +69,22 @@ class CustomDropDownState extends State<CustomDropDown> {
   }
 }
 
-class MenuWidget extends StatelessWidget {
+class MenuWidget extends StatefulWidget {
   const MenuWidget({
     super.key,
   });
 
   @override
+  State<MenuWidget> createState() => _MenuWidgetState();
+}
+
+class _MenuWidgetState extends State<MenuWidget> {
+  ExerciseUnitMeasurement _selectedUnit = ExerciseUnitMeasurement.kg;
+
+  @override
   Widget build(BuildContext context) {
     return Container(
-      width: 180,
+      width: 200,
       margin: const EdgeInsets.only(
         top: 10,
       ),
@@ -90,10 +106,34 @@ class MenuWidget extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          menuItem(
+          const SizedBox(height: 4),
+          _radioMenuItem(
             context: context,
-            iconSvgUri: 'assets/icons/ic_lightning_bold.svg',
-            title: 'Add Note',
+            rightLabel: 'Kg',
+            label: 'Kilogram',
+            value: ExerciseUnitMeasurement.kg,
+            groupValue: _selectedUnit,
+            onChanged: (value) {
+              setState(() {
+                _selectedUnit = value;
+              });
+            },
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(6),
+              topRight: Radius.circular(6),
+            )
+          ),
+          _radioMenuItem(
+            context: context,
+            rightLabel: 'Lbs',
+            label: 'Pounds',
+            value: ExerciseUnitMeasurement.lbs,
+            groupValue: _selectedUnit,
+            onChanged: (value) {
+              setState(() {
+                _selectedUnit = value;
+              });
+            },
           ),
           Container(
             height: 1,
@@ -112,7 +152,12 @@ class MenuWidget extends StatelessWidget {
             iconSvgUri: 'assets/icons/ic_trash.svg',
             title: 'Delete',
             isDestructive: true,
+            borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(6),
+              bottomRight: Radius.circular(6),
+            ),
           ),
+          const SizedBox(height: 4),
         ],
       ),
     );
@@ -123,6 +168,7 @@ class MenuWidget extends StatelessWidget {
     required String iconSvgUri,
     required String title,
     bool isDestructive = false,
+    BorderRadius borderRadius = BorderRadius.zero,
   }) {
     return TextButton(
       onPressed: () {},
@@ -132,7 +178,7 @@ class MenuWidget extends StatelessWidget {
         padding: EdgeInsets.zero,
         minimumSize: const Size(0, 0),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(6),
+          borderRadius: borderRadius,
         ),
       ),
       child: Container(
@@ -164,6 +210,66 @@ class MenuWidget extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _radioMenuItem({
+    required BuildContext context,
+    required ExerciseUnitMeasurement value,
+    required String label,
+    required String rightLabel,
+    required ExerciseUnitMeasurement groupValue,
+    required ValueChanged<ExerciseUnitMeasurement> onChanged,
+    BorderRadius borderRadius = BorderRadius.zero,
+  }) {
+    return TextButton(
+      onPressed: () {
+        onChanged(value);
+      },
+      style: TextButton.styleFrom(
+        backgroundColor: context.theme.appColor.bgPrimary,
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        padding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 8,
+        ),
+        minimumSize: const Size(0, 0),
+        shape: RoundedRectangleBorder(
+          borderRadius: borderRadius,
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          CustomRadioButton<ExerciseUnitMeasurement>(
+            value: value,
+            label: label,
+            groupValue: groupValue,
+            labelStyle: context.theme.appTextTheme.textSmSemibold.copyWith(
+              color: context.theme.appColor.textSecondary,
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 4,
+              vertical: 1,
+            ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4),
+              border: Border.all(
+                color: context.theme.appColor.borderSecondary,
+                width: 1,
+              ),
+            ),
+            child: Text(
+              rightLabel,
+              style: context.theme.appTextTheme.textSmMedium.copyWith(
+                color: context.theme.appColor.textQuaternary,
+              ),
+            ),
+          )
+        ],
       ),
     );
   }

@@ -91,6 +91,7 @@ ThemeData createAppLightTheme({
     textTertiary: AppColors.colorsGrayLightMode600,
     textDisabled: AppColors.colorsGrayLightMode500,
     textPlaceholder: AppColors.colorsGrayLightMode500,
+    textQuaternary: AppColors.colorsGrayLightMode500,
 
     borderPrimary: AppColors.colorsGrayLightMode300,
     borderSecondary: AppColors.colorsGrayLightMode200,
@@ -213,6 +214,7 @@ ThemeData createAppDarkTheme({
     textTertiary: AppColors.colorsGrayDarkMode400,
     textDisabled: AppColors.colorsGrayDarkMode500,
     textPlaceholder: AppColors.colorsGrayDarkMode500,
+    textQuaternary: AppColors.colorsGrayDarkMode400,
 
     borderPrimary: AppColors.colorsGrayDarkMode700,
     borderSecondary: AppColors.colorsGrayDarkMode800,

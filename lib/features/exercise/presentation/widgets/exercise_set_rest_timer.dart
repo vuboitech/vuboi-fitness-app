@@ -4,18 +4,6 @@ import 'package:fitness/theme/lib.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class RestTimerColor {
-  final Color background;
-  final Color border;
-  final LinearGradient progress;
-
-  const RestTimerColor({
-    required this.background,
-    required this.border,
-    required this.progress,
-  });
-}
-
 class ExerciseSetRestTimer extends StatefulWidget {
   final VoidCallback onSkipPressed;
   final VoidCallback onTimerFinished;
@@ -34,6 +22,7 @@ class ExerciseSetRestTimer extends StatefulWidget {
 
 class _ExerciseSetRestTimerState extends State<ExerciseSetRestTimer> {
   late Timer _timer;
+  late Duration _totalTime;
   late Duration _remainingTime;
 
   final GlobalKey _contentKey = GlobalKey();
@@ -44,6 +33,7 @@ class _ExerciseSetRestTimerState extends State<ExerciseSetRestTimer> {
   void initState() {
     super.initState();
 
+    _totalTime = widget.duration;
     _remainingTime = widget.duration;
     _startTimer();
 
@@ -81,6 +71,7 @@ class _ExerciseSetRestTimerState extends State<ExerciseSetRestTimer> {
 
   void _increaseDuration() {
     setState(() {
+      _totalTime += const Duration(minutes: 0, seconds: 30);
       _remainingTime += const Duration(minutes: 0, seconds: 30);
     });
   }
@@ -88,19 +79,22 @@ class _ExerciseSetRestTimerState extends State<ExerciseSetRestTimer> {
   String _formatDuration(Duration duration) {
     String minutes = (duration.inMinutes).toString();
     String seconds = (duration.inSeconds % 60).toString().padLeft(2, '0');
+    if (minutes == '0') {
+      return '$seconds sec';
+    }
     return '$minutes min $seconds sec';
   }
 
   double _getProgressPercentage() {
-    return _remainingTime.inMilliseconds / widget.duration.inMilliseconds;
+    return 1.0 - (_remainingTime.inMilliseconds / _totalTime.inMilliseconds);
   }
 
-  RestTimerColor _getColorByProgress() {
+  _RestTimerColor _getColorByProgress() {
     double progress = _getProgressPercentage();
 
     if (progress <= 0.33) {
       // Red (0-33%)
-      return RestTimerColor(
+      return _RestTimerColor(
         background: context.theme.appColor.utilityError50,
         border: context.theme.appColor.utilityError400,
         progress: LinearGradient(
@@ -115,7 +109,7 @@ class _ExerciseSetRestTimerState extends State<ExerciseSetRestTimer> {
       );
     } else if (progress <= 0.66) {
       // Yellow (34-66%)
-      return RestTimerColor(
+      return _RestTimerColor(
         background: context.theme.appColor.utilityWarning50,
         border: context.theme.appColor.utilityWarning400,
         progress: LinearGradient(
@@ -130,7 +124,7 @@ class _ExerciseSetRestTimerState extends State<ExerciseSetRestTimer> {
       );
     } else {
       // Green (67-100%)
-      return RestTimerColor(
+      return _RestTimerColor(
         background: context.theme.appColor.utilitySuccess50,
         border: context.theme.appColor.utilitySuccess400,
         progress: LinearGradient(
@@ -148,7 +142,7 @@ class _ExerciseSetRestTimerState extends State<ExerciseSetRestTimer> {
 
   @override
   Widget build(BuildContext context) {
-    final RestTimerColor color = _getColorByProgress();
+    final _RestTimerColor color = _getColorByProgress();
 
     return Stack(
       children: [
@@ -246,4 +240,16 @@ class _ExerciseSetRestTimerState extends State<ExerciseSetRestTimer> {
       ],
     );
   }
+}
+
+class _RestTimerColor {
+  final Color background;
+  final Color border;
+  final LinearGradient progress;
+
+  const _RestTimerColor({
+    required this.background,
+    required this.border,
+    required this.progress,
+  });
 }
