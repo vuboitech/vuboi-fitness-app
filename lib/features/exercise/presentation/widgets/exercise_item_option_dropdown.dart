@@ -1,13 +1,9 @@
+import 'package:fitness/features/exercise/domain/models/exercise_item.dart';
 import 'package:fitness/theme/src/themes/commons/app_theme.dart';
 import 'package:fitness/theme/src/widgets/button/primary_button.dart';
 import 'package:fitness/theme/src/widgets/radio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
-enum ExerciseUnitMeasurement {
-  kg,
-  lbs,
-}
 
 class ExerciseItemOptionDropdown extends StatefulWidget {
   final ValueChanged<ExerciseUnitMeasurement> onSelected;

@@ -1,3 +1,4 @@
+import 'package:fitness/features/exercise/domain/models/exercise_item.dart';
 import 'package:fitness/features/exercise/presentation/widgets/exercise_set_rest_timer.dart';
 import 'package:fitness/theme/lib.dart';
 import 'package:flutter/material.dart';
@@ -5,30 +6,18 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 
 import 'exercise_item_option_dropdown.dart';
 
-class ExerciseRepetition {
-  int repetition;
-  final TextEditingController repetitionController;
-  double weight;
-  DateTime? finishedAt;
-
-  ExerciseRepetition({
-    required this.repetition,
-    required this.repetitionController,
-    required this.weight,
-    this.finishedAt,
-  });
-}
-
 class OngoingExerciseItem extends StatefulWidget {
-  final bool isExpanded;
+  final ExerciseItem exerciseItem;
   final Function(bool) onExpansionChanged;
   final VoidCallback? onLongPress;
+  final Function updateExerciseItem;
 
   const OngoingExerciseItem({
     super.key,
-    required this.isExpanded,
+    required this.exerciseItem,
     required this.onExpansionChanged,
     this.onLongPress,
+    required this.updateExerciseItem,
   });
 
   @override
@@ -39,24 +28,6 @@ class _OngoingExerciseItemState extends State<OngoingExerciseItem>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
-
-  final List<ExerciseRepetition> _exerciseRepetitions = [
-    ExerciseRepetition(
-      repetition: 10,
-      repetitionController: TextEditingController(),
-      weight: 20,
-    ),
-    ExerciseRepetition(
-      repetition: 12,
-      repetitionController: TextEditingController(),
-      weight: 25,
-    ),
-    ExerciseRepetition(
-      repetition: 8,
-      repetitionController: TextEditingController(),
-      weight: 30,
-    ),
-  ];
 
   @override
   void initState() {
@@ -72,7 +43,7 @@ class _OngoingExerciseItemState extends State<OngoingExerciseItem>
       curve: Curves.easeInOut,
     );
 
-    if (widget.isExpanded) {
+    if (widget.exerciseItem.isExpanded) {
       _controller.forward();
     }
   }
@@ -81,17 +52,13 @@ class _OngoingExerciseItemState extends State<OngoingExerciseItem>
   void dispose() {
     _controller.dispose();
 
-    for (var exerciseSet in _exerciseRepetitions) {
-      exerciseSet.repetitionController.dispose();
-    }
-
     super.dispose();
   }
 
   @override
   void didUpdateWidget(covariant OngoingExerciseItem oldWidget) {
-    if (oldWidget.isExpanded != widget.isExpanded) {
-      if (widget.isExpanded) {
+    if (oldWidget.exerciseItem.isExpanded != widget.exerciseItem.isExpanded) {
+      if (widget.exerciseItem.isExpanded) {
         _controller.forward();
       } else {
         _controller.reverse();
@@ -104,7 +71,7 @@ class _OngoingExerciseItemState extends State<OngoingExerciseItem>
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () => widget.onExpansionChanged(!widget.isExpanded),
+      onPressed: () => widget.onExpansionChanged(!widget.exerciseItem.isExpanded),
       style: TextButton.styleFrom(
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
         padding: EdgeInsets.zero,
@@ -181,7 +148,7 @@ class _OngoingExerciseItemState extends State<OngoingExerciseItem>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
-                      widget.isExpanded ? Icons.expand_less : Icons.expand_more,
+                      widget.exerciseItem.isExpanded ? Icons.expand_less : Icons.expand_more,
                     ),
                   ],
                 ),
@@ -261,7 +228,7 @@ class _OngoingExerciseItemState extends State<OngoingExerciseItem>
                   ),
                   ReorderableListView.builder(
                     shrinkWrap: true,
-                    itemCount: _exerciseRepetitions.length,
+                    itemCount: widget.exerciseItem.sets.length,
                     padding: EdgeInsets.zero,
                     physics: const NeverScrollableScrollPhysics(),
                     proxyDecorator:
@@ -277,9 +244,9 @@ class _OngoingExerciseItemState extends State<OngoingExerciseItem>
                         if (oldIndex < newIndex) {
                           newIndex -= 1;
                         }
-                        final ExerciseRepetition item =
+                        /*final ExerciseRepetition item =
                             _exerciseRepetitions.removeAt(oldIndex);
-                        _exerciseRepetitions.insert(newIndex, item);
+                        _exerciseRepetitions.insert(newIndex, item);*/
                       });
                     },
                     itemBuilder: (context, index) {
@@ -292,9 +259,9 @@ class _OngoingExerciseItemState extends State<OngoingExerciseItem>
                           children: [
                             SlidableAction(
                               onPressed: (context) {
-                                setState(() {
+                                /*setState(() {
                                   _exerciseRepetitions.removeAt(index);
-                                });
+                                });*/
                               },
                               autoClose: true,
                               backgroundColor:
@@ -334,8 +301,8 @@ class _OngoingExerciseItemState extends State<OngoingExerciseItem>
                               Expanded(
                                 flex: 2,
                                 child: TextFormField(
-                                  controller: _exerciseRepetitions[index]
-                                      .repetitionController,
+                                  controller: widget.exerciseItem.sets[index]
+                                      .repsController,
                                   onChanged: (value) {
                                     // also update
                                   },
@@ -353,8 +320,8 @@ class _OngoingExerciseItemState extends State<OngoingExerciseItem>
                                       color: context.theme.appColor.textTertiary
                                           .withOpacity(0.3),
                                     ),
-                                    hintText: _exerciseRepetitions[index]
-                                        .repetition
+                                    hintText: widget.exerciseItem.sets[index]
+                                        .repsHint
                                         .toString(),
                                   ),
                                   textAlign: TextAlign.left,
@@ -366,12 +333,49 @@ class _OngoingExerciseItemState extends State<OngoingExerciseItem>
                               ),
                               Expanded(
                                 flex: 2,
-                                child: Text(
-                                  'Weight',
-                                  style: context.theme.appTextTheme.textXsMedium
-                                      .copyWith(
-                                    color: context.theme.appColor.textSecondary,
-                                  ),
+                                child: Row(
+                                  children: [
+                                    Expanded(
+                                      child: TextFormField(
+                                        controller: widget
+                                            .exerciseItem.sets[index]
+                                            .weightController,
+                                        onChanged: (value) {
+                                          // also update
+                                        },
+                                        keyboardType: TextInputType.number,
+                                        decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          enabledBorder: InputBorder.none,
+                                          focusedBorder: InputBorder.none,
+                                          filled: false,
+                                          contentPadding: EdgeInsets.zero,
+                                          isDense: true,
+                                          hintStyle: context
+                                              .theme.appTextTheme.textXlBold
+                                              .copyWith(
+                                            color: context.theme.appColor.textTertiary
+                                                .withOpacity(0.3),
+                                          ),
+                                          hintText: widget.exerciseItem.sets[index]
+                                              .repsHint
+                                              .toString(),
+                                        ),
+                                        textAlign: TextAlign.left,
+                                        style: context.theme.appTextTheme.textXlBold
+                                            .copyWith(
+                                          color: context.theme.appColor.textTertiary,
+                                        ),
+                                      ),
+                                    ),
+                                    Text(
+                                      'Kg',
+                                      style: context.theme.appTextTheme.textXsSemibold
+                                          .copyWith(
+                                        color: context.theme.appColor.textPlaceholder,
+                                      ),
+                                    )
+                                  ],
                                 ),
                               ),
                               Expanded(
@@ -379,7 +383,7 @@ class _OngoingExerciseItemState extends State<OngoingExerciseItem>
                                 child: Align(
                                   alignment: Alignment.centerRight,
                                   child: Checkbox(
-                                    value: _exerciseRepetitions[index]
+                                    value: widget.exerciseItem.sets[index]
                                             .finishedAt !=
                                         null,
                                     visualDensity: VisualDensity.compact,
@@ -394,12 +398,12 @@ class _OngoingExerciseItemState extends State<OngoingExerciseItem>
                                       width: 1,
                                     ),
                                     onChanged: (bool? isChecked) {
-                                      setState(() {
+                                      /*setState(() {
                                         _exerciseRepetitions[index].finishedAt =
                                             isChecked == true
                                                 ? DateTime.now()
                                                 : null;
-                                      });
+                                      });*/
                                     },
                                   ),
                                 ),
@@ -429,14 +433,14 @@ class _OngoingExerciseItemState extends State<OngoingExerciseItem>
                             variant: ButtonVariant.secondary,
                             onPressed: () {
                               setState(() {
-                                _exerciseRepetitions.add(
+                                /*_exerciseRepetitions.add(
                                   ExerciseRepetition(
                                     repetition: 0,
                                     repetitionController:
                                         TextEditingController(),
                                     weight: 0,
                                   ),
-                                );
+                                );*/
                               });
                             },
                           ),
