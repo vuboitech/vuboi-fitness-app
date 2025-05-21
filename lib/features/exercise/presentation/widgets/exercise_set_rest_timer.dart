@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fitness/core/utils/format_duration.dart';
 import 'package:fitness/theme/lib.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -74,15 +75,6 @@ class _ExerciseSetRestTimerState extends State<ExerciseSetRestTimer> {
       _totalTime += const Duration(minutes: 0, seconds: 30);
       _remainingTime += const Duration(minutes: 0, seconds: 30);
     });
-  }
-
-  String _formatDuration(Duration duration) {
-    String minutes = (duration.inMinutes).toString();
-    String seconds = (duration.inSeconds % 60).toString().padLeft(2, '0');
-    if (minutes == '0') {
-      return '$seconds sec';
-    }
-    return '$minutes min $seconds sec';
   }
 
   double _getProgressPercentage() {
@@ -182,7 +174,7 @@ class _ExerciseSetRestTimerState extends State<ExerciseSetRestTimer> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                _formatDuration(_remainingTime),
+                formatDuration(_remainingTime),
                 style: context.theme.appTextTheme.textSmSemibold.copyWith(
                   color: context.theme.appColor.textSecondary,
                 ),

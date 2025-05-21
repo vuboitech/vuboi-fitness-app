@@ -11,6 +11,8 @@ class OngoingExerciseItem extends StatefulWidget {
   final Function(bool) onExpansionChanged;
   final VoidCallback? onLongPress;
   final Function updateExerciseItem;
+  final bool isHighlighted; // Highlight animation needs
+  final bool isExpanded;
 
   const OngoingExerciseItem({
     super.key,
@@ -18,6 +20,8 @@ class OngoingExerciseItem extends StatefulWidget {
     required this.onExpansionChanged,
     this.onLongPress,
     required this.updateExerciseItem,
+    this.isHighlighted = false,
+    required this.isExpanded,
   });
 
   @override
@@ -28,6 +32,9 @@ class _OngoingExerciseItemState extends State<OngoingExerciseItem>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
+
+  bool isExpanded = false;
+  bool isHighlighted = false;
 
   @override
   void initState() {
@@ -44,6 +51,9 @@ class _OngoingExerciseItemState extends State<OngoingExerciseItem>
     );
 
     if (widget.exerciseItem.isExpanded) {
+      setState(() {
+        isExpanded = widget.exerciseItem.isExpanded;
+      });
       _controller.forward();
     }
   }
@@ -58,6 +68,10 @@ class _OngoingExerciseItemState extends State<OngoingExerciseItem>
   @override
   void didUpdateWidget(covariant OngoingExerciseItem oldWidget) {
     if (oldWidget.exerciseItem.isExpanded != widget.exerciseItem.isExpanded) {
+      setState(() {
+        isExpanded = widget.exerciseItem.isExpanded;
+      });
+
       if (widget.exerciseItem.isExpanded) {
         _controller.forward();
       } else {
@@ -65,31 +79,69 @@ class _OngoingExerciseItemState extends State<OngoingExerciseItem>
       }
     }
 
+    if (oldWidget.isExpanded != widget.isExpanded) {
+      if (widget.exerciseItem.isExpanded) {
+        _controller.forward();
+      } else {
+        _controller.reverse();
+      }
+    }
+
+    if (oldWidget.isHighlighted != widget.isHighlighted) {
+      setState(() {
+        isHighlighted = widget.isHighlighted;
+      });
+    }
+
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () => widget.onExpansionChanged(!widget.exerciseItem.isExpanded),
-      style: TextButton.styleFrom(
-        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        padding: EdgeInsets.zero,
-        minimumSize: const Size(0, 0),
-        elevation: 0,
-        backgroundColor: context.theme.appColor.bgPrimary,
-        shape: RoundedRectangleBorder(
-          borderRadius: const BorderRadius.all(Radius.circular(8)),
-          side: BorderSide(
-            color: context.theme.appColor.borderSecondary,
-            width: 0.5,
-          ),
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 500),
+      margin: const EdgeInsets.only(bottom: 16),
+      decoration: BoxDecoration(
+        color: context.theme.appColor.bgPrimary,
+        borderRadius: BorderRadius.circular(8),
+        border: Border.all(
+          color: context.theme.appColor.borderSecondary,
+          width: 0.5,
         ),
+        boxShadow: [
+          isHighlighted
+              ? const BoxShadow(
+                  color: Colors.blue,
+                  blurRadius: 4,
+                  offset: Offset(0.0, 1.0),
+                  spreadRadius: 1,
+                )
+              : context.theme.appShadow.shadowXs,
+        ],
       ),
       child: Column(
         children: [
-          Container(
-            padding: const EdgeInsets.all(16),
+          TextButton(
+            onPressed: () =>
+                widget.onExpansionChanged(!widget.exerciseItem.isExpanded),
+            style: TextButton.styleFrom(
+              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 18),
+              minimumSize: const Size(0, 0),
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  topLeft: const Radius.circular(8),
+                  topRight: const Radius.circular(8),
+                  bottomLeft: isExpanded
+                      ? const Radius.circular(0)
+                      : const Radius.circular(8),
+                  bottomRight: isExpanded
+                      ? const Radius.circular(0)
+                      : const Radius.circular(8),
+                ),
+              ),
+            ),
             child: Row(
               children: [
                 Expanded(
@@ -148,14 +200,15 @@ class _OngoingExerciseItemState extends State<OngoingExerciseItem>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(
-                      widget.exerciseItem.isExpanded ? Icons.expand_less : Icons.expand_more,
+                      widget.exerciseItem.isExpanded
+                          ? Icons.expand_less
+                          : Icons.expand_more,
                     ),
                   ],
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 2),
           GestureDetector(
             onLongPress: () {
               widget.onLongPress?.call();
@@ -301,8 +354,8 @@ class _OngoingExerciseItemState extends State<OngoingExerciseItem>
                               Expanded(
                                 flex: 2,
                                 child: TextFormField(
-                                  controller: widget.exerciseItem.sets[index]
-                                      .repsController,
+                                  controller: widget
+                                      .exerciseItem.sets[index].repsController,
                                   onChanged: (value) {
                                     // also update
                                   },
@@ -320,8 +373,8 @@ class _OngoingExerciseItemState extends State<OngoingExerciseItem>
                                       color: context.theme.appColor.textTertiary
                                           .withOpacity(0.3),
                                     ),
-                                    hintText: widget.exerciseItem.sets[index]
-                                        .repsHint
+                                    hintText: widget
+                                        .exerciseItem.sets[index].repsHint
                                         .toString(),
                                   ),
                                   textAlign: TextAlign.left,
@@ -337,9 +390,8 @@ class _OngoingExerciseItemState extends State<OngoingExerciseItem>
                                   children: [
                                     Expanded(
                                       child: TextFormField(
-                                        controller: widget
-                                            .exerciseItem.sets[index]
-                                            .weightController,
+                                        controller: widget.exerciseItem
+                                            .sets[index].weightController,
                                         onChanged: (value) {
                                           // also update
                                         },
@@ -354,27 +406,32 @@ class _OngoingExerciseItemState extends State<OngoingExerciseItem>
                                           hintStyle: context
                                               .theme.appTextTheme.textXlBold
                                               .copyWith(
-                                            color: context.theme.appColor.textTertiary
+                                            color: context
+                                                .theme.appColor.textTertiary
                                                 .withOpacity(0.3),
                                           ),
-                                          hintText: widget.exerciseItem.sets[index]
-                                              .repsHint
+                                          hintText: widget
+                                              .exerciseItem.sets[index].repsHint
                                               .toString(),
                                         ),
                                         textAlign: TextAlign.left,
-                                        style: context.theme.appTextTheme.textXlBold
+                                        style: context
+                                            .theme.appTextTheme.textXlBold
                                             .copyWith(
-                                          color: context.theme.appColor.textTertiary,
+                                          color: context
+                                              .theme.appColor.textTertiary,
                                         ),
                                       ),
                                     ),
                                     Text(
                                       'Kg',
-                                      style: context.theme.appTextTheme.textXsSemibold
+                                      style: context
+                                          .theme.appTextTheme.textXsSemibold
                                           .copyWith(
-                                        color: context.theme.appColor.textPlaceholder,
+                                        color: context
+                                            .theme.appColor.textPlaceholder,
                                       ),
-                                    )
+                                    ),
                                   ],
                                 ),
                               ),
@@ -423,6 +480,10 @@ class _OngoingExerciseItemState extends State<OngoingExerciseItem>
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
                       color: context.theme.appColor.bgTertiary,
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(8),
+                        bottomRight: Radius.circular(8),
+                      ),
                     ),
                     child: Row(
                       children: [
